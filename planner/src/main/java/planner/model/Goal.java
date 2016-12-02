@@ -19,8 +19,6 @@ public class Goal {
 		this.description = description;
 		this.status = status;
 	}
-	
-	
 
 	public GoalStatus getStatus() {
 		return status;
