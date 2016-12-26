@@ -2,11 +2,11 @@ package planner.model.goal;
 
 import planner.model.timeframe.TimeFrame;
 
-public abstract class Goal1 {
+public abstract class Goal {
 	
 	protected GoalDetails details;
 	
-	public Goal1(TimeFrame timeFrame, GoalDescription description) {
+	public Goal(TimeFrame timeFrame, GoalDescription description) {
 		details = new GoalDetails(timeFrame, description, GoalStatus.NOT_STARTED);
 	}
 	
