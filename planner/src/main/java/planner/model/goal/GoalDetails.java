@@ -1,20 +1,18 @@
-package planner.model;
+package planner.model.goal;
 
 import planner.model.timeframe.TimeFrame;
 
-public class Goal {
+   class GoalDetails {
 	
 	private GoalStatus status;
-	private Goal belongsTo;
 	private TimeFrame timeFrame;
 	private GoalDescription description;
 	
-	public Goal(Goal belongsTo, TimeFrame timeFrame, GoalDescription description) {
-		this(belongsTo, timeFrame, description, GoalStatus.NOT_STARTED);
+	public GoalDetails(TimeFrame timeFrame, GoalDescription description) {
+		this(timeFrame, description, GoalStatus.NOT_STARTED);
 	}
 	
-	public Goal(Goal belongsTo, TimeFrame timeFrame, GoalDescription description, GoalStatus status) {
-		this.belongsTo = belongsTo;
+	public GoalDetails(TimeFrame timeFrame, GoalDescription description, GoalStatus status) {
 		this.timeFrame = timeFrame;
 		this.description = description;
 		this.status = status;
@@ -26,14 +24,6 @@ public class Goal {
 
 	public void setStatus(GoalStatus status) {
 		this.status = status;
-	}
-
-	public Goal getBelongsTo() {
-		return belongsTo;
-	}
-
-	public void setBelongsTo(Goal belongsTo) {
-		this.belongsTo = belongsTo;
 	}
 
 	public TimeFrame getTimeFrame() {
