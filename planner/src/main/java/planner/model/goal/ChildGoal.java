@@ -6,10 +6,10 @@ public class ChildGoal extends Goal{
 	
 	private Goal parentGoal;
 
-	public ChildGoal(Goal goal, TimeFrame timeFrame, GoalDescription description) {
+	public ChildGoal(Goal parentGoal, TimeFrame timeFrame, GoalDescription description) {
 		super(timeFrame, description);
 		
-		this.parentGoal = goal;
+		this.parentGoal = parentGoal;
 	}
 	
 	public Goal getParentGoal() {
