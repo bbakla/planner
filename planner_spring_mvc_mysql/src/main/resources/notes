@@ -1,0 +1,10 @@
+Endpoints 
+------------------------------------
+http://localhost:8080/mvc_hibernate_h2/mvc/persons        list persons
+http://localhost:8080/mvc_hibernate_h2/mvc/create         create person
+http://localhost:8080/mvc_hibernate_h2/mvc/update/{id}	  update person with id {id}
+http://localhost:8080/mvc_hibernate_h2/mvc/delete/{id}    delete person with id {id}	
+
+
+The location of H2 in memory database
+C:\Users\tr1b4361
