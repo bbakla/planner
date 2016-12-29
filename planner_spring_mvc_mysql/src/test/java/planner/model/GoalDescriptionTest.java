@@ -5,12 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.Subquery;
-
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +24,7 @@ public class GoalDescriptionTest // extends EntityDaoImplTest
 	@Qualifier("GoalDescriptionDao")
 	private GenericDao<GoalDescription> dao;
 
-	@Autowired
-	@Qualifier("CommentsDao")
-	private GenericDao<String> commentsDao;
 	
-	@Autowired
-	private SessionFactory factory;
 
 	@Test(expected = IllegalArgumentException.class)
 	public void goalDescriptionCanNotBeStoredIfNull() {

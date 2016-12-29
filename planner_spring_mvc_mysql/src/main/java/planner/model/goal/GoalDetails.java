@@ -1,34 +1,53 @@
 package planner.model.goal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import planner.model.timeframe.TimeFrame;
+import planner.model.timeframe.GoalScope;
 
-//@Entity
-//@Table(name="GoalDetails")
-class GoalDetails {
+@Entity
+@Table(name="goal_details")
+public class GoalDetails {
 
-//	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="detail_id")
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name="status")
 	private GoalStatus status;
 	
-	private TimeFrame timeFrame;
+	@Enumerated(EnumType.STRING)
+	@Column(name="scope")
+	private GoalScopeNames scope;
 	
-	private GoalDescription description;
-
-	public GoalDetails(TimeFrame timeFrame, GoalDescription description) {
-		this(timeFrame, description, GoalStatus.NOT_STARTED);
+	
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@PrimaryKeyJoinColumn
+//	private GoalDescription description;
+	
+	public GoalDetails(){
+		this.status = GoalStatus.NOT_STARTED;
+		this.scope = GoalScopeNames.YEARLY;
 	}
 
-	public GoalDetails(TimeFrame timeFrame, GoalDescription description, GoalStatus status) {
-		this.timeFrame = timeFrame;
-		this.description = description;
+	public GoalDetails(GoalDescription description, GoalScopeNames timeFrame) {
+		this(description, timeFrame, GoalStatus.NOT_STARTED);
+	}
+
+	public GoalDetails(GoalDescription description, GoalScopeNames timeFrame, GoalStatus status) {
+		this.scope = timeFrame;
+//		this.description = description;
 		this.status = status;
 	}
 
@@ -40,21 +59,21 @@ class GoalDetails {
 		this.status = status;
 	}
 
-	public TimeFrame getTimeFrame() {
-		return timeFrame;
+	public GoalScopeNames getTimeFrame() {
+		return scope;
 	}
 
-	public void setTimeFrame(TimeFrame timeFrame) {
-		this.timeFrame = timeFrame;
+	public void setTimeFrame(GoalScopeNames timeFrame) {
+		this.scope = timeFrame;
 	}
 
-	public GoalDescription getDescription() {
-		return description;
-	}
-
-	public void setDescription(GoalDescription description) {
-		this.description = description;
-	}
+//	public GoalDescription getDescription() {
+//		return description;
+//	}
+//
+//	public void setDescription(GoalDescription description) {
+//		this.description = description;
+//	}
 
 	public Long getId() {
 		return id;

@@ -18,8 +18,8 @@ import javax.persistence.Table;
 public class GoalDescription {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Id")
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="description_Id")
 	private Long id;
 	
 	@Column(name="Name")
@@ -29,7 +29,7 @@ public class GoalDescription {
 	private String description;
 	
 	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name="Comments", joinColumns=@JoinColumn(name="Id", referencedColumnName="Id"))
+	@CollectionTable(name="Comments", joinColumns=@JoinColumn(name="Id", referencedColumnName="description_Id"))
 	@Column(name="Comment")
 	private List<String> comments;
 	
