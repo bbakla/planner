@@ -20,7 +20,7 @@ public class GoalDetails {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="detail_id")
+	@Column(name="goal_id")
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
@@ -32,9 +32,9 @@ public class GoalDetails {
 	private GoalScopeNames scope;
 	
 	
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@PrimaryKeyJoinColumn
-//	private GoalDescription description;
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private GoalDescription description;
 	
 	public GoalDetails(){
 		this.status = GoalStatus.NOT_STARTED;
@@ -47,7 +47,7 @@ public class GoalDetails {
 
 	public GoalDetails(GoalDescription description, GoalScopeNames timeFrame, GoalStatus status) {
 		this.scope = timeFrame;
-//		this.description = description;
+		this.description = description;
 		this.status = status;
 	}
 
@@ -67,13 +67,13 @@ public class GoalDetails {
 		this.scope = timeFrame;
 	}
 
-//	public GoalDescription getDescription() {
-//		return description;
-//	}
-//
-//	public void setDescription(GoalDescription description) {
-//		this.description = description;
-//	}
+	public GoalDescription getDescription() {
+		return description;
+	}
+
+	public void setDescription(GoalDescription description) {
+		this.description = description;
+	}
 
 	public Long getId() {
 		return id;

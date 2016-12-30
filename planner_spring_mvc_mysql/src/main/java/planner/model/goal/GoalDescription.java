@@ -18,12 +18,9 @@ import javax.persistence.Table;
 public class GoalDescription {
 	
 	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="description_Id")
 	private Long id;
-	
-	@Column(name="Name")
-	private String name;
 	
 	@Column(name="Description")
 	private String description;
@@ -36,17 +33,8 @@ public class GoalDescription {
 	public GoalDescription() {
 	}
 	
-	public GoalDescription(String name, String description) {
-		this.name = name;
+	public GoalDescription(String description) {
 		this.description = description;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescription() {

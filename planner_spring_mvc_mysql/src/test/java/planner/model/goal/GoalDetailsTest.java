@@ -32,10 +32,10 @@ public class GoalDetailsTest {
 	@Test
 	public void GoalDescriptionShouldBeAbleToHaveDetails(){
 		
-		GoalDescription description = new GoalDescription("detilsTest", "Wir müssen unserem Leben beherrschen");
+		GoalDescription description = new GoalDescription("Wir müssen unserem Leben beherrschen");
 		GoalDetails details = new GoalDetails(description, GoalScopeNames.MONTHLY, GoalStatus.IN_PROGRESS);
 		
-		details.setDescription(description);
+//		details.setDescription(description);
 		
 		dao.save(details);
 		
@@ -47,7 +47,7 @@ public class GoalDetailsTest {
 	@Test
 	public void GoalDescriptionShouldBeAbleToHaveDetailsWhichHasComments(){
 		
-		GoalDescription description = new GoalDescription("detilsTest", "Wir müssen unserem Leben beherrschen");
+		GoalDescription description = new GoalDescription("Wir müssen unserem Leben beherrschen");
 		List<String> comments = new ArrayList<>();
 		comments.add("erobern");
 		comments.add("erben");
@@ -63,7 +63,6 @@ public class GoalDetailsTest {
 		assertEquals(details.getTimeFrame(), inDatabase.getTimeFrame());
 		
 		GoalDescription descriptionInDatabase = descriptionDao.findByID(description.getId());
-		assertEquals(description.getName(), descriptionInDatabase.getName());
 		assertEquals(description.getComments().size(), descriptionInDatabase.getComments().size());
 		
 		

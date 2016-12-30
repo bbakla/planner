@@ -35,7 +35,7 @@ public class GoalDescriptionTest // extends EntityDaoImplTest
 
 	@Test
 	public void goalDescriptionShouldBeSuccessfullySaved() {
-		GoalDescription description = new GoalDescription("test1", "test1 description");
+		GoalDescription description = new GoalDescription("test1 description");
 
 		dao.save(description);
 
@@ -53,7 +53,7 @@ public class GoalDescriptionTest // extends EntityDaoImplTest
 		comments.add("einhalten");
 		comments.add("Wir müssen die Regeln einhalten");
 
-		GoalDescription description = new GoalDescription("test1", "test1 description");
+		GoalDescription description = new GoalDescription("test1 description");
 		description.setComments(comments);
 
 		dao.save(description);
