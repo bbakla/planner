@@ -7,28 +7,33 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import planner.model.goal.scope.GoalScope;
-import planner.model.goal.scope.GoalScopeNames;
 
 
 @Entity
 @Table(name="child_goal")
-public class ChildGoal extends Goal{
+public class DailyGoal extends Goal{
 	
 	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE},  fetch=FetchType.EAGER)
-	private Goal parentGoal;
+	private ParentGoal parentGoal;
 	
+	
+	public DailyGoal(){
+		
+	}
 
-	public ChildGoal(Goal parentGoal, GoalScope scope, GoalDescription description, String title) {
+	public DailyGoal(ParentGoal parentGoal, GoalDescription description,  GoalScope scope, String title) {
 		super(description, scope, title);
 		
 		this.parentGoal = parentGoal;
+		
+		parentGoal.addChildGoal(this);
 	}
 	
-	public Goal getParentGoal() {
+	public ParentGoal getParentGoal() {
 		return parentGoal;
 	}
 
-	public void setBelongsTo(Goal parentGoal) {
+	public void setBelongsTo(ParentGoal parentGoal) {
 		this.parentGoal = parentGoal;
 	}
 }

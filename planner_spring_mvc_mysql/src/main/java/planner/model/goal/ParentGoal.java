@@ -1,5 +1,6 @@
 package planner.model.goal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,31 +10,36 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import planner.model.goal.scope.GoalScope;
-import planner.model.goal.scope.GoalScopeNames;
 
 
 @Entity
 @Table(name="parent_goal")
 
-public class ParentGoal extends Goal{
+public class ParentGoal extends Goal implements Serializable{
 	
-	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany (cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="parent_child", joinColumns=  @JoinColumn(name="parent_goal_id"),
 			   inverseJoinColumns= @JoinColumn(name="child_goal_id"))
 	private List<Goal> childGoals;
 	
+	@OneToOne(fetch= FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name= "goal_id", nullable = true)
+	private ParentGoal parentGoal;
 	
-	public ParentGoal( GoalDescription description, GoalScope timeFrame, String title) {
+	public ParentGoal(){
+		
+	}
+	
+	public ParentGoal(GoalDescription description, GoalScope timeFrame, String title) {
 
 		super(description, timeFrame, title);
-		
 		childGoals = new ArrayList<>();
 	}
-
-
+	
 	public List<Goal> getChildGoals() {
 		return childGoals;
 	}
@@ -43,6 +49,19 @@ public class ParentGoal extends Goal{
 	}
 	
 	public void addChildGoal(Goal goal){
-		childGoals.add(goal);
+		if(!childGoals.contains(goal)){
+			childGoals.add(goal);
+		}
+		
 	}
+
+	public ParentGoal getParentGoal() {
+		return parentGoal;
+	}
+
+	public void setParentGoal(ParentGoal parentGoal) {
+		this.parentGoal = parentGoal;
+	}
+	
+	
 }

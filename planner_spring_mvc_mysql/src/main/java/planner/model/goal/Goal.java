@@ -1,5 +1,6 @@
 package planner.model.goal;
 
+import java.io.Serializable;
 import java.time.Month;
 
 import javax.persistence.CascadeType;
@@ -16,24 +17,29 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import planner.model.goal.scope.GoalScope;
-import planner.model.goal.scope.GoalScopeNames;
 
 @Entity
 @Table(name="goal")
 @Inheritance(strategy=InheritanceType.JOINED)
-public abstract class Goal {
+public abstract class Goal implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="goal_id", nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@SequenceGenerator(name="goal_generator", sequenceName = "goal_seq", initialValue=1, allocationSize=5000)
+	@Column(name="goal_id")
 	protected Long id;
 	
-	@Column(name="title")
+	@Column(name="title", nullable = false)
 	protected String title;
+	
 
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@PrimaryKeyJoinColumn
 	protected GoalDetails details;
+	
+	public Goal(){
+		
+	}
 	
 	public Goal(GoalDescription description, GoalScope scope, String title) {
 		this.details = new GoalDetails(description, scope);
@@ -76,16 +82,5 @@ public abstract class Goal {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
 
-//	public GoalDescription getDescription() {
-//		return details.getDescription();
-//	}
-//
-//	public void setDescription(GoalDescription description) {
-//		details.setDescription(description);
-//	}
-	
-	
 }

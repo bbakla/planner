@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import planner.model.goal.scope.GoalScope;
 import planner.model.goal.scope.GoalScopeNames;
@@ -27,18 +28,23 @@ public class GoalDetails {
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="status")
+	@Column(name="status", nullable = false)
 	private GoalStatus status;
 	
 //	@OneToOne(cascade=CascadeType.ALL)
 //	@PrimaryKeyJoinColumn
 	@Embedded
+//	@NotNull
 	private GoalScope scope;
 	
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private GoalDescription description;
+	
+	public GoalDetails(){
+		
+	}
 	
 	public GoalDetails(GoalDescription description, GoalScope scope) {
 		this(description, scope, GoalStatus.NOT_STARTED);
