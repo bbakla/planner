@@ -4,7 +4,7 @@ import java.util.List;
 
 import planner.model.goal.Goal;
 
-public class TimePlanner implements GoalScope{
+public class TimePlanner implements Planner{
 
 	@Override
 	public void addGoal(Goal goal) {

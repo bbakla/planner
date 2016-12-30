@@ -11,6 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
+
 
 @Entity
 @Table(name="parent_goal")
@@ -23,8 +26,7 @@ public class ParentGoal extends Goal{
 	private List<Goal> childGoals;
 	
 	
-	
-	public ParentGoal( GoalDescription description, GoalScopeNames timeFrame, String title) {
+	public ParentGoal( GoalDescription description, GoalScope timeFrame, String title) {
 
 		super(description, timeFrame, title);
 		

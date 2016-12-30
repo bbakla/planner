@@ -1,4 +1,4 @@
-package planner.model.goal;
+package planner.model.goal.scope;
 
 public enum GoalScopeNames {
 

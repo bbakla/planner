@@ -1,6 +1,8 @@
 package planner.model.goal;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -11,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 import planner.test.config.HibernateTestConfiguration;
 
 @ContextConfiguration(classes = { HibernateTestConfiguration.class })
@@ -57,10 +61,11 @@ public class ParentGoalTest {
 		commentsForChilds2.add("in Erinnerung behalten_rrr");
 		descriptionForChild2.setComments(commentsForChilds);
 		
-		ParentGoal yearlyGoal = new ParentGoal(description, GoalScopeNames.YEARLY, "parentGoal1");
 		
-		Goal monthlyGoal = new ChildGoal(yearlyGoal, GoalScopeNames.MONTHLY, descriptionForChild, "childGoal1");
-		Goal monthlyGoal2 = new ChildGoal(yearlyGoal, GoalScopeNames.MONTHLY, descriptionForChild2, "childGoal2");
+		ParentGoal yearlyGoal = new ParentGoal(description, new GoalScope(2016, GoalScopeNames.YEARLY), "parentGoal1");
+		
+		Goal monthlyGoal = new ChildGoal(yearlyGoal, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), descriptionForChild, "childGoal1");
+		Goal monthlyGoal2 = new ChildGoal(yearlyGoal, new GoalScope(Calendar.MAY, GoalScopeNames.MONTHLY), descriptionForChild2, "childGoal2");
 	
 		
 		yearlyGoal.addChildGoal(monthlyGoal);

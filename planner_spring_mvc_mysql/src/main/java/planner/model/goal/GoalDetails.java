@@ -2,6 +2,7 @@ package planner.model.goal;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,7 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import planner.model.timeframe.GoalScope;
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
+import planner.model.timeframe.Planner;
 
 @Entity
 @Table(name="goal_details")
@@ -27,26 +30,22 @@ public class GoalDetails {
 	@Column(name="status")
 	private GoalStatus status;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="scope")
-	private GoalScopeNames scope;
+//	@OneToOne(cascade=CascadeType.ALL)
+//	@PrimaryKeyJoinColumn
+	@Embedded
+	private GoalScope scope;
 	
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private GoalDescription description;
 	
-	public GoalDetails(){
-		this.status = GoalStatus.NOT_STARTED;
-		this.scope = GoalScopeNames.YEARLY;
+	public GoalDetails(GoalDescription description, GoalScope scope) {
+		this(description, scope, GoalStatus.NOT_STARTED);
 	}
 
-	public GoalDetails(GoalDescription description, GoalScopeNames timeFrame) {
-		this(description, timeFrame, GoalStatus.NOT_STARTED);
-	}
-
-	public GoalDetails(GoalDescription description, GoalScopeNames timeFrame, GoalStatus status) {
-		this.scope = timeFrame;
+	public GoalDetails(GoalDescription description, GoalScope scope, GoalStatus status) {
+		this.scope = scope;
 		this.description = description;
 		this.status = status;
 	}
@@ -59,11 +58,11 @@ public class GoalDetails {
 		this.status = status;
 	}
 
-	public GoalScopeNames getTimeFrame() {
+	public GoalScope getTimeFrame() {
 		return scope;
 	}
 
-	public void setTimeFrame(GoalScopeNames timeFrame) {
+	public void setTimeFrame(GoalScope timeFrame) {
 		this.scope = timeFrame;
 	}
 

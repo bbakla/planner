@@ -1,5 +1,7 @@
 package planner.model.goal;
 
+import java.time.Month;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 
 @Entity
 @Table(name="goal")
@@ -30,7 +35,7 @@ public abstract class Goal {
 	@PrimaryKeyJoinColumn
 	protected GoalDetails details;
 	
-	public Goal(GoalDescription description, GoalScopeNames scope, String title) {
+	public Goal(GoalDescription description, GoalScope scope, String title) {
 		this.details = new GoalDetails(description, scope);
 		this.title = title;
 	}
@@ -40,11 +45,11 @@ public abstract class Goal {
 		
 	}
 
-	public GoalScopeNames getTimeFrame() {
+	public GoalScope getGoalScope() {
 		return details.getTimeFrame();
 	}
 
-	public void setTimeFrame(GoalScopeNames timeFrame) {
+	public void setGoalScope(GoalScope timeFrame) {
 		details.setTimeFrame(timeFrame);
 	}
 

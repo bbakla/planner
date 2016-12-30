@@ -6,6 +6,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
+
 
 @Entity
 @Table(name="child_goal")
@@ -15,8 +18,8 @@ public class ChildGoal extends Goal{
 	private Goal parentGoal;
 	
 
-	public ChildGoal(Goal parentGoal, GoalScopeNames timeFrame, GoalDescription description, String title) {
-		super(description, timeFrame, title);
+	public ChildGoal(Goal parentGoal, GoalScope scope, GoalDescription description, String title) {
+		super(description, scope, title);
 		
 		this.parentGoal = parentGoal;
 	}

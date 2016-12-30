@@ -3,6 +3,7 @@ package planner.model.goal;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
 import planner.model.goal.GoalDescription;
+import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 import planner.test.config.HibernateTestConfiguration;
 
 @ContextConfiguration(classes = { HibernateTestConfiguration.class })
@@ -33,7 +36,7 @@ public class GoalDetailsTest {
 	public void GoalDescriptionShouldBeAbleToHaveDetails(){
 		
 		GoalDescription description = new GoalDescription("Wir müssen unserem Leben beherrschen");
-		GoalDetails details = new GoalDetails(description, GoalScopeNames.MONTHLY, GoalStatus.IN_PROGRESS);
+		GoalDetails details = new GoalDetails(description, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), GoalStatus.IN_PROGRESS);
 		
 //		details.setDescription(description);
 		
@@ -54,7 +57,7 @@ public class GoalDetailsTest {
 		comments.add("wir müssen die Regeln einhalten");
 		description.setComments(comments);
 		
-		GoalDetails details = new GoalDetails(description, GoalScopeNames.MONTHLY, GoalStatus.IN_PROGRESS);
+		GoalDetails details = new GoalDetails(description, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), GoalStatus.IN_PROGRESS);
 		details.setDescription(description);
 		dao.save(details);
 		
