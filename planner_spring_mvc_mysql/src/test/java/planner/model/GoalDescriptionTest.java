@@ -39,7 +39,7 @@ public class GoalDescriptionTest // extends EntityDaoImplTest
 
 		dao.save(description);
 
-		GoalDescription inDatabase = (GoalDescription) dao.findByID(description.getId());
+		GoalDescription inDatabase = (GoalDescription) dao.findById(description.getId());
 
 		assertEquals(description.getDescription(), inDatabase.getDescription());
 		assertEquals(0, inDatabase.getComments().size());
@@ -58,7 +58,7 @@ public class GoalDescriptionTest // extends EntityDaoImplTest
 
 		dao.save(description);
 
-		GoalDescription inDatabase = (GoalDescription) dao.findByID(description.getId());
+		GoalDescription inDatabase = (GoalDescription) dao.findById(description.getId());
 
 		assertEquals(description.getDescription(), inDatabase.getDescription());
 		assertEquals(description.getComments().size(), inDatabase.getComments().size());

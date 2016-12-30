@@ -42,7 +42,7 @@ public class GoalDetailsTest {
 		
 		dao.save(details);
 		
-		GoalDetails inDatabase = dao.findByID(details.getId());
+		GoalDetails inDatabase = dao.findById(details.getId());
 		
 		assertEquals(details.getTimeFrame(), inDatabase.getTimeFrame());
 	}
@@ -61,11 +61,11 @@ public class GoalDetailsTest {
 		details.setDescription(description);
 		dao.save(details);
 		
-		GoalDetails inDatabase = dao.findByID(details.getId());
+		GoalDetails inDatabase = dao.findById(details.getId());
 		
 		assertEquals(details.getTimeFrame(), inDatabase.getTimeFrame());
 		
-		GoalDescription descriptionInDatabase = descriptionDao.findByID(description.getId());
+		GoalDescription descriptionInDatabase = descriptionDao.findById(description.getId());
 		assertEquals(description.getComments().size(), descriptionInDatabase.getComments().size());
 		
 		

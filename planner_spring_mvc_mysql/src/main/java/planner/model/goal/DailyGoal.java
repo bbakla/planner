@@ -10,7 +10,7 @@ import planner.model.goal.scope.GoalScope;
 
 
 @Entity
-@Table(name="child_goal")
+@Table(name="daily_goals")
 public class DailyGoal extends Goal{
 	
 	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE},  fetch=FetchType.EAGER)

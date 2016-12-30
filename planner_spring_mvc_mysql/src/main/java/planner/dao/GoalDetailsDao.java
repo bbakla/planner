@@ -15,7 +15,7 @@ import planner.model.goal.GoalDetails;
 public class GoalDetailsDao extends AbstractDao<Long, GoalDetails>  implements GenericDao<GoalDetails> {
 
 	@Override
-	public GoalDetails findByID(Long id) {
+	public GoalDetails findById(Long id) {
 		return getByKey(id);
 	}
 

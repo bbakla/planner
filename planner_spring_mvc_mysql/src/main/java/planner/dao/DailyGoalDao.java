@@ -12,10 +12,10 @@ import planner.model.goal.ParentGoal;
 
 @Repository("ChildGoalDao")
 @Transactional
-public class ChildGoalDao extends AbstractDao<Long, DailyGoal>  implements GenericDao<DailyGoal> {
+public class DailyGoalDao extends AbstractDao<Long, DailyGoal>  implements GenericDao<DailyGoal> {
 
 	@Override
-	public DailyGoal findByID(Long id) {
+	public DailyGoal findById(Long id) {
 		return getByKey(id);
 	}
 
