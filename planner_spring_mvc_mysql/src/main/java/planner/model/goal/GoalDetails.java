@@ -12,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
-import planner.model.goal.scope.GoalScope;
 import planner.model.goal.scope.GoalScopeNames;
 import planner.model.timeframe.Planner;
 
@@ -31,12 +29,11 @@ public class GoalDetails {
 	@Column(name="status", nullable = false)
 	private GoalStatus status;
 	
-//	@OneToOne(cascade=CascadeType.ALL)
-//	@PrimaryKeyJoinColumn
-	@Embedded
-//	@NotNull
-	private GoalScope scope;
+	@Column(name= "time_label", nullable= false)
+	private int timeLabel;
 	
+	@Enumerated(EnumType.STRING)
+	private GoalScopeNames scope;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@PrimaryKeyJoinColumn
@@ -46,14 +43,15 @@ public class GoalDetails {
 		
 	}
 	
-	public GoalDetails(GoalDescription description, GoalScope scope) {
-		this(description, scope, GoalStatus.NOT_STARTED);
+	public GoalDetails(GoalDescription description, int timeLabel, GoalScopeNames scope) {
+		this(description, timeLabel, scope, GoalStatus.NOT_STARTED);
 	}
 
-	public GoalDetails(GoalDescription description, GoalScope scope, GoalStatus status) {
+	public GoalDetails(GoalDescription description, int timeLabel, GoalScopeNames scope, GoalStatus status) {
 		this.scope = scope;
 		this.description = description;
 		this.status = status;
+		this.timeLabel = timeLabel;
 	}
 
 	public GoalStatus getStatus() {
@@ -64,12 +62,17 @@ public class GoalDetails {
 		this.status = status;
 	}
 
-	public GoalScope getTimeFrame() {
+	public int getTimeLabel() {
+		return timeLabel;
+	}
+	public void setTimeLabel(int timeLabel) {
+		this.timeLabel = timeLabel;
+	}
+	public GoalScopeNames getScope() {
 		return scope;
 	}
-
-	public void setTimeFrame(GoalScope timeFrame) {
-		this.scope = timeFrame;
+	public void setScope(GoalScopeNames scope) {
+		this.scope = scope;
 	}
 
 	public GoalDescription getDescription() {

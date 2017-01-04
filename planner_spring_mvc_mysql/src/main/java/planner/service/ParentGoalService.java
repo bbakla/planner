@@ -11,8 +11,13 @@ public interface ParentGoalService {
 	List<Goal> findChilds(Long id);
 	ParentGoal findParent(Long id);
 	List<ParentGoal> findAll();
+	List<ParentGoal> findYearlyGoals(int timeLabel);
+	List<Goal> findMonthlyGoals(int timeLabel);
+//	List<Goal> findWeeklyGoals(int timeLA)
 	
 	void saveGoal(ParentGoal goal);
 	void updateGoal(ParentGoal goal);
 	void deleteGoal(ParentGoal goal);
+	
+	
 }

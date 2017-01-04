@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,11 @@ public class GoalDetailsDao extends AbstractDao<Long, GoalDetails>  implements G
 	@Override
 	public void update(GoalDetails entity) {
 		super.updateEntity(entity);
+	}
+
+	@Override
+	public List<GoalDetails> findByTimeLabel(int time) {
+		return null;
 	}
 
 }

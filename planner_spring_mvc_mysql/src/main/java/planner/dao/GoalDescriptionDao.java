@@ -39,4 +39,10 @@ public class GoalDescriptionDao extends AbstractDao<Long, GoalDescription>  impl
 		super.updateEntity(entity);
 	}
 
+	@Override
+	public List<GoalDescription> findByTimeLabel(int time) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

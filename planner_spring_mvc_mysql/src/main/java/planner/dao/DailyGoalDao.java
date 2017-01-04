@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import planner.model.goal.DailyGoal;
 import planner.model.goal.ParentGoal;
 
-@Repository("ChildGoalDao")
+@Repository("DailyGoalDao")
 @Transactional
 public class DailyGoalDao extends AbstractDao<Long, DailyGoal>  implements GenericDao<DailyGoal> {
 
@@ -43,5 +43,11 @@ public class DailyGoalDao extends AbstractDao<Long, DailyGoal>  implements Gener
 	@Override
 	public void update(DailyGoal entity) {
 		super.updateEntity(entity);
+	}
+
+	@Override
+	public List<DailyGoal> findByTimeLabel(int time) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

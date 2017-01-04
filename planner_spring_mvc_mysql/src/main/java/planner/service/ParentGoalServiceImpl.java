@@ -42,6 +42,17 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	public List<ParentGoal> findAll() {
 		return dao.findAll();
 	}
+	
+	@Override
+	public List<ParentGoal> findYearlyGoals(int timeLabel) {
+		return dao.findByTimeLabel(timeLabel);
+	}
+
+	@Override
+	public List<Goal> findMonthlyGoals(int timeLabel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public void saveGoal(ParentGoal goal) {

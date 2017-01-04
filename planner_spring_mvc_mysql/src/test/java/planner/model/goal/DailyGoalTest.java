@@ -1,6 +1,5 @@
 package planner.model.goal;
 
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
-import planner.model.goal.scope.GoalScope;
 import planner.model.goal.scope.GoalScopeNames;
 import planner.test.config.HibernateTestConfiguration;
 
@@ -22,8 +20,8 @@ import planner.test.config.HibernateTestConfiguration;
 public class DailyGoalTest {
 
 	@Autowired
-	@Qualifier("ChildGoalDao")
-	private GenericDao<Goal> dao;
+	@Qualifier("DailyGoalDao")
+	private GenericDao<DailyGoal> dao;
 	
 	
 	@Test
@@ -50,10 +48,10 @@ public class DailyGoalTest {
 		descriptionForChild2.setComments(commentsForChilds);
 		
 		
-		ParentGoal yearlyGoal = new ParentGoal(description, new GoalScope(2016, GoalScopeNames.YEARLY), "parentGoal1");
+		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "parentGoal1");
 		
-		Goal monthlyGoal = new DailyGoal(yearlyGoal, descriptionForChild, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), "childGoal1");
-		Goal monthlyGoal2 = new DailyGoal(yearlyGoal, descriptionForChild2, new GoalScope(Calendar.MAY, GoalScopeNames.MONTHLY), "childGoal2");
+		DailyGoal monthlyGoal = new DailyGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
+		DailyGoal monthlyGoal2 = new DailyGoal(yearlyGoal, descriptionForChild2, Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
 	
 		
 		dao.save(monthlyGoal);

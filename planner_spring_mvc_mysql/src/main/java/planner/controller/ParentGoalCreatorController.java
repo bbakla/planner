@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
+import planner.model.goal.scope.GoalScopeNames;
 import planner.service.ParentGoalService;
 
 @Controller
@@ -29,12 +31,12 @@ public class ParentGoalCreatorController {
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
 		
-		return "createParent";
+		return "newyeargoal";
 	}
 	
 	@RequestMapping(value="/creationFailed", method=RequestMethod.GET)
 	public String createFailed(){
-		return "createParent";
+		return "newyeargoal";
 	}
 	
 	@RequestMapping(value="/new", method = RequestMethod.POST)
@@ -43,11 +45,15 @@ public class ParentGoalCreatorController {
 		String viewName ="";
 		
 		try{
+			goal.setStatus(GoalStatus.NOT_STARTED);
+			goal.setScope(GoalScopeNames.YEARLY);
+			
 			service.saveGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/planner/years/goals";
 			sessionStatus.setComplete();
 		} catch(Exception e){
+			e.printStackTrace();
 			message = "Goal creation is failed";
 			viewName = "redirect:/planner/creationFailed";
 		}

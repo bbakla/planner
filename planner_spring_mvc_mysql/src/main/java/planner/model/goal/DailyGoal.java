@@ -6,7 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 
 
 @Entity
@@ -21,8 +21,8 @@ public class DailyGoal extends Goal{
 		
 	}
 
-	public DailyGoal(ParentGoal parentGoal, GoalDescription description,  GoalScope scope, String title) {
-		super(description, scope, title);
+	public DailyGoal(ParentGoal parentGoal, GoalDescription description,  int timeLabel, GoalScopeNames scope, String title) {
+		super(description, timeLabel, scope, title);
 		
 		this.parentGoal = parentGoal;
 		

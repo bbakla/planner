@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import planner.dao.GenericDao;
 import planner.model.goal.DailyGoal;
+import planner.model.goal.Goal;
 import planner.model.goal.ParentGoal;
 
 
@@ -19,16 +20,16 @@ public class DailyGoalServiceImpl  implements DailyGoalService{
 
 	@Autowired
 	@Qualifier("DailyGoalDao")
-	private GenericDao<DailyGoal> dao; 
+	private GenericDao<DailyGoal> dao;
 	
 	@Override
 	public DailyGoal findById(Long id) {
-		return dao.findById(id);
+		return (DailyGoal) dao.findById(id);
 	}
 
 	@Override
 	public ParentGoal findParent(Long id) {
-		return dao.findById(id).getParentGoal();
+		return (ParentGoal) dao.findById(id).getParentGoal();
 	}
 
 	@Override

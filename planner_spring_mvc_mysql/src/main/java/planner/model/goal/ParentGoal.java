@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 
 
 @Entity
@@ -34,9 +34,9 @@ public class ParentGoal extends Goal implements Serializable{
 		
 	}
 	
-	public ParentGoal(GoalDescription description, GoalScope timeFrame, String title) {
+	public ParentGoal(GoalDescription description, int timeLabel, GoalScopeNames scope, String title) {
 
-		super(description, timeFrame, title);
+		super(description, timeLabel, scope, title);
 		childGoals = new ArrayList<>();
 	}
 	

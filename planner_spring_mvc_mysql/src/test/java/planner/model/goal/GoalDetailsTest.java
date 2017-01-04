@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
 import planner.model.goal.GoalDescription;
-import planner.model.goal.scope.GoalScope;
 import planner.model.goal.scope.GoalScopeNames;
 import planner.test.config.HibernateTestConfiguration;
 
@@ -36,7 +35,7 @@ public class GoalDetailsTest {
 	public void GoalDescriptionShouldBeAbleToHaveDetails(){
 		
 		GoalDescription description = new GoalDescription("Wir müssen unserem Leben beherrschen");
-		GoalDetails details = new GoalDetails(description, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), GoalStatus.IN_PROGRESS);
+		GoalDetails details = new GoalDetails(description, Calendar.APRIL, GoalScopeNames.MONTHLY, GoalStatus.IN_PROGRESS);
 		
 //		details.setDescription(description);
 		
@@ -44,7 +43,7 @@ public class GoalDetailsTest {
 		
 		GoalDetails inDatabase = dao.findById(details.getId());
 		
-		assertEquals(details.getTimeFrame(), inDatabase.getTimeFrame());
+		assertEquals(details.getStatus(), inDatabase.getStatus());
 	}
 	
 	@Test
@@ -57,13 +56,13 @@ public class GoalDetailsTest {
 		comments.add("wir müssen die Regeln einhalten");
 		description.setComments(comments);
 		
-		GoalDetails details = new GoalDetails(description, new GoalScope(Calendar.APRIL, GoalScopeNames.MONTHLY), GoalStatus.IN_PROGRESS);
+		GoalDetails details = new GoalDetails(description, Calendar.APRIL, GoalScopeNames.MONTHLY, GoalStatus.IN_PROGRESS);
 		details.setDescription(description);
 		dao.save(details);
 		
 		GoalDetails inDatabase = dao.findById(details.getId());
 		
-		assertEquals(details.getTimeFrame(), inDatabase.getTimeFrame());
+		assertEquals(details.getStatus(), inDatabase.getStatus());
 		
 		GoalDescription descriptionInDatabase = descriptionDao.findById(description.getId());
 		assertEquals(description.getComments().size(), descriptionInDatabase.getComments().size());

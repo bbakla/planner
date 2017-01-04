@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import planner.model.goal.scope.GoalScope;
+import planner.model.goal.scope.GoalScopeNames;
 
 @Entity
 @Table(name="goal")
@@ -41,22 +41,14 @@ public abstract class Goal implements Serializable {
 		
 	}
 	
-	public Goal(GoalDescription description, GoalScope scope, String title) {
-		this.details = new GoalDetails(description, scope);
+	public Goal(GoalDescription description, int timeLabel, GoalScopeNames scope, String title) {
+		this.details = new GoalDetails(description, timeLabel, scope);
 		this.title = title;
 	}
 	
 	public void setStatus(GoalStatus status) {
 		details.setStatus(status);
 		
-	}
-
-	public GoalScope getGoalScope() {
-		return details.getTimeFrame();
-	}
-
-	public void setGoalScope(GoalScope timeFrame) {
-		details.setTimeFrame(timeFrame);
 	}
 
 	public Long getId() {
@@ -67,8 +59,12 @@ public abstract class Goal implements Serializable {
 		this.id = id;
 	}
 
-	public GoalDetails getDetails() {
-		return details;
+	public int getTimeLabel() {
+		return details.getTimeLabel();
+	}
+	
+	public  void setTimeLabel(int timeLabel) {
+		details.setTimeLabel(timeLabel);
 	}
 
 	public void setDetails(GoalDetails details) {
@@ -81,6 +77,10 @@ public abstract class Goal implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setScope(GoalScopeNames scope){
+		this.details.setScope(scope);
 	}
 
 }
