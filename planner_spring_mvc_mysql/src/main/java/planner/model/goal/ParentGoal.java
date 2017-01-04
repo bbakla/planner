@@ -31,13 +31,13 @@ public class ParentGoal extends Goal implements Serializable{
 	private ParentGoal parentGoal;
 	
 	public ParentGoal(){
-		
+		childGoals = new ArrayList<>();
 	}
 	
 	public ParentGoal(GoalDescription description, int timeLabel, GoalScopeNames scope, String title) {
 
 		super(description, timeLabel, scope, title);
-		childGoals = new ArrayList<>();
+		
 	}
 	
 	public List<Goal> getChildGoals() {
@@ -49,7 +49,7 @@ public class ParentGoal extends Goal implements Serializable{
 	}
 	
 	public void addChildGoal(Goal goal){
-		if(!childGoals.contains(goal)){
+		if(!(goal != null && childGoals.contains(goal))){
 			childGoals.add(goal);
 		}
 		
@@ -61,6 +61,7 @@ public class ParentGoal extends Goal implements Serializable{
 
 	public void setParentGoal(ParentGoal parentGoal) {
 		this.parentGoal = parentGoal;
+		parentGoal.addChildGoal(this);
 	}
 	
 	

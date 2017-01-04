@@ -71,6 +71,11 @@ public abstract class Goal implements Serializable {
 		this.details = details;
 	}
 
+	public GoalDetails getDetails() {
+		return this.details;
+	}
+
+	
 	public String getTitle() {
 		return title;
 	}

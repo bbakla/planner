@@ -25,6 +25,12 @@
 			<tr>
 				<td><label for="title">Enter your goal </label></td>
 				<form:input path="title" id="title"/>
+			
+				<td>
+				<form:select path="parentGoal.id">
+					<form:options   items= "${yearlyGoals}" itemLabel="title" itemValue="id"></form:options>
+				</form:select>
+				</td>
 			</tr>
 			
 			<tr>

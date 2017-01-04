@@ -50,9 +50,9 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Gen
 						.createAlias("details", "d")
 						.add(Restrictions.eq("d.timeLabel", time));
 			
-			ProjectionList projectionList = Projections.projectionList();
-			projectionList.add(Projections.property("d.timeLabel"), "d.timeLabel");
-			criteria.setProjection(projectionList);
+//			ProjectionList projectionList = Projections.projectionList();
+//			projectionList.add(Projections.property("d.timeLabel"), "d.timeLabel");
+//			criteria.setProjection(projectionList);
 			
 			return (List<ParentGoal>) criteria.list();
 		}

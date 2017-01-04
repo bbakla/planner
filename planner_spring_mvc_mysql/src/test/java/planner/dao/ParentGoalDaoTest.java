@@ -82,6 +82,7 @@ public class ParentGoalDaoTest {
 		
 		List<Goal> yearlyGoalsInDatabase = dao.findByTimeLabel(yearlyGoal.getTimeLabel()); 
 		assertEquals(1, yearlyGoalsInDatabase.size());
+		assertEquals(yearlyGoal.getTitle(), yearlyGoalsInDatabase.get(0).getTitle());
 	}
 	
 	
