@@ -25,12 +25,7 @@
 		<table>
 			<tr>
 				<td><label for="title">Enter your goal </label></td>
-				<form:input path="title" id="title"/>
-			</tr>
-			
-			<tr>
-				<td><label for="timeLabel">Time label:</label></td>
-				<td><form:input path="details.timeLabel" id="timeLabel"/> </td>
+				<td><form:input path="title" id="title"/></td>
 			</tr>
 			
 			<tr>

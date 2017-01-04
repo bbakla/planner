@@ -50,6 +50,7 @@ public class YearlyGoalCreatorController {
 		try{
 			goal.setStatus(GoalStatus.NOT_STARTED);
 			goal.setScope(GoalScopeNames.YEARLY);
+			goal.setTimeLabel(Calendar.getInstance().get(Calendar.YEAR));
 			
 			service.saveGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());

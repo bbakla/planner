@@ -23,15 +23,19 @@
 		
 		<table>
 			<tr>
-				<td><label for="title">Enter your goal </label></td>
-				<form:input path="title" id="title"/>
-			
-				<td>
-				<form:select path="parentGoal.id">
+				<td><label for="title">Enter your monthly goal </label></td>
+				<td><form:input path="title" id="title"/></td>
+			</tr>
+			<tr>
+			<td><label for= "parentList">Select the related yearly goal</label></td>
+			<td>
+				<form:select id="parentList" path="parentGoal.id">
 					<form:options   items= "${yearlyGoals}" itemLabel="title" itemValue="id"></form:options>
 				</form:select>
 				</td>
 			</tr>
+				
+		
 			
 			<tr>
 				<td><label for="timeLabel">Time label:</label></td>
