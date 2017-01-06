@@ -1,5 +1,6 @@
 package planner.controller;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -20,12 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import planner.model.goal.Goal;
 import planner.model.goal.GoalStatus;
+import planner.model.goal.Month;
 import planner.model.goal.ParentGoal;
 import planner.model.goal.scope.GoalScopeNames;
 import planner.service.ParentGoalService;
 
 @Controller
-public class MonthlyGoalCreatorController {
+public class WeeklyGoalCreatorController {
 
 	@Autowired
 	private ParentGoalService service;
@@ -33,40 +35,35 @@ public class MonthlyGoalCreatorController {
 	@Autowired
 	MessageSource messageSource;
 	
-	@RequestMapping(value = {"/new/month"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/new/week"}, method = RequestMethod.GET)
 	public String createMonthlyGoal(Model model){
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
 		
-		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(Calendar.getInstance().get(Calendar.YEAR));
+		List<ParentGoal> goalsOfCurrentMonth = service.findYearlyGoals(Calendar.getInstance().get(Calendar.MONTH));
 		
-		model.addAttribute("yearlyGoals", yearlyGoalofTheYear);
+//		model.addAttribute("months", Arrays.asList(Month.buildMonths()));
+		model.addAttribute("parentMontlhyGoals", goalsOfCurrentMonth);
 		
-		return "newmonthly";
+		return "newweekly";
 	}
 	
-//	@RequestMapping(value="/creationFailed", method=RequestMethod.GET)
-//	public String createFailed(){
-//		return "newmonthgoal";
-//	}
-	
-	@RequestMapping(value={"/new/month"}, method = RequestMethod.POST)
+	@RequestMapping(value={"/new/week"}, method = RequestMethod.POST)
 	public String saveMonthlyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
 		String message = "";
 		String viewName ="";
 		
-	    goal.setScope(GoalScopeNames.MONTHLY);
-			
-		ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
-		goal.setParentGoal(parentGoal);
-
 		try{
 			goal.setStatus(GoalStatus.NOT_STARTED);
-			goal.setScope(GoalScopeNames.MONTHLY);
+			goal.setScope(GoalScopeNames.WEEKLY);
+			goal.setTimeLabel(Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+			
+			ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
+			goal.setParentGoal(parentGoal);
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/month/goals";
+			viewName = "redirect:/planner/weekly/goals";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){
