@@ -15,7 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
-import planner.model.goal.DailyGoal;
 import planner.model.goal.Goal;
 import planner.model.goal.GoalDescription;
 import planner.model.goal.ParentGoal;
@@ -58,7 +57,7 @@ public class ParentGoalDaoTest {
 		ParentGoal monthlyGoal = new ParentGoal(descriptionForMonth, Calendar.APRIL, GoalScopeNames.MONTHLY, "monthly_parentGoal1");
 		monthlyGoal.setParentGoal(yearlyGoal);
 		
-		Goal dailyGoal = new DailyGoal(monthlyGoal, descriptionForDaily,  Calendar.MONDAY, GoalScopeNames.MONTHLY, "dailychildGoal1");
+		Goal dailyGoal = new ParentGoal(monthlyGoal, descriptionForDaily,  Calendar.MONDAY, GoalScopeNames.MONTHLY, "dailychildGoal1");
 		
 		
 		yearlyGoal.addChildGoal(monthlyGoal);

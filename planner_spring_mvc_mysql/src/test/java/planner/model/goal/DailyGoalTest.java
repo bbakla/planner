@@ -1,5 +1,7 @@
 package planner.model.goal;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -20,8 +22,8 @@ import planner.test.config.HibernateTestConfiguration;
 public class DailyGoalTest {
 
 	@Autowired
-	@Qualifier("DailyGoalDao")
-	private GenericDao<DailyGoal> dao;
+	@Qualifier("ParentGoalDao")
+	private GenericDao<ParentGoal> dao;
 	
 	
 	@Test
@@ -49,13 +51,18 @@ public class DailyGoalTest {
 		
 		
 		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "parentGoal1");
-		
-		DailyGoal monthlyGoal = new DailyGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
-		DailyGoal monthlyGoal2 = new DailyGoal(yearlyGoal, descriptionForChild2, Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
 	
 		
-		dao.save(monthlyGoal);
-		dao.save(monthlyGoal2);
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
+		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2, Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
+		
+		assertEquals(2, yearlyGoal.getChildGoals().size());
+	
+		
+//		dao.save(monthlyGoal);
+//		dao.save(monthlyGoal2);
+		
+		dao.save(yearlyGoal);
 	}
 	
 	

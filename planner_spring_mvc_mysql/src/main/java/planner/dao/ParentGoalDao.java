@@ -2,16 +2,14 @@ package planner.dao;
 
 import java.util.List;
 
-
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import planner.model.goal.Goal;
-import planner.model.goal.GoalDetails;
 import planner.model.goal.ParentGoal;
 
 @Repository("ParentGoalDao")
@@ -30,8 +28,15 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Gen
 	}
 
 	@Override
-	public void save(ParentGoal entity) {
-		super.persistEntity(entity);
+	public void save(ParentGoal goal) {
+		
+		ParentGoal parentGoal = goal.getParentGoal();
+		if(parentGoal != null && parentGoal.getId() != null){
+			this.updateEntity(goal);
+		} else {
+			super.persistEntity(goal); 
+		}
+		
 	}
 
 	@Override
@@ -48,12 +53,18 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Gen
 	public List<ParentGoal> findByTimeLabel(int time) {
 			Criteria criteria = createEntityCriteria()
 						.createAlias("details", "d")
-						.add(Restrictions.eq("d.timeLabel", time));
+						.add(Restrictions.eq("d.timeLabel", time))
+						.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+			
 			
 //			ProjectionList projectionList = Projections.projectionList();
 //			projectionList.add(Projections.property("d.timeLabel"), "d.timeLabel");
 //			criteria.setProjection(projectionList);
 			
-			return (List<ParentGoal>) criteria.list();
+			List<ParentGoal> goals = criteria.list();
+			
+			
+			
+			return goals;
 		}
 }

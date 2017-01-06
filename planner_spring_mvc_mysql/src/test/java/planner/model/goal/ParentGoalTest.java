@@ -63,8 +63,8 @@ public class ParentGoalTest {
 		
 		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "parentGoal1");
 		
-		Goal monthlyGoal = new DailyGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
-		Goal monthlyGoal2 = new DailyGoal(yearlyGoal, descriptionForChild2,  Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
+		Goal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
+		Goal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2,  Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
 	
 		
 		yearlyGoal.addChildGoal(monthlyGoal);
@@ -101,7 +101,7 @@ public class ParentGoalTest {
 		ParentGoal monthlyGoal = new ParentGoal(descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "monthly_parentGoal1");
 		monthlyGoal.setParentGoal(yearlyGoal);
 		
-		Goal dailyGoal = new DailyGoal(monthlyGoal, descriptionForChild2,  Calendar.MONDAY, GoalScopeNames.MONTHLY, "dailychildGoal1");
+		Goal dailyGoal = new ParentGoal(monthlyGoal, descriptionForChild2,  Calendar.MONDAY, GoalScopeNames.MONTHLY, "dailychildGoal1");
 		
 		
 		yearlyGoal.addChildGoal(monthlyGoal);
