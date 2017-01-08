@@ -23,23 +23,13 @@
 
 		<table>
 			<tr>
-				<td><label for="title">Enter your monthly goal </label></td>
+				<td><label for="title">Enter your daily goal </label></td>
 				<td><form:input path="title" id="title" /></td>
 			</tr>
-
-<!-- 			<tr> -->
-<!-- 				<td><label for="months">Month</label></td> -->
-<!-- 				<td> -->
-<%-- 				<form:select id="months" path="parentGoal"> --%>
-<%-- 						<form:options items="${months}" itemLabel="monthName" --%>
-<%--  							itemValue="monthNumber"></form:options>  --%>
-<%--  					</form:select> --%>
-<!-- 				</td> -->
-<!-- 			<tr> -->
-				<td><label for="parentList">Select the related yearly
-						goal</label></td>
+			<tr>
+				<td><label for="parentList">Select the related weekly goal</label> </td>
 				<td><form:select id="parentList" path="parentGoal.id">
-						<form:options items="${parentMontlhyGoals}" itemLabel="title"
+						<form:options items="${weeklyGoals}" itemLabel="title"
 							itemValue="id"></form:options>
 					</form:select></td>
 			</tr>

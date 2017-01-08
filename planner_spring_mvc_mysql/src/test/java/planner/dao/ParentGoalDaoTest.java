@@ -84,5 +84,122 @@ public class ParentGoalDaoTest {
 		assertEquals(yearlyGoal.getTitle(), yearlyGoalsInDatabase.get(0).getTitle());
 	}
 	
+	@Test
+	public void daoShouldBeAbleToFindMonthlyGoalsOfGivenGoals() throws Exception{
+		
+		ParentGoal yearlyGoal = new ParentGoal(new GoalDescription(), 2017, GoalScopeNames.YEARLY, "yearly_parentGoal_2017");
+		ParentGoal yearlyGoal2 = new ParentGoal(new GoalDescription("Ých will mich mit andere Fremdsprache austatten"), 
+				2016, GoalScopeNames.YEARLY, "yearly_parentGoal_2016");
+		
+		dao.save(yearlyGoal);
+		dao.save(yearlyGoal2);
+		
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan");
+		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan2");
+		ParentGoal monthlyGoal3 = new ParentGoal(yearlyGoal, new GoalDescription(), 1, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb");
+		ParentGoal monthlyGoal4 = new ParentGoal(yearlyGoal2, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb2");
+		
+		dao.save(monthlyGoal);
+		dao.save(monthlyGoal2);
+		dao.save(monthlyGoal3);
+		dao.save(monthlyGoal4);
+		
+		List<Goal> januaryGoalsOf2017 = dao.findMonthlyGoals(yearlyGoal.getTimeLabel(), 0);
+		
+		assertEquals(2, januaryGoalsOf2017.size());
+		assertEquals(monthlyGoal.getTitle(), januaryGoalsOf2017.get(0).getTitle());
+		
+	}
+	
+	@Test
+	public void daoShouldBeAbleToFindWeeklyGoalsOfGivenMonth() throws Exception{
+		
+		ParentGoal yearlyGoal = new ParentGoal(new GoalDescription(), 2017, GoalScopeNames.YEARLY, "yearly_parentGoal_2017");
+		ParentGoal yearlyGoal2 = new ParentGoal(new GoalDescription("Ých will mich mit andere Fremdsprache austatten"), 
+				2016, GoalScopeNames.YEARLY, "yearly_parentGoal_2016");
+		
+		dao.save(yearlyGoal);
+		dao.save(yearlyGoal2);
+		
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan");
+		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan2");
+		ParentGoal monthlyGoal3 = new ParentGoal(yearlyGoal, new GoalDescription(), 1, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb");
+		ParentGoal monthlyGoal4 = new ParentGoal(yearlyGoal2, new GoalDescription(), 0, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb2");
+		
+		dao.save(monthlyGoal);
+		dao.save(monthlyGoal2);
+		dao.save(monthlyGoal3);
+		dao.save(monthlyGoal4);
+		
+		ParentGoal weeklyGoal = new ParentGoal(monthlyGoal, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan");
+		ParentGoal weeklyGoal2 = new ParentGoal(monthlyGoal, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan2");
+		ParentGoal weeklyGoal3 = new ParentGoal(monthlyGoal2, new GoalDescription(), 2, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan3");
+		ParentGoal weeklyGoal4 = new ParentGoal(monthlyGoal3, new GoalDescription(), 2, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan4");
+		ParentGoal weeklyGoal5 = new ParentGoal(monthlyGoal4, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan1_2016");
+		
+		dao.save(weeklyGoal5);
+		dao.save(weeklyGoal4);
+		dao.save(weeklyGoal3);
+		dao.save(weeklyGoal2);
+		dao.save(weeklyGoal);
+		
+		
+		List<Goal> firstWeekOfjanuaryGoalsin2017 = dao.findWeeklyGoals(yearlyGoal.getTimeLabel(), 1);
+		
+		assertEquals(2, firstWeekOfjanuaryGoalsin2017.size());
+		assertEquals(weeklyGoal.getTitle(), firstWeekOfjanuaryGoalsin2017.get(0).getTitle());
+		
+	}
+	
+	@Test
+	public void daoShouldBeAbleToFindWDailyGoalsOfGivenWeek() throws Exception{
+		
+		ParentGoal yearlyGoal = new ParentGoal(new GoalDescription(), 2017, GoalScopeNames.YEARLY, "yearly_parentGoal_2017");
+		ParentGoal yearlyGoal2 = new ParentGoal(new GoalDescription("Ých will mich mit andere Fremdsprache austatten"), 
+				2016, GoalScopeNames.YEARLY, "yearly_parentGoal_2016");
+		
+		dao.save(yearlyGoal);
+		dao.save(yearlyGoal2);
+		
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, new GoalDescription(), Calendar.JANUARY, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan");
+		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, new GoalDescription(), Calendar.JANUARY, GoalScopeNames.MONTHLY, "monthly_parentGoal_jan2");
+		ParentGoal monthlyGoal3 = new ParentGoal(yearlyGoal, new GoalDescription(), Calendar.FEBRUARY, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb");
+		ParentGoal monthlyGoal4 = new ParentGoal(yearlyGoal2, new GoalDescription(), Calendar.JANUARY, GoalScopeNames.MONTHLY, "monthly_parentGoal_feb2");
+		
+		dao.save(monthlyGoal);
+		dao.save(monthlyGoal2);
+		dao.save(monthlyGoal3);
+		dao.save(monthlyGoal4);
+		
+		ParentGoal weeklyGoal = new ParentGoal(monthlyGoal, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan");
+		ParentGoal weeklyGoal2 = new ParentGoal(monthlyGoal, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan2");
+		ParentGoal weeklyGoal3 = new ParentGoal(monthlyGoal2, new GoalDescription(), 2, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan3");
+		ParentGoal weeklyGoal4 = new ParentGoal(monthlyGoal3, new GoalDescription(), 2, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan4");
+		ParentGoal weeklyGoal5 = new ParentGoal(monthlyGoal4, new GoalDescription(), 1, GoalScopeNames.WEEKLY, "weekly_parentGoal_jan1_2016");
+		
+		dao.save(weeklyGoal5);
+		dao.save(weeklyGoal4);
+		dao.save(weeklyGoal3);
+		dao.save(weeklyGoal2);
+		dao.save(weeklyGoal);
+		
+		ParentGoal dailyGoal = new ParentGoal(weeklyGoal, new GoalDescription(), Calendar.MONDAY, GoalScopeNames.DAILY, "daily_monday_jan_1st_week");
+		ParentGoal dailyGoal2 = new ParentGoal(weeklyGoal, new GoalDescription(), Calendar.MONDAY, GoalScopeNames.DAILY, "daily_monday_jan_1st_week_2");
+		ParentGoal dailyGoal3 = new ParentGoal(weeklyGoal3, new GoalDescription(), Calendar.TUESDAY, GoalScopeNames.DAILY, "daily_tuesday_jan_2nd_week");
+		ParentGoal dailyGoal4 = new ParentGoal(weeklyGoal2, new GoalDescription(), Calendar.MONDAY, GoalScopeNames.DAILY, "daily_monday_jan_1st_week2");
+		ParentGoal dailyGoal5 = new ParentGoal(weeklyGoal5, new GoalDescription(), Calendar.MONDAY, GoalScopeNames.DAILY, "daily_monday_jan_1st_week_2016");
+		
+		dao.save(dailyGoal);
+		dao.save(dailyGoal2);
+		dao.save(dailyGoal3);
+		dao.save(dailyGoal4);
+		dao.save(dailyGoal5);
+		
+		List<Goal> mondayGoalsOfJanuary217FirstWeek = dao.findDailyGoals(yearlyGoal.getTimeLabel(), weeklyGoal.getTimeLabel(), Calendar.MONDAY);
+		
+		assertEquals(3, mondayGoalsOfJanuary217FirstWeek.size());
+		assertEquals(dailyGoal.getTitle(), mondayGoalsOfJanuary217FirstWeek.get(0).getTitle());
+		
+	}
 	
 }

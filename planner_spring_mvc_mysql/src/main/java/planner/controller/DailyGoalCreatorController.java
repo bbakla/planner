@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import planner.model.goal.Goal;
 import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
 import planner.model.goal.scope.GoalScopeNames;
@@ -34,12 +35,13 @@ public class DailyGoalCreatorController {
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
 		
-		List<ParentGoal> goalsOfCurrentWeek = service.findGoalsByYear(Calendar.getInstance().get(Calendar.MONTH));
+		Calendar calendar = Calendar.getInstance();
 		
-//		model.addAttribute("months", Arrays.asList(Month.buildMonths()));
-		model.addAttribute("parentMontlhyGoals", goalsOfCurrentWeek);
+		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
 		
-		return "newweekly";
+		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
+		
+		return "newdaily";
 	}
 	
 	@RequestMapping(value={"/new/day"}, method = RequestMethod.POST)
@@ -49,8 +51,7 @@ public class DailyGoalCreatorController {
 		
 		try{
 			goal.setStatus(GoalStatus.NOT_STARTED);
-			goal.setScope(GoalScopeNames.WEEKLY);
-			goal.setTimeLabel(Calendar.getInstance().get(Calendar.WEEK_OF_YEAR));
+			goal.setScope(GoalScopeNames.DAILY);
 			
 			ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
 			goal.setParentGoal(parentGoal);

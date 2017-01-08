@@ -47,11 +47,20 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	public List<ParentGoal> findYearlyGoals(int timeLabel) {
 		return dao.findByTimeLabel(timeLabel);
 	}
+	
+	@Override
+	public List<Goal> findMonthlyGoals(int year, int month) {
+		return dao.findMonthlyGoals(year, month);
+	}
 
 	@Override
-	public List<Goal> findMonthlyGoals(int timeLabel) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Goal> findWeeklyGoals(int year, int weekNumber) {
+		return dao.findWeeklyGoals(year, weekNumber);
+	}
+
+	@Override
+	public List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber) {
+		return dao.findDailyGoals(year, weeekNumber, dayNumber);
 	}
 
 	@Override
@@ -68,5 +77,4 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	public void deleteGoal(ParentGoal goal) {
 		dao.delete(goal);
 	}
-
 }
