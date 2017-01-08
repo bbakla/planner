@@ -35,12 +35,17 @@ public class MonthlyGoalCreatorController {
 	
 	@RequestMapping(value = {"/new/month"}, method = RequestMethod.GET)
 	public String createMonthlyGoal(Model model){
-		model.addAttribute("parent", new ParentGoal());
-		model.addAttribute("edit", "new");
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
 		
-		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(Calendar.getInstance().get(Calendar.YEAR));
+		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(year);
+		List<Goal> monthlyGoals = service.findMonthlyGoals(year, month);
 		
 		model.addAttribute("yearlyGoals", yearlyGoalofTheYear);
+		model.addAttribute("monthlyGoals", monthlyGoals);
+		model.addAttribute("parent", new ParentGoal());
+		model.addAttribute("edit", "new");
 		
 		return "newmonthly";
 	}
@@ -66,7 +71,7 @@ public class MonthlyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/month/goals";
+			viewName = "redirect:/planner/new/month";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){

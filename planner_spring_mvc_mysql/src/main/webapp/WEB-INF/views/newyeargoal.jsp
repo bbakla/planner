@@ -42,6 +42,17 @@
 	</form:form>
 	
 	<br/>
+	
+	<div>
+		<c:forEach items = "${yearlyGoals}" var = "goal">
+			<label>${goal.title}</label><br/>
+			<c:forEach items = "${goal.childGoals}" var = "child">
+				<label>${child.title}</label><br/>
+			</c:forEach>
+			<br/><br/>
+		
+		</c:forEach>
+	</div>
 	<font color="red">${message}</font>
 	
 	

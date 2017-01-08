@@ -30,12 +30,14 @@ public class YearlyGoalCreatorController {
 	
 	@RequestMapping(value = {"/new/year"}, method = RequestMethod.GET)
 	public String createParentGoal(Model model){
+		List<ParentGoal> yearlyGoals = service.findYearlyGoals(Calendar.getInstance().get(Calendar.YEAR));
+		
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
+		model.addAttribute("yearlyGoals", yearlyGoals);
 		
 		return "newyeargoal";
 	}
-	
 	
 	@RequestMapping(value="/creationFailed", method=RequestMethod.GET)
 	public String createFailed(){
@@ -54,7 +56,7 @@ public class YearlyGoalCreatorController {
 			
 			service.saveGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/goals/year";
+			viewName = "redirect:/planner/new/year";
 			sessionStatus.setComplete();
 		} catch(Exception e){
 			e.printStackTrace();

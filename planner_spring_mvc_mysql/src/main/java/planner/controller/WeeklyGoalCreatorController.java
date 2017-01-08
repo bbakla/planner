@@ -37,13 +37,20 @@ public class WeeklyGoalCreatorController {
 	
 	@RequestMapping(value = {"/new/week"}, method = RequestMethod.GET)
 	public String createMonthlyGoal(Model model){
-		model.addAttribute("parent", new ParentGoal());
-		model.addAttribute("edit", "new");
 		
-		List<ParentGoal> goalsOfCurrentMonth = service.findYearlyGoals(Calendar.getInstance().get(Calendar.MONTH));
+		Calendar calendar = Calendar.getInstance();
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int weekNumber = calendar.get(Calendar.WEEK_OF_YEAR);
+		
+		List<Goal> goalsOfCurrentMonth = service.findMonthlyGoals(year, month);
+		List<Goal> weeklyGoals = service.findWeeklyGoals(year, weekNumber);
 		
 //		model.addAttribute("months", Arrays.asList(Month.buildMonths()));
 		model.addAttribute("parentMontlhyGoals", goalsOfCurrentMonth);
+		model.addAttribute("weeklyGoals", weeklyGoals);
+		model.addAttribute("parent", new ParentGoal());
+		model.addAttribute("edit", "new");
 		
 		return "newweekly";
 	}
@@ -63,7 +70,7 @@ public class WeeklyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/weekly/goals";
+			viewName = "redirect:/planner/new/week";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){

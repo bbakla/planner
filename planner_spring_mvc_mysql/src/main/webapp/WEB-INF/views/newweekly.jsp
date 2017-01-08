@@ -27,21 +27,21 @@
 				<td><form:input path="title" id="title" /></td>
 			</tr>
 
-<!-- 			<tr> -->
-<!-- 				<td><label for="months">Month</label></td> -->
-<!-- 				<td> -->
-<%-- 				<form:select id="months" path="parentGoal"> --%>
-<%-- 						<form:options items="${months}" itemLabel="monthName" --%>
-<%--  							itemValue="monthNumber"></form:options>  --%>
-<%--  					</form:select> --%>
-<!-- 				</td> -->
-<!-- 			<tr> -->
-				<td><label for="parentList">Select the related yearly
-						goal</label></td>
-				<td><form:select id="parentList" path="parentGoal.id">
-						<form:options items="${parentMontlhyGoals}" itemLabel="title"
-							itemValue="id"></form:options>
-					</form:select></td>
+			<!-- 			<tr> -->
+			<!-- 				<td><label for="months">Month</label></td> -->
+			<!-- 				<td> -->
+			<%-- 				<form:select id="months" path="parentGoal"> --%>
+			<%-- 						<form:options items="${months}" itemLabel="monthName" --%>
+			<%--  							itemValue="monthNumber"></form:options>  --%>
+			<%--  					</form:select> --%>
+			<!-- 				</td> -->
+			<!-- 			<tr> -->
+			<td><label for="parentList">Select the related yearly
+					goal</label></td>
+			<td><form:select id="parentList" path="parentGoal.id">
+					<form:options items="${parentMontlhyGoals}" itemLabel="title"
+						itemValue="id"></form:options>
+				</form:select></td>
 			</tr>
 
 			<tr>
@@ -63,7 +63,19 @@
 		<form:button name="Create">Create</form:button>
 	</form:form>
 
-	<br />
+	<br/>
+	
+	<div>
+		<c:forEach items = "${weeklyGoals}" var = "goal">
+			<label>${goal.title}</label><br/>
+			<c:forEach items = "${goal.childGoals}" var = "child">
+				<label>${child.title}</label><br/>
+			</c:forEach>
+			<br/><br/>
+		
+		</c:forEach>
+	</div>
+	
 	<font color="red">${message}</font>
 
 
