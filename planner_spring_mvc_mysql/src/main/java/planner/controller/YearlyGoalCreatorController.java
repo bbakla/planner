@@ -55,6 +55,9 @@ public class YearlyGoalCreatorController {
 			goal.setTimeLabel(Calendar.getInstance().get(Calendar.YEAR));
 			
 			service.saveGoal(goal);
+			System.out.println(goal.getParentGoal());
+			ParentGoal g = service.findById(goal.getId());
+			System.out.println(g.getParentGoal());
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/planner/new/year";
 			sessionStatus.setComplete();

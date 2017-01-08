@@ -58,9 +58,9 @@
 	
 	<div>
 		<c:forEach items = "${monthlyGoals}" var = "goal">
-			<label>${goal.title}</label><br/>
+			<a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a><br/>
 			<c:forEach items = "${goal.childGoals}" var = "child">
-				<label>${child.title}</label><br/>
+				<a href="<c:url value='/planner/goal/${child.id}'/>">${child.title}</a><br/>
 			</c:forEach>
 			<br/><br/>
 		

@@ -35,7 +35,7 @@
 			<%--  							itemValue="monthNumber"></form:options>  --%>
 			<%--  					</form:select> --%>
 			<!-- 				</td> -->
-			<!-- 			<tr> -->
+			<tr>
 			<td><label for="parentList">Select the related yearly
 					goal</label></td>
 			<td><form:select id="parentList" path="parentGoal.id">
@@ -67,9 +67,9 @@
 	
 	<div>
 		<c:forEach items = "${weeklyGoals}" var = "goal">
-			<label>${goal.title}</label><br/>
+			<a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a><br/>
 			<c:forEach items = "${goal.childGoals}" var = "child">
-				<label>${child.title}</label><br/>
+				<a href="<c:url value='/planner/goal/${child.id}'/>">${child.title}</a><br/>
 			</c:forEach>
 			<br/><br/>
 		
