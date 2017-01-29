@@ -203,4 +203,55 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Gen
 		}
 		return dailyGoals;
 }
+
+	@Override
+	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
+		Criteria criteria = createEntityCriteria()
+				.createAlias("details", "d")
+				.add(Restrictions.eq("d.timeLabel", year))
+				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
+//				.createAlias("childGoals.details", "c")
+//				.add(Restrictions.eq("c.timeLabel", month))
+//				.add(Restrictions.eq("c.scope", GoalScopeNames.MONTHLY));
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
+		
+		List<Goal> monthlyGoals = new ArrayList<Goal>();
+		List<Goal> weeklyGoals = new ArrayList<Goal>();
+		List<Goal> dailyGoals = new ArrayList<Goal>();
+		
+		for (ParentGoal parentGoal : goals) {
+			List<Goal> childs = parentGoal.getChildGoals();
+			for (Goal goal : childs) {
+				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY){
+					monthlyGoals.add(goal);
+				}
+			}
+		}
+		
+		
+		for (Goal monthlyGoal : monthlyGoals) {
+			ParentGoal goal = (ParentGoal) monthlyGoal;
+			List<Goal> childs = goal.getChildGoals();
+			for (Goal weekly : childs) {
+				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeLabel() == weekNumber){
+					weeklyGoals.add(weekly);
+			}
+		}
+		}	
+		
+		for(Goal weeklyGoal : weeklyGoals){
+			ParentGoal weekly = (ParentGoal) weeklyGoal;
+			List<Goal> childs = weekly.getChildGoals();
+			
+			for(Goal daily : childs){
+				if(daily.getDetails().getScope() == GoalScopeNames.DAILY){
+					dailyGoals.add(daily);
+				}
+			}
+			
+		}
+		return dailyGoals;
+	}
 }

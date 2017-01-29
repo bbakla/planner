@@ -31,21 +31,23 @@ public class DailyGoalCreatorController {
 	MessageSource messageSource;
 	
 	@RequestMapping(value = {"/new/day"}, method = RequestMethod.GET)
-	public String createMonthlyGoal(Model model){
+	public String createDailyGoal(Model model){
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
 		
 		Calendar calendar = Calendar.getInstance();
 		
 		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
-		
+		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
 		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
+		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
+		
 		
 		return "newdaily";
 	}
 	
 	@RequestMapping(value={"/new/day"}, method = RequestMethod.POST)
-	public String saveMonthlyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
+	public String saveDailyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
 		String message = "";
 		String viewName ="";
 		
@@ -58,7 +60,7 @@ public class DailyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/weekly/goals";
+			viewName = "redirect:/planner/new/day";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){

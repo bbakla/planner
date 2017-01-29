@@ -15,6 +15,7 @@ public interface ParentGoalService {
 	List<Goal> findMonthlyGoals(int year, int month);
 	List<Goal> findWeeklyGoals(int year, int weekNumber);
 	List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber);
+	List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber);
 	
 	void saveGoal(ParentGoal goal);
 	void updateGoal(ParentGoal goal);

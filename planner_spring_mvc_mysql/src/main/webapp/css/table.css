@@ -1,0 +1,37 @@
+.ui-drop-hover {
+	border: 2px solid #bbb;
+}
+
+#dragdiv {
+	width: 180px;
+	height: 400px;
+	float: left;
+}
+
+#dropdiv {
+/* 	width: 380px; */
+/* 	height: 200px; */
+	float: right;
+/* 	margin-right: 10px; */
+	background-color: #F9F887;
+}
+
+
+
+
+
+table th, table td {
+	height: 30px;
+	width: 200px;
+}
+
+table span {
+	display: block;
+	background-color: #09C;
+	height: 100%;
+	width: 100%;
+}
+	
+.newclass {
+	border-top: 5px solid red;
+}

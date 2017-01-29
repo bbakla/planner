@@ -14,9 +14,11 @@ public interface GenericDao <T> {
 	List<Goal> findMonthlyGoals(int year, int month);
 	List<Goal> findWeeklyGoals(int year, int weekNumber);
 	List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber);
+	List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber);
 	
 	void save(T entity);
 	void delete(T entity);
 	void update(T entity);
+	
 	}
 

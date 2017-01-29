@@ -62,6 +62,11 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	public List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber) {
 		return dao.findDailyGoals(year, weeekNumber, dayNumber);
 	}
+	
+	@Override
+	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
+		return dao.findDailyGoalsOfTheWeek(year, weekNumber);
+	}
 
 	@Override
 	public void saveGoal(ParentGoal goal) {
@@ -77,4 +82,6 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	public void deleteGoal(ParentGoal goal) {
 		dao.delete(goal);
 	}
+
+	
 }
