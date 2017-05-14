@@ -20,31 +20,71 @@
     <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/table.js"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+    
     
 </head>
 <body>
 
-	<div class= "container">
-	<div id="dragdiv">
-	<div class = "col-md-10">
-	 <h3><span>Drag from the ul list</span></h3>
-		<c:forEach items = "${dailyGoalsOfTheWeek}" var = "goal">
-			<a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a><br/>
+	  <div class="container">
+    <div class="row">
+        <div class="">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span>Daily goals
+                    <div class="pull-right action-buttons">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
+                            </button>
+                            <ul class="dropdown-menu slidedown">
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-flag"></span>Flag</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="dragdiv" class="panel-body">
+                    <ul class="list-group">
+                        <c:forEach items = "${dailyGoalsOfTheWeek}" var = "goal">
+			<li class="list-group-item"><a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a></li>
 <%-- 			<c:forEach items = "${goal.childGoals}" var = "child"> --%>
 <%-- 				<a href="<c:url value='/planner/goal/${child.id}'/>">${child.title}</a><br/> --%>
 <%-- 			</c:forEach> --%>
 		
 		</c:forEach>
-	</div>
-	</div>
-	</div>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                     
+                        <div class="col-md-6">
+                            <ul class="pagination pagination-sm pull-right">
+                                <li class="disabled"><a href="javascript:void(0)">«</a></li>
+                                <li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="http://www.jquery2dotnet.com">2</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">3</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">4</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">5</a></li>
+                                <li><a href="javascript:void(0)">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	  
+	  
 	
 	<div class= "container">
-	 <div id="dropdiv" >
-	 <div class = "col-md-10">
-        <table  border="1" cellspacing="1" cellpadding="1">
+	 <div id="dropdiv" class="row" >
+	 <div class = "col-md-12">
+        <table  border="1" cellspacing="1"  class="table table-striped table-bordered  table-hovered">
             <thead>
             <tr id="days">
             	<td draggable="false"></td>

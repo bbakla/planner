@@ -15,10 +15,15 @@
 }
 </style>
 
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-	<link type="text/css" rel="stylesheet" 	href="${pageContext.request.contextPath}/js/parentTable.js">
+<link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
+<link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
+
+
 </head>
 <body>
 
@@ -63,7 +68,7 @@
 
 
 			<div class="col-md-12">
-				<h4>Your goals</h4>
+				<h4 id="month"></h4>
 				<div class="table-responsive">
 
 
@@ -138,8 +143,13 @@
 	</div>
 	
 	<font color="red">${message}</font>
-	
-	
-
 </body>
+
+<script>
+ 	var months = [ 'January', 'February', 'March', 'April', 'May', 'June',
+ 			'July', 'August', 'September', 'October', 'November', 'December' ];
+	
+	var date = new Date();
+	document.getElementById("month").innerHTML = months[date.getMonth()] + ' '	+ date.getFullYear();
+</script>
 </html>

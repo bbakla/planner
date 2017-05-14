@@ -18,20 +18,15 @@ $(function () {
         drop: function (event, ui) {
             //ui: element being dragged
             //this: element being dropped into
-        	console.log("dfdsf");
             cleanContent(ui);
         },
         over: function (event, ui) {
             var $this = $(this);
-            console.log("over droppable as");
+            
         },
     });
     
-    	
-
-
         initDroppable($("#dropdiv table td"));
-//	backDroppable($("#dragdiv li"));
 
     function initDroppable($elements) {
         $elements
@@ -42,10 +37,8 @@ $(function () {
 
                 over: function (event, ui) {
                     var $this = $(this);
-                    console.log("over droppable table")
                 },
                 drop: function (event, ui) {
-                	console.log("droppable of table");
                     $("<td></td>").text(ui.draggable.text()).appendTo(this)
 
                     cleanContent(ui);

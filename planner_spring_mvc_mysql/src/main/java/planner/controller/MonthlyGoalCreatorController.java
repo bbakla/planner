@@ -1,5 +1,8 @@
 package planner.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -35,9 +38,10 @@ public class MonthlyGoalCreatorController {
 	
 	@RequestMapping(value = {"/new/month"}, method = RequestMethod.GET)
 	public String createMonthlyGoal(Model model){
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
+	LocalDate currentDate = LocalDate.now(); 
+		
+		int month = currentDate.getMonth().getValue();
+		int year = currentDate.getYear();
 		
 		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(year);
 		List<Goal> monthlyGoals = service.findMonthlyGoals(year, month);

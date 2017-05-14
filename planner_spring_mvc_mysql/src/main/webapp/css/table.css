@@ -1,11 +1,13 @@
 .ui-drop-hover {
-	border: 2px solid #bbb;
+	border: 7px solid red;
+	
+	
 }
 
-#dragdiv {
-	width: 180px;
-	height: 400px;
-	float: left;
+
+.ui-draggable-dragging{
+    box-shadow:0 0 2px #c0c0c0;
+    background-color: #c0c0c0;
 }
 
 #dropdiv {
@@ -13,25 +15,33 @@
 /* 	height: 200px; */
 	float: right;
 /* 	margin-right: 10px; */
-	background-color: #F9F887;
+/* 	background-color: #F9F887; */
 }
 
-
-
-
-
-table th, table td {
+table th, table td, table tr {
 	height: 30px;
 	width: 200px;
 }
 
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 0px;
+}
 table span {
 	display: block;
-	background-color: #09C;
+/* 	background-color: #09C; */
 	height: 100%;
 	width: 100%;
 }
-	
-.newclass {
-	border-top: 5px solid red;
+
+.panel-footer{
+    height:70px; 
 }
+
+.panel-heading{
+    height:30px; 
+}
+
+.list-group-item {
+    padding: 5px 10px;
+}
+

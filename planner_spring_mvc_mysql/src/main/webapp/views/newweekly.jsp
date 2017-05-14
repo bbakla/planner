@@ -28,7 +28,7 @@
 				<form:form method="POST" modelAttribute="parent">
 					<div class="form-group">
 
-						<label for="title" class="col-2 col-form-label">Enter your monthly goal </label>
+						<label for="title" class="col-2 col-form-label">Enter your weekly goal </label>
 						<form:input path="title" id="title" class="form-control"/>
 					</div>
 					<!-- 			<tr> -->
@@ -40,7 +40,7 @@
 					<%--  					</form:select> --%>
 					<!-- 				</td> -->
 					<div class="form-group">
-						<label for="parentList" class="col-2 col-form-label">Select the related yearly goal</label>
+						<label for="parentList" class="col-2 col-form-label">Select the related monthly goal</label>
 						<form:select id="parentList" path="parentGoal.id" class="form-control">
 							<form:options items="${parentMontlhyGoals}" itemLabel="title"
 								itemValue="id"></form:options>

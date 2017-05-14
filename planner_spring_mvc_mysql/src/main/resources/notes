@@ -1,4 +1,8 @@
 Endpoints 
 ------------------------------------
       list persons
-http://localhost:8080/planner_spring_mvc_mysql/planner/new
+http://localhost:8080/planner_spring_mvc_mysql/planner/new/year
+http://localhost:8080/planner_spring_mvc_mysql/planner/plan/week
+http://localhost:8080/planner_spring_mvc_mysql/planner/new/month
+http://localhost:8080/planner_spring_mvc_mysql/planner/new/week
+http://localhost:8080/planner_spring_mvc_mysql/planner/new/day
