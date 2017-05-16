@@ -34,6 +34,7 @@
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-list"></span>Daily goals
                     <div class="pull-right action-buttons">
+                    
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
@@ -83,6 +84,8 @@
 	<div class= "container">
 	 <div id="dropdiv" class="row" >
 	 <div class = "col-md-12">
+	 <label>${pageContext.request.contextPath}</label>
+	 <label>df</label>
         <table  border="1" cellspacing="1"  class="table table-striped table-bordered  table-hovered">
             <thead>
             <tr id="days">
@@ -107,7 +110,7 @@
                 </td>
                 
                 <td id="wednesday_9">
-                    <label id="goal_name_wednesday_9" ></label>
+                    <label id="goal_name_wednesday_9" hidden></label>
                     <label id = "goal_id_wednesday_9" hidden></label>
                 </td>
                 

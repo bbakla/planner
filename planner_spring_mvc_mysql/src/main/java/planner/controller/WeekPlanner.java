@@ -1,7 +1,11 @@
 package planner.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,9 +29,14 @@ public class WeekPlanner {
 	
 	@RequestMapping(value="/plan/week", method= RequestMethod.GET)
 	public String planTheWeek(Model model){
-		Calendar calendar = Calendar.getInstance();
-		
-		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
+		LocalDate currentDate = LocalDate.now();
+
+		int year = currentDate.getYear();
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+		int weekNumber = currentDate.get(woy);
+
+
+		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
 		return "weekplanner";
 	}

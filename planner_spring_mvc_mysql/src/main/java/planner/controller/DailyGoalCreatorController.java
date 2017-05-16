@@ -1,5 +1,8 @@
 package planner.controller;
 
+import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -34,15 +37,19 @@ public class DailyGoalCreatorController {
 	public String createDailyGoal(Model model){
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
-		
-		Calendar calendar = Calendar.getInstance();
-		
-		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
-		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR));
+
+		LocalDate currentDate = LocalDate.now();
+
+		int month = currentDate.getMonth().getValue();
+		int year = currentDate.getYear();
+		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+		int weekNumber = currentDate.get(woy);
+
+		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(year, weekNumber);
+		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
-		
-		
+
 		return "newdaily";
 	}
 	
