@@ -38,7 +38,16 @@ public class WeekPlanner {
 
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
+		model.addAttribute("weekPlanner", "sefsdf");
 		return "weekplanner";
+	}
+	
+	@RequestMapping(value="/weekplan", method= RequestMethod.POST)
+	public String saveWeekPlan(Model model){
+		
+		String viewName = "redirect:/planner/plan/week";
+		
+		return viewName;
 	}
 
 }
