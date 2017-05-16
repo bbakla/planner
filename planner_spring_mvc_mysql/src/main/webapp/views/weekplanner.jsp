@@ -15,7 +15,6 @@
 }
 </style>  
 
- <title>Example- drag and drop li to div</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>
 
@@ -50,7 +49,9 @@
                 <div id="dragdiv" class="panel-body">
                     <ul class="list-group">
                         <c:forEach items = "${dailyGoalsOfTheWeek}" var = "goal">
-			<li class="list-group-item"><a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a></li>
+			<li class="list-group-item"><a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a>
+				<label id="goal_id" hidden >${goal.id}</label>
+			</li>
 <%-- 			<c:forEach items = "${goal.childGoals}" var = "child"> --%>
 <%-- 				<a href="<c:url value='/planner/goal/${child.id}'/>">${child.title}</a><br/> --%>
 <%-- 			</c:forEach> --%>
@@ -78,8 +79,6 @@
         </div>
     </div>
 </div>
-	  
-	  
 	
 	<div class= "container">
 	 <div id="dropdiv" class="row" >
@@ -99,113 +98,257 @@
             </thead>
             <tbody>
             <tr id="till9">
-                <td id="time">08:00-09:00</td>
-                <td id="monday_9"></td>
-                <td id="tuesday_9"></td>
-                <td id="wednesday_9"></td>
-                <td id="thursday_9"></td>
-                <td id="friday_9"></td>
-                <td id="saturday_9"></td>
-                <td id="sunday_9"></td>
+                <td id="time_till_9">08:00-09:00</td>
+                <td id="monday_9">
+                    <label id = "goal_id_monday_9" hidden></label>
+                </td>
+                <td id="tuesday_9">
+                    <label id = "goal_id_tuesday_9" hidden></label>
+                </td>
+                
+                <td id="wednesday_9">
+                    <label id="goal_name_wednesday_9" ></label>
+                    <label id = "goal_id_wednesday_9" hidden></label>
+                </td>
+                
+                <td id="thursday_9">
+                    <label id = "goal_id_thursday_9" hidden></label>
+                </td>
+                <td id="friday_9">
+                    <label id = "goal_id_friday_9" hidden></label>
+                </td>
+                <td id="saturday_9">
+                    <label id="goal_name_saturday_9"></label>
+                    <label id="goal_id_saturday_9" hidden></label>
+                </td>
+                <td id="sunday_9">
+                    <label id="goal_id_sunday_9" hidden></label>
+                </td>
             </tr>
             
             <tr id="till10">
-            	<td id="time">09:00-10:00</td>
-                <td id="monday_10"></td>
-                <td id="tuesday_10"></td>
-                <td id="wednesday_10"></td>
-                <td id="thursday_10"></td>
-                <td id="friday_10"></td>
-                <td id="saturday_10"></td>
-                <td id="sunday_10"></td>
+                <td id="time_till10">09:00-10:00 </td>
+                <td id="monday_10">
+                    <label id = "goal_id_monday_10" hidden></label>
+                </td>
+                <td id="tuesday_10">
+                    <label id = "goal_id_tuesday_10" hidden></label>
+                </td>
+                <td id="wednesday_10">
+                    <label id = "goal_id_wednesday_10" hidden></label>
+                </td>
+                <td id="thursday_10">
+                    <label id = "goal_id_thursday_10" hidden></label>
+                </td>
+                <td id="friday_10">
+                    <label id = "goal_id_friday_10" hidden></label>
+                </td>
+                <td id="saturday_10">
+                    <label id = "goal_id_saturday_10" hidden></label>
+                </td>
+                <td id="sunday_10">
+                    <label id = "goal_id_sunday_10" hidden></label>
+                </td>
             </tr>
            
              <tr id="till11">
-                <td id="time">10:00-11:00</td>
-                <td id="monday_11"></td>
-                <td id="tuesday_11"></td>
-                <td id="wednesday_11"></td>
-                <td id="thursday_11"></td>
-                <td id="friday_11"></td>
-                <td id="saturday_11"></td>
-                <td id="sunday_11"></td>
+                <td id="time_till_11">10:00-11:00</td>
+                <td id="monday_11">
+                    <label id = "goal_id_monday_11" hidden></label>
+                </td>
+                <td id="tuesday_11">
+                    <label id = "goal_id_tuesday_11" hidden></label>
+                </td>
+                <td id="wednesday_11">
+                    <label id = "goal_id_wednesday_11" hidden></label>
+                </td>
+                <td id="thursday_11">
+                    <label id = "goal_id_thursday_11" hidden></label>
+                </td>
+                <td id="friday_11">
+                    <label id = "goal_id_friday_11" hidden></label>
+                </td>
+                <td id="saturday_11">
+                    <label id = "goal_id_saturday_11" hidden></label>
+                </td>
+                <td id="sunday_11">
+                    <label id = "goal_id_sunday_11" hidden></label>
+                </td>
             </tr>
             
               <tr id="till12">
-                <td id="time">11:00-12:00</td>
-                <td id="monday_12"></td>
-                <td id="tuesday_12"></td>
-                <td id="wednesday_12"></td>
-                <td id="thursday_12"></td>
-                <td id="friday_12"></td>
-                <td id="saturday_12"></td>
-                <td id="sunday_12"></td>
+                <td id="time_till12">11:00-12:00</td>
+                <td id="monday_12">
+                    <label id = "goal_id_monday_12" hidden></label>
+                </td>
+                <td id="tuesday_12">
+                    <label id = "goal_id_tuesday_12" hidden></label>
+                </td>
+                <td id="wednesday_12">
+                    <label id = "goal_id_wednesday_12" hidden></label>
+                </td>
+                <td id="thursday_12">
+                    <label id = "goal_id_thursday_12" hidden></label>
+                </td>
+                <td id="friday_12">
+                    <label id = "goal_id_friday_12" hidden></label>
+                </td>
+                <td id="saturday_12">
+                    <label id = "goal_id_saturday_12" hidden></label>
+                </td>
+                <td id="sunday_12">
+                    <label id = "goal_id_sunday_12" hidden></label>
+                </td>
             </tr>
             
               <tr id="till13">
-                <td id="time">12:00-13:00</td>
-                <td id="monday_13"></td>
-                <td id="tuesday_13"></td>
-                <td id="wednesday_13"></td>
-                <td id="thursday_13"></td>
-                <td id="friday_13"></td>
-                <td id="saturday_13"></td>
-                <td id="sunday_13"></td>
+                <td id="time_till13">12:00-13:00</td>
+                <td id="monday_13">
+                    <label id = "goal_id_monday_13" hidden></label>
+                </td>
+                <td id="tuesday_13">
+                    <label id = "goal_id_tuesday_13" hidden></label>
+                </td>
+                <td id="wednesday_13">
+                    <label id = "goal_id_wednesday_13" hidden></label>
+                </td>
+                <td id="thursday_13">
+                    <label id = "goal_id_thursday_13" hidden></label>
+                </td>
+                <td id="friday_13">
+                    <label id = "goal_id_friday_13" hidden></label>
+                </td>
+                <td id="saturday_13">
+                    <label id = "goal_id_saturday_13" hidden></label>
+                </td>
+                <td id="sunday_13">
+                    <label id = "goal_id_sunday_13" hidden></label>
+                </td>
             </tr>
             
               <tr id="till14">
-                <td id="time">13:00-14:00</td>
-                <td id="monday_14"></td>
-                <td id="tuesday_14"></td>
-                <td id="wednesday_14"></td>
-                <td id="thursday_14"></td>
-                <td id="friday_14"></td>
-                <td id="saturday_14"></td>
-                <td id="sunday_14"></td>
+                <td id="time_till14">13:00-14:00</td>
+                <td id="monday_14">
+                    <label id = "goal_id_monday_14" hidden></label>
+                </td>
+                <td id="tuesday_14">
+                    <label id = "goal_id_tuesday_14" hidden></label>
+                </td>
+                <td id="wednesday_14">
+                    <label id = "goal_id_wednesday_14" hidden></label>
+                </td>
+                <td id="thursday_14">
+                    <label id = "goal_id_thursday_14" hidden></label>
+                </td>
+                <td id="friday_14">
+                    <label id = "goal_id_friday_14" hidden></label>
+                </td>
+                <td id="saturday_14">
+                    <label id = "goal_id_saturday_14" hidden></label>
+                </td>
+                <td id="sunday_14">
+                    <label id = "goal_id_sunday_14" hidden></label>
+                </td>
             </tr>
             
               <tr id="till15">
-              	<td id="time">14:00-15:00</td>
-                <td id="monday_15"></td>
-                <td id="tuesday_15"></td>
-                <td id="wednesday_15"></td>
-                <td id="thursday_15"></td>
-                <td id="friday_15"></td>
-                <td id="saturday_15"></td>
-                <td id="sunday_15"></td>
+              	<td id="time_15">14:00-15:00</td>
+                <td id="monday_15">
+                    <label id = "goal_id_monday_15" hidden></label>
+                </td>
+                <td id="tuesday_15">
+                    <label id = "goal_id_tuesday_15" hidden></label>
+                </td>
+                <td id="wednesday_15">
+                    <label id = "goal_id_wednesday_15" hidden></label>
+                </td>
+                <td id="thursday_15">
+                    <label id = "goal_id_thursday_15" hidden></label>
+                </td>
+                <td id="friday_15">
+                    <label id = "goal_id_friday_15" hidden></label>
+                </td>
+                <td id="saturday_15">
+                    <label id = "goal_id_saturday_15" hidden></label>
+                </td>
+                <td id="sunday_15">
+                    <label id = "goal_id_sunday_15" hidden></label>
+                </td>
             </tr>
             
               <tr id="till16">
-              	<td id="time">15:00-16:00</td>
-                <td id="monday_16"></td>
-                <td id="tuesday_16"></td>
-                <td id="wednesday_16"></td>
-                <td id="thursday_16"></td>
-                <td id="friday_16"></td>
-                <td id="saturday_16"></td>
-                <td id="sunday_16"></td>
+              	<td id="time_16">15:00-16:00</td>
+                <td id="monday_16">
+                    <label id = "goal_id_monday_16" hidden></label>
+                </td>
+                <td id="tuesday_16">
+                    <label id = "goal_id_tuesday_16" hidden></label>
+                </td>
+                <td id="wednesday_16">
+                    <label id = "goal_id_wednesday_16" hidden></label>
+                </td>
+                <td id="thursday_16">
+                    <label id = "goal_id_thursday_16" hidden></label>
+                </td>
+                <td id="friday_16">
+                    <label id = "goal_id_friday_16" hidden></label>
+                </td>
+                <td id="saturday_16">
+                    <label id = "goal_id_saturday_16" hidden></label>
+                </td>
+                <td id="sunday_16">
+                    <label id = "goal_id_sunday_16" hidden></label>
+                </td>
             </tr>
             
               <tr id="till17">
-                <td id="time">16:00-17:00</td>
-                <td id="monday_17"></td>
-                <td id="tuesday_17"></td>
-                <td id="wednesday_17"></td>
-                <td id="thursday_17"></td>
-                <td id="friday_17"></td>
-                <td id="saturday_17"></td>
-                <td id="sunday_17"></td>
+                <td id="time_17">16:00-17:00</td>
+                <td id="monday_17">
+                    <label id = "goal_id_monday_17" hidden></label>
+                </td>
+                <td id="tuesday_17">
+                    <label id = "goal_id_tuesday_17" hidden></label>
+                </td>
+                <td id="wednesday_17">
+                    <label id = "goal_id_wednesday_17" hidden></label>
+                </td>
+                <td id="thursday_17">
+                    <label id = "goal_id_thursday_17" hidden></label>
+                </td>
+                <td id="friday_17">
+                    <label id = "goal_id_friday_17" hidden></label>
+                </td>
+                <td id="saturday_17">
+                    <label id = "goal_id_saturday_17" hidden></label>
+                </td>
+                <td id="sunday_17">
+                    <label id = "goal_id_sunday_17" hidden></label>
+                </td>
             </tr>
             
               <tr id="after">
-              	<td id="time"></td>
-                <td id="monday_after"></td>
-                <td id="tuesday_after"></td>
-                <td id="wednesday_after"></td>
-                <td id="thursday_after"></td>
-                <td id="friday_after"></td>
-                <td id="saturday_after"></td>
-                <td id="sunday_after"></td>
+              	<td id="time_after"></td>
+                <td id="monday_after">
+                    <label id = "goal_id_monday_after_17" hidden></label>
+                </td>
+                <td id="tuesday_after">
+                    <label id = "goal_id_tuesday_after_17" hidden></label>
+                </td>
+                <td id="wednesday_after">
+                    <label id = "goal_id_wednesday_after_17" hidden></label>
+                </td>
+                <td id="thursday_after">
+                    <label id = "goal_id_thursday_after_17" hidden></label>
+                </td>
+                <td id="friday_after">
+                    <label id = "goal_id_friday_after_17" hidden></label>
+                </td>
+                <td id="saturday_after">
+                    <label id = "goal_id_saturday_after_17" hidden></label>
+                </td>
+                <td id="sunday_after">
+                    <label id = "goal_id_sunday_after_17" hidden></label>
+                </td>
             </tr>
             
             </tbody>
