@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import planner.model.goal.scope.GoalScopeNames;
 import planner.model.timeframe.Planner;
 
 @Entity

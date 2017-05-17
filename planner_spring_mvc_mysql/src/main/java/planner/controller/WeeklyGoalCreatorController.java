@@ -18,9 +18,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import planner.model.goal.Goal;
+import planner.model.goal.GoalScopeNames;
 import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
-import planner.model.goal.scope.GoalScopeNames;
 import planner.service.ParentGoalService;
 
 @Controller

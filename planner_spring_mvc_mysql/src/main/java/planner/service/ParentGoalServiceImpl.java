@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import planner.dao.GenericDao;
+import planner.dao.GoalGenericDao;
 import planner.model.goal.Goal;
 import planner.model.goal.ParentGoal;
 
@@ -19,7 +20,7 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 
 	@Autowired
 	@Qualifier("ParentGoalDao")
-	private GenericDao<ParentGoal> dao; 
+	private GoalGenericDao<ParentGoal> dao; 
 	
 	@Override
 	public ParentGoal findById(Long id) {

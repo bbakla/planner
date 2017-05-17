@@ -10,10 +10,6 @@ public interface GenericDao <T> {
 	T findById(Long id);
 	List<T> findAll();
 	List<T> findByTimeLabel(int time);
-	List<ParentGoal> findYearlyGoals(int year);
-	List<Goal> findMonthlyGoals(int year, int month);
-	List<Goal> findWeeklyGoals(int year, int weekNumber);
-	List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber);
 	List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber);
 	
 	void save(T entity);

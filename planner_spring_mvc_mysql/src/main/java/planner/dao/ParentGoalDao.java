@@ -1,28 +1,23 @@
 package planner.dao;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import planner.model.goal.Goal;
-import planner.model.goal.GoalDetails;
 import planner.model.goal.ParentGoal;
-import planner.model.goal.scope.GoalScopeNames;
+import planner.model.goal.GoalScopeNames;
 
 @Repository("ParentGoalDao")
 @Transactional
-public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements GenericDao<ParentGoal> {
+public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements GoalGenericDao<ParentGoal> {
+	
+	private static final Logger logger = Logger.getLogger(ParentGoalDao.class);
 
 	@Override
 	public ParentGoal findById(Long id) {
@@ -40,6 +35,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Gen
 		
 		ParentGoal parentGoal = goal.getParentGoal();
 		if(parentGoal != null && parentGoal.getId() != null){
+			logger.info(goal.getTitle() + " is being updated ");
 			this.updateEntity(goal);
 		} else {
 			super.persistEntity(goal); 

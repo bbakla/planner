@@ -16,8 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import planner.model.goal.scope.GoalScopeNames;
-
 @Entity
 @Table(name="goal")
 @Inheritance(strategy=InheritanceType.JOINED)

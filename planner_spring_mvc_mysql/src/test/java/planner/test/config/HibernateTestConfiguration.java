@@ -30,7 +30,7 @@ public class HibernateTestConfiguration {
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan(new String[] { "planner.model.goal" });
+		sessionFactory.setPackagesToScan(new String[] { "planner.model.goal", "planner.model.timeframe" });
 		sessionFactory.setHibernateProperties(hibernateProperties());
 		return sessionFactory;
 	}
