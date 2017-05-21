@@ -9,17 +9,20 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import planner.model.goal.Goal;
 import planner.service.ParentGoalService;
 
 @Controller
-public class WeekPlanner {
+public class WeekPlannerController {
 	
 	@Autowired
 	private ParentGoalService service;
@@ -42,8 +45,14 @@ public class WeekPlanner {
 		return "weekplanner";
 	}
 	
-	@RequestMapping(value="/weekplan", method= RequestMethod.POST)
-	public String saveWeekPlan(Model model){
+	@RequestMapping(value="/plan/week", method= RequestMethod.POST, headers= "application/json",
+			produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+//	public String saveWeekPlan(@RequestParam(value="array[]" ) String[] array){
+	public String saveWeekPlan(@RequestBody String[] plans){
+		
+		System.out.println(plans);
+		
+		
 		
 		String viewName = "redirect:/planner/plan/week";
 		

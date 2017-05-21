@@ -42,20 +42,6 @@ public class DayPlan {
 	@Column(name="daily_goal_id")
 	private Map<WeekPlannerTimeSlot, Long> goals = new HashMap<>();
 	
-	public DayPlan()
-		{
-//			goals.put(WeekPlannerTimeSlot.TILL_9, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_10, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_11, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_12, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_13, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_14 ,0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_15, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_16, 0L);
-//			goals.put(WeekPlannerTimeSlot.TILL_17, 0L);
-//			goals.put(WeekPlannerTimeSlot.AFTER_17, 0L);
-	}
-	
 
 	public Long getId() {
 		return id;
@@ -70,7 +56,6 @@ public class DayPlan {
 	public void setDay(String day) {
 		this.day = day;
 	}
-	
 	
 	public Map<WeekPlannerTimeSlot, Long> getGoals() {
 		return goals;
