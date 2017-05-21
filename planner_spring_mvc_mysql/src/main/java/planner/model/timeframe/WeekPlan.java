@@ -3,28 +3,29 @@ package planner.model.timeframe;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyEnumerated;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "weekPlan")
+@Table(name = "week_plan")
 public class WeekPlan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "plan_id")
+	@Column(name = "week_plan_id")
 	protected Long id;
 
 	@Column
@@ -33,18 +34,12 @@ public class WeekPlan {
 	@Column
 	private int weekNumber;
 
-	@OneToMany(cascade=CascadeType.ALL)	
-	@JoinColumn(name="weekPlan_id")
-	private Map<String, DayPlan> weekPlan = new HashMap<>();
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name = "WEEK_DAY_PLAN", joinColumns = { @JoinColumn(name = "week_plan_id") }, 
+	inverseJoinColumns = { @JoinColumn(name = "day_plan_id") })
+	private Set<DayPlan> weekPlan = new HashSet<>();
 
 	public WeekPlan() {
-		weekPlan.put("Monday", null);
-		weekPlan.put("Tuesday", null);
-		weekPlan.put("Wednesday", null);
-		weekPlan.put("Thursday", null);
-		weekPlan.put("Friday", null);
-		weekPlan.put("Saturday", null);
-		weekPlan.put("Sunday", null);
 
 		LocalDate currentDate = LocalDate.now();
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
@@ -61,15 +56,23 @@ public class WeekPlan {
 		this.weekNumber = weekNumber;
 	}
 
-	public Map<String, DayPlan> getWeekPlan() {
-		return weekPlan;
+	public int getYearNumber() {
+		return yearNumber;
+	}
+
+	public int getWeekNumber() {
+		return weekNumber;
 	}
 
 	public Long getId(){
 		return id;
 	}
+
+	public void addDailyPlan(DayPlan dayPlan) {
+		weekPlan.add(dayPlan);
+	}
 	
-	public void addDailyPlan(String day, DayPlan dayPlan) {
-		weekPlan.put(day, dayPlan);
+	public void addDailyPlans(Set<DayPlan> dayPlans){
+		this.weekPlan.addAll(dayPlans);
 	}
 }
