@@ -16,7 +16,7 @@ import planner.model.timeframe.WeekPlan;
 
 @Repository("WeekPlanDao")
 @Transactional
-public class WeekPlanDao extends AbstractDao<Long, WeekPlan>  implements GenericDao<WeekPlan> {
+public class WeekPlanDao extends AbstractDao<Long, WeekPlan>  implements GenericPlanDao<WeekPlan> {
 
 	@Override
 	public WeekPlan findById(Long id) {
@@ -29,74 +29,14 @@ public class WeekPlanDao extends AbstractDao<Long, WeekPlan>  implements Generic
 		return (List<WeekPlan>) criteria.list();
 	}
 
-	/**
-	 * TODO: This implementation should create a criteria with week and year.
-	 * Therefore, current implementation is wrong.
-	 * 
-	 */
 	@Override
-	public List<WeekPlan> findByTimeLabel(int time) {
+	public WeekPlan findByTimeLabel(int year, int weekNumber) {
 		Criteria criteria = createEntityCriteria()
-				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", time))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-	
-	
-	List<WeekPlan> goals = criteria.list();
-	
-	return goals;
-	}
-
-
-	/**
-	 * TODO: Not correct
-	 */
-
-	@Override
-	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
-		Criteria criteria = createEntityCriteria()
-				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", year))
-				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
+				.add(Restrictions.eq("yearNumber", year))
+				.add(Restrictions.eq("weekNumber", weekNumber))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
-		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
-		
-		List<Goal> monthlyGoals = new ArrayList<Goal>();
-		List<Goal> weeklyGoals = new ArrayList<Goal>();
-		List<Goal> dailyGoals = new ArrayList<Goal>();
-		
-		for (ParentGoal parentGoal : goals) {
-			List<Goal> childs = parentGoal.getChildGoals();
-			for (Goal goal : childs) {
-				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY){
-					monthlyGoals.add(goal);
-				}
-			}
-		}
-		
-		for (Goal monthlyGoal : monthlyGoals) {
-			ParentGoal goal = (ParentGoal) monthlyGoal;
-			List<Goal> childs = goal.getChildGoals();
-			for (Goal weekly : childs) {
-				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeLabel() == weekNumber){
-					weeklyGoals.add(weekly);
-			}
-		}
-		}	
-		
-		for(Goal weeklyGoal : weeklyGoals){
-			ParentGoal weekly = (ParentGoal) weeklyGoal;
-			List<Goal> childs = weekly.getChildGoals();
-			
-			for(Goal daily : childs){
-				if(daily.getDetails().getScope() == GoalScopeNames.DAILY){
-					dailyGoals.add(daily);
-				}
-			}
-			
-		}
-		return dailyGoals;
+		return (WeekPlan) criteria.uniqueResult();
 	}
 
 	@Override
@@ -114,7 +54,9 @@ public class WeekPlanDao extends AbstractDao<Long, WeekPlan>  implements Generic
 	public void update(WeekPlan entity) {
 
 		super.updateEntity(entity);
-	} 
+	}
+
+	
 
 	
 }

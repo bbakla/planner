@@ -66,7 +66,7 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	
 	@Override
 	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
-		return dao.findDailyGoalsOfTheWeek(year, weekNumber);
+		return dao.findByTimeLabel(year, weekNumber);
 	}
 
 	@Override

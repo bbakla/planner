@@ -10,7 +10,7 @@ public interface GenericDao <T> {
 	T findById(Long id);
 	List<T> findAll();
 	List<T> findByTimeLabel(int time);
-	List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber);
+	List<Goal> findByTimeLabel(int year, int weekNumber);
 	
 	void save(T entity);
 	void delete(T entity);

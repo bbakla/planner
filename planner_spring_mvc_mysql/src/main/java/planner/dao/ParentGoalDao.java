@@ -200,7 +200,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 }
 
 	@Override
-	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
+	public List<Goal> findByTimeLabel(int year, int weekNumber) {
 		Criteria criteria = createEntityCriteria()
 				.createAlias("details", "d")
 				.add(Restrictions.eq("d.timeLabel", year))

@@ -24,15 +24,12 @@ public enum WeekPlannerTimeSlot {
 		return timeSlot;
 	}
 	
-	/*
-	goals.put("till_10", "");
-	goals.put("till_11", "");
-	goals.put("till_12", "");
-	goals.put("till_13", "");
-	goals.put("till_14", "");
-	goals.put("till_15", "");
-	goals.put("till_16", "");
-	goals.put("till_17", "");
-	goals.put("after_17", "");
-	*/
+	public static WeekPlannerTimeSlot findByKey(String abbr){
+	    for(WeekPlannerTimeSlot v : values()){
+	        if( v.timeSlot.equals(abbr)){
+	            return v;
+	        }
+	    }
+	    return null;
+	}
 }

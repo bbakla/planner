@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
@@ -38,11 +39,19 @@ public class DayPlan {
 
 	@ElementCollection(targetClass= Long.class)
 	@CollectionTable(name="day_plan_goals", joinColumns=@JoinColumn(name="day_plan_id"))
-	@MapKeyEnumerated(EnumType.ORDINAL)
+	@MapKeyEnumerated(EnumType.STRING)
 	@Column(name="daily_goal_id")
 	private Map<WeekPlannerTimeSlot, Long> goals = new HashMap<>();
 	
+	public DayPlan(){
+		
+	}
 
+	public DayPlan(String day, Map<WeekPlannerTimeSlot, Long> goals){
+		this.day = day;
+		this.goals = goals;
+	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -18,9 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "week_plan")
+@Table(name = "week_plan", uniqueConstraints = @UniqueConstraint(columnNames = {"yearNumber", "weekNumber"}))
 public class WeekPlan {
 
 	@Id
