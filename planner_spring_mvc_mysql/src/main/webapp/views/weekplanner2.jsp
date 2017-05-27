@@ -31,50 +31,46 @@
 	href="${pageContext.request.contextPath}/css/table.css">
 
 <script type="text/javascript">
-	$(document).ready(function(){
+	//$(document).ready(function(){
 		
-		$('#weekTable').submit(function(event){
+		//$('#weekTable').submit(function(event){
+			function madeAjaxCall(){
 			
-			var week = {};
-			var monday = {};
-			var tuesday = {};
 			
-			monday["till_9"] = $('#goal_id_monday_9').text();
-			monday["till_10"] = $('#goal_id_monday_10').text();
-			monday["till_11"] = $('#goal_id_monday_11').text();
-			monday["till_12"] = $('#goal_id_monday_12').text();
-			monday["till_13"] = $('#goal_id_monday_13').text();
-			monday["till_14"] = $('#goal_id_monday_14').text();
-			monday["till_15"] = $('#goal_id_monday_15').text();
-			monday["till_16"] = $('#goal_id_monday_16').text();
-			monday["till_17"] = $('#goal_id_monday_17').text();
-			monday["after_17"] = $('#goal_id_monday_after_17').text();
+// 			var week[] = {};
+		//	var monday = [];
 			
-			tuesday["till_9"] = $('#goal_id_tuesday_9').text();
-			tuesday["till_10"] = $('#goal_id_tuesday_10').text();
-			tuesday["till_11"] = $('#goal_id_tuesday_11').text();
-			tuesday["till_12"] = $('#goal_id_tuesday_12').text();
-			tuesday["till_13"] = $('#goal_id_tuesday_13').text();
-			tuesday["till_14"] = $('#goal_id_tuesday_14').text();
-			tuesday["till_15"] = $('#goal_id_tuesday_15').text();
-			tuesday["till_16"] = $('#goal_id_tuesday_16').text();
-			tuesday["till_17"] = $('#goal_id_tuesday_17').text();
-			tuesday["after_17"] = $('#goal_id_tuesday_after_17').text();
+// 			monday["till_9"] = $('#monday_9').val();
+// 			monday["till_10"] = $('#monday_10').val();
+// 			monday["till_11"] = $('#monday_11').val();
+// 			monday["till_12"] = $('#monday_12').val();
+// 			monday["till_13"] = $('#monday_13').val();
+// 			monday["till_14"] = $('#monday_14').val();
+// 			monday["till_15"] = $('#monday_15').val();
+// 			monday["till_16"] = $('#monday_16').val();
+// 			monday["till_17"] = $('#monday_17').val();
+// 			monday["after_17"] = $('#monday_after').val();
 
-			week["monday"] = monday;
-			week["tuesday"] = tuesday;
-
+// 			monday["tilC11"] = $('#monday_11').val();
+			
+		//	monday[0] = $('#goal_id_monday_9').val();
+	//		monday[1] = $('#goal_id_monday_10').val();
+			
 			
 			$.ajax({
 // 				url: $("/planner/plan/week").attr("action"),
-				url: "http://localhost:8087/planner_spring_mvc_mysql/planner/plan/week",
-				headers: {
-    					"Accept": "application/json",
-    					"Content-Type": "application/json"
-						},
-				data: JSON.stringify({dto : week}),
+url: "http://localhost:8087/planner_spring_mvc_mysql/planner/plan/week",
+				//contentType : "application/json",
+				//data: JSON.stringify(monday),
+				data : 'nine=' +  $('#goal_id_monday_9').text(),
 				type: "POST",
-				dataType: 'json',
+				//dataType: 'json',
+				
+// 				beforeSend: function(xhr) {
+// 					xhr.setRequestHeader("Accept", "application/json");
+// 	        		xhr.setRequestHeader("Content-Type", "application/json");
+// 	        		$(".error").remove();
+// 				},
 				
 				success: function(plan) {
 	        		var respContent = "";
@@ -87,8 +83,8 @@
 	        	},
 			});
 	//	    event.preventDefault();
-		});
-	});
+		}
+	//});
 </script>
 
 
@@ -175,7 +171,7 @@
 						</thead>
 						<tbody>
 							<tr id="till9">
-								<td id="time_till_9" draggable="false">08:00-09:00</td>
+								<td id="time_till_9">08:00-09:00</td>
 								<td id="monday_9"><label id="goal_id_monday_9" hidden></label>
 								</td>
 								<td id="tuesday_9"><label id="goal_id_tuesday_9" hidden></label>
@@ -196,7 +192,7 @@
 							</tr>
 
 							<tr id="till10">
-								<td id="time_till_10" draggable="false">09:00-10:00</td>
+								<td id="time_till_10">09:00-10:00</td>
 								<td id="monday_10"><label id="goal_id_monday_10" hidden></label>
 								</td>
 								<td id="tuesday_10"><label id="goal_id_tuesday_10" hidden></label>
@@ -213,7 +209,7 @@
 							</tr>
 
 							<tr id="till11">
-								<td id="time_till_11" draggable="false">10:00-11:00</td>
+								<td id="time_till_11">10:00-11:00</td>
 								<td id="monday_11"><label id="goal_id_monday_11" hidden></label>
 								</td>
 								<td id="tuesday_11"><label id="goal_id_tuesday_11" hidden></label>
@@ -231,7 +227,7 @@
 							</tr>
 
 							<tr id="till12">
-								<td id="time_till12" draggable="false">11:00-12:00</td>
+								<td id="time_till12">11:00-12:00</td>
 								<td id="monday_12"><label id="goal_id_monday_12" hidden></label>
 								</td>
 								<td id="tuesday_12"><label id="goal_id_tuesday_12" hidden></label>
@@ -249,7 +245,7 @@
 							</tr>
 
 							<tr id="till13">
-								<td id="time_till13" draggable="false">12:00-13:00</td>
+								<td id="time_till13">12:00-13:00</td>
 								<td id="monday_13"><label id="goal_id_monday_13" hidden></label>
 								</td>
 								<td id="tuesday_13"><label id="goal_id_tuesday_13" hidden></label>
@@ -267,7 +263,7 @@
 							</tr>
 
 							<tr id="till14">
-								<td id="time_till14" draggable="false">13:00-14:00</td>
+								<td id="time_till14">13:00-14:00</td>
 								<td id="monday_14"><label id="goal_id_monday_14" hidden></label>
 								</td>
 								<td id="tuesday_14"><label id="goal_id_tuesday_14" hidden></label>
@@ -285,7 +281,7 @@
 							</tr>
 
 							<tr id="till15">
-								<td id="time_15" draggable="false">14:00-15:00</td>
+								<td id="time_15">14:00-15:00</td>
 								<td id="monday_15"><label id="goal_id_monday_15" hidden></label>
 								</td>
 								<td id="tuesday_15"><label id="goal_id_tuesday_15" hidden></label>
@@ -303,7 +299,7 @@
 							</tr>
 
 							<tr id="till16">
-								<td id="time_16" draggable="false">15:00-16:00</td>
+								<td id="time_16">15:00-16:00</td>
 								<td id="monday_16"><label id="goal_id_monday_16" hidden></label>
 								</td>
 								<td id="tuesday_16"><label id="goal_id_tuesday_16" hidden></label>
@@ -321,7 +317,7 @@
 							</tr>
 
 							<tr id="till17">
-								<td id="time_17" draggable="false">16:00-17:00</td>
+								<td id="time_17">16:00-17:00</td>
 								<td id="monday_17"><label id="goal_id_monday_17" hidden></label>
 								</td>
 								<td id="tuesday_17"><label id="goal_id_tuesday_17" hidden></label>
@@ -339,7 +335,7 @@
 							</tr>
 
 							<tr id="after">
-								<td id="time_after" draggable="false"></td>
+								<td id="time_after"></td>
 								<td id="monday_after"><label id="goal_id_monday_after_17"
 									hidden></label></td>
 								<td id="tuesday_after"><label id="goal_id_tuesday_after_17"
@@ -360,8 +356,8 @@
 					</table>
 				</div>
 			</div>
-			<button  type="submit" 
-				class="btn btn-primary btn-lg btn-block">Save that daily plan</button>
+			<input type="button" value="Save that daily plan" onclick="madeAjaxCall();"
+				class="btn btn-primary btn-lg btn-block"></input>
 		</form>
 	</div>
 
