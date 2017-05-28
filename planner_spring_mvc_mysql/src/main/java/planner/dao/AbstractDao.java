@@ -3,6 +3,9 @@ package planner.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -36,10 +39,16 @@ public class AbstractDao  <PK extends Serializable, T> {
 	public void mergeEntity(T entity){
 		getSession().merge(entity);
 		
+		
 	}
 	
 	public void updateEntity(T entity){
+//		Session session = getSession();
+//		org.hibernate.Transaction transaction = session.getTransaction();
+//		transaction.begin();
+//				
 		getSession().saveOrUpdate(entity);
+//		transaction.commit();
 	}
 	
 	

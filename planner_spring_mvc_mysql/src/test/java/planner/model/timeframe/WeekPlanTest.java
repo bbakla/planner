@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
 import planner.dao.GenericPlanDao;
+import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
 import planner.model.goal.GoalScopeNames;
 import planner.model.goal.ParentGoal;

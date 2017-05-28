@@ -1,4 +1,4 @@
-package planner.model.timeframe;
+package planner.model.enums;
 
 public enum WeekPlannerTimeSlot {
 

@@ -16,12 +16,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
 import planner.model.goal.GoalScopeNames;
 import planner.model.goal.ParentGoal;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
-import planner.model.timeframe.WeekPlannerTimeSlot;
 import planner.test.config.HibernateTestConfiguration;
 
 @ContextConfiguration(classes = { HibernateTestConfiguration.class })

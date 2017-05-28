@@ -56,6 +56,14 @@ public class WeekPlan {
 		this.yearNumber = yearNumber;
 		this.weekNumber = weekNumber;
 	}
+	
+	public Long getId(){
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public int getYearNumber() {
 		return yearNumber;
@@ -65,10 +73,6 @@ public class WeekPlan {
 		return weekNumber;
 	}
 
-	public Long getId(){
-		return id;
-	}
-
 	public void addDailyPlan(DayPlan dayPlan) {
 		weekPlan.add(dayPlan);
 	}
@@ -76,4 +80,14 @@ public class WeekPlan {
 	public void addDailyPlans(Set<DayPlan> dayPlans){
 		this.weekPlan.addAll(dayPlans);
 	}
+
+	public Set<DayPlan> getWeekPlan() {
+		return weekPlan;
+	}
+
+	public void setWeekPlan(Set<DayPlan> weekPlan) {
+		this.weekPlan = weekPlan;
+	}
+	
+	
 }

@@ -19,9 +19,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
-import planner.model.timeframe.WeekPlannerTimeSlot;
 
 @Service
 @Transactional

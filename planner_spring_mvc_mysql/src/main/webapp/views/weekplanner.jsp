@@ -31,64 +31,133 @@
 	href="${pageContext.request.contextPath}/css/table.css">
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		
-		$('#weekTable').submit(function(event){
-			
-			var week = {};
-			var monday = {};
-			var tuesday = {};
-			
-			monday["till_9"] = $('#goal_id_monday_9').text();
-			monday["till_10"] = $('#goal_id_monday_10').text();
-			monday["till_11"] = $('#goal_id_monday_11').text();
-			monday["till_12"] = $('#goal_id_monday_12').text();
-			monday["till_13"] = $('#goal_id_monday_13').text();
-			monday["till_14"] = $('#goal_id_monday_14').text();
-			monday["till_15"] = $('#goal_id_monday_15').text();
-			monday["till_16"] = $('#goal_id_monday_16').text();
-			monday["till_17"] = $('#goal_id_monday_17').text();
-			monday["after_17"] = $('#goal_id_monday_after_17').text();
-			
-			tuesday["till_9"] = $('#goal_id_tuesday_9').text();
-			tuesday["till_10"] = $('#goal_id_tuesday_10').text();
-			tuesday["till_11"] = $('#goal_id_tuesday_11').text();
-			tuesday["till_12"] = $('#goal_id_tuesday_12').text();
-			tuesday["till_13"] = $('#goal_id_tuesday_13').text();
-			tuesday["till_14"] = $('#goal_id_tuesday_14').text();
-			tuesday["till_15"] = $('#goal_id_tuesday_15').text();
-			tuesday["till_16"] = $('#goal_id_tuesday_16').text();
-			tuesday["till_17"] = $('#goal_id_tuesday_17').text();
-			tuesday["after_17"] = $('#goal_id_tuesday_after_17').text();
+	$(document)
+			.ready(function() {
 
-			week["monday"] = monday;
-			week["tuesday"] = tuesday;
+				$('#weekTable').submit(
+						function(event) {
+							var week = {};
+							var monday = {};
+							var tuesday = {};
+							var wednesday = {};
+							var thursday = {};
+							var friday = {};
+							var saturday = {};
+							var sunday = {};
 
-			
-			$.ajax({
-// 				url: $("/planner/plan/week").attr("action"),
-				url: "http://localhost:8087/planner_spring_mvc_mysql/planner/plan/week",
-				headers: {
-    					"Accept": "application/json",
-    					"Content-Type": "application/json"
-						},
-				data: JSON.stringify({dto : week}),
-				type: "POST",
-				dataType: 'json',
-				
-				success: function(plan) {
-	        		var respContent = "";
-	        		
-			  		respContent += "<span class='success'>Smartphone was created: [";
-			  		respContent += plan;
-			  		respContent +=  "]</span>";
-	        		
-	        		$("#message_area").html(respContent);   		
-	        	},
-			});
-	//	    event.preventDefault();
-		});
-	});
+							monday["till_9"] = $('#goal_id_monday_9').text();
+							monday["till_10"] = $('#goal_id_monday_10').text();
+							monday["till_11"] = $('#goal_id_monday_11').text();
+							monday["till_12"] = $('#goal_id_monday_12').text();
+							monday["till_13"] = $('#goal_id_monday_13').text();
+							monday["till_14"] = $('#goal_id_monday_14').text();
+							monday["till_15"] = $('#goal_id_monday_15').text();
+							monday["till_16"] = $('#goal_id_monday_16').text();
+							monday["till_17"] = $('#goal_id_monday_17').text();
+							monday["after_17"] = $('#goal_id_monday_after_17').text();
+
+							tuesday["till_9"] = $('#goal_id_tuesday_9').text();
+							tuesday["till_10"] = $('#goal_id_tuesday_10').text();
+							tuesday["till_11"] = $('#goal_id_tuesday_11').text();
+							tuesday["till_12"] = $('#goal_id_tuesday_12').text();
+							tuesday["till_13"] = $('#goal_id_tuesday_13').text();
+							tuesday["till_14"] = $('#goal_id_tuesday_14').text();
+							tuesday["till_15"] = $('#goal_id_tuesday_15').text();	
+							tuesday["till_16"] = $('#goal_id_tuesday_16').text();
+							tuesday["till_17"] = $('#goal_id_tuesday_17').text();
+							tuesday["after_17"] = $('#goal_id_tuesday_after_17').text();
+							
+							wednesday["till_9"] = $('#goal_id_tuesday_9').text();
+							wednesday["till_10"] = $('#goal_id_tuesday_10').text();
+							wednesday["till_11"] = $('#goal_id_tuesday_11').text();
+							wednesday["till_12"] = $('#goal_id_tuesday_12').text();
+							wednesday["till_13"] = $('#goal_id_tuesday_13').text();
+							wednesday["till_14"] = $('#goal_id_tuesday_14').text();
+							wednesday["till_15"] = $('#goal_id_tuesday_15').text();	
+							wednesday["till_16"] = $('#goal_id_tuesday_16').text();
+							wednesday["till_17"] = $('#goal_id_tuesday_17').text();
+							wednesday["after_17"] = $('#goal_id_tuesday_after_17').text();
+							
+							thursday["till_9"] = $('#goal_id_tuesday_9').text();
+							thursday["till_10"] = $('#goal_id_tuesday_10').text();
+							thursday["till_11"] = $('#goal_id_tuesday_11').text();
+							thursday["till_12"] = $('#goal_id_tuesday_12').text();
+							thursday["till_13"] = $('#goal_id_tuesday_13').text();
+							thursday["till_14"] = $('#goal_id_tuesday_14').text();
+							thursday["till_15"] = $('#goal_id_tuesday_15').text();	
+							thursday["till_16"] = $('#goal_id_tuesday_16').text();
+							thursday["till_17"] = $('#goal_id_tuesday_17').text();
+							thursday["after_17"] = $('#goal_id_tuesday_after_17').text();
+							
+							friday["till_9"] = $('#goal_id_tuesday_9').text();
+							friday["till_10"] = $('#goal_id_tuesday_10').text();
+							friday["till_11"] = $('#goal_id_tuesday_11').text();
+							friday["till_12"] = $('#goal_id_tuesday_12').text();
+							friday["till_13"] = $('#goal_id_tuesday_13').text();
+							friday["till_14"] = $('#goal_id_tuesday_14').text();
+							friday["till_15"] = $('#goal_id_tuesday_15').text();	
+							friday["till_16"] = $('#goal_id_tuesday_16').text();
+							friday["till_17"] = $('#goal_id_tuesday_17').text();
+							friday["after_17"] = $('#goal_id_tuesday_after_17').text();
+							
+							saturday["till_9"] = $('#goal_id_tuesday_9').text();
+							saturday["till_10"] = $('#goal_id_tuesday_10').text();
+							saturday["till_11"] = $('#goal_id_tuesday_11').text();
+							saturday["till_12"] = $('#goal_id_tuesday_12').text();
+							saturday["till_13"] = $('#goal_id_tuesday_13').text();
+							saturday["till_14"] = $('#goal_id_tuesday_14').text();
+							saturday["till_15"] = $('#goal_id_tuesday_15').text();	
+							saturday["till_16"] = $('#goal_id_tuesday_16').text();
+							saturday["till_17"] = $('#goal_id_tuesday_17').text();
+							saturday["after_17"] = $('#goal_id_tuesday_after_17').text();
+							
+							sunday["till_9"] = $('#goal_id_tuesday_9').text();
+							sunday["till_10"] = $('#goal_id_tuesday_10').text();
+							sunday["till_11"] = $('#goal_id_tuesday_11').text();
+							sunday["till_12"] = $('#goal_id_tuesday_12').text();
+							sunday["till_13"] = $('#goal_id_tuesday_13').text();
+							sunday["till_14"] = $('#goal_id_tuesday_14').text();
+							sunday["till_15"] = $('#goal_id_tuesday_15').text();	
+							sunday["till_16"] = $('#goal_id_tuesday_16').text();
+							sunday["till_17"] = $('#goal_id_tuesday_17').text();
+							sunday["after_17"] = $('#goal_id_tuesday_after_17').text();
+
+							week["monday"] = monday;
+							week["tuesday"] = tuesday;
+							week["wednesday"] = wednesday;
+							week["thursday"] = thursday;
+							week["friday"] = friday;
+							week["saturday"] = saturday;
+							week["sunday"] = sunday;
+							
+
+							$.ajax({
+				// 				url: $("/planner/plan/week").attr("action"),
+								url : "http://localhost:8087/planner_spring_mvc_mysql/planner/plan/week",
+								headers : {
+										"Accept" : "application/json",
+										"Content-Type" : "application/json"
+				        					},
+								data : JSON.stringify({
+								dto : week
+									}),
+								type : "POST",
+								dataType : 'json',
+
+// 								success : function(plan) {
+// 											var respContent = "";
+// 											respContent += "<span class='success'>Smartphone was created: [";
+// 											respContent += plan;
+// 											respContent += "]</span>";
+
+// 															$("#message_area")
+// 																	.html(
+// 																			respContent);
+// 														},
+													});
+						event.preventDefault();
+										});
+					});
 </script>
 
 
@@ -155,10 +224,51 @@
 
 	<div class="container">
 		<form id="weekTable" method="post">
-<%-- 			action="${pageContext.request.contextPath}/planner/plan/week" --%>
-<!-- 			commandName="weekPlanner"> -->
+			<%-- 			action="${pageContext.request.contextPath}/planner/plan/week" --%>
+			<!-- 			commandName="weekPlanner"> -->
+
+			<h3>
+				<c:out value="${weekPlan.yearNumber}" />
+				<c:out value="${weekPlan.weekNumber}" />
+			</h3>
 			<div id="dropdiv" class="row">
 				<div class="col-md-12">
+
+					<table border="1" cellspacing="1"
+						class="table table-striped table-bordered  table-hovered">
+						<thead>
+							<tr id="days">
+								<td draggable="false"></td>
+								<td draggable="false"><span>8-9</span></td>
+								<td draggable="false"><span>9-10</span></td>
+								<td draggable="false"><span>10-11</span></td>
+								<td draggable="false"><span>11-12</span></td>
+								<td draggable="false"><span>12-13</span></td>
+								<td draggable="false"><span>13-14</span></td>
+								<td draggable="false"><span>14-15</span></td>
+								<td draggable="false"><span>15-16</span></td>
+								<td draggable="false"><span>16-17</span></td>
+								<td draggable="false"><span>17-</span></td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${weekPlan.weekPlan}" var="plan">
+								<tr>
+									<td>${plan.day}</td>
+									<c:forEach items="${plan.goals}" var="dailyGoal">
+										<td id="v">
+											<%-- 												<label>${dailyGoal.key}</label> --%> <label>${dailyGoal.value}</label>
+										</td>
+									</c:forEach>
+
+								</tr>
+								<!-- 								<li class="list-group-item"><a -->
+								<%-- 									href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a> --%>
+								<%-- 									<label id="goal_id" hidden>${goal.id}</label></li> --%>
+
+							</c:forEach>
+						</tbody>
+					</table>
 					<table border="1" cellspacing="1"
 						class="table table-striped table-bordered  table-hovered">
 						<thead>
@@ -173,6 +283,7 @@
 								<td draggable="false"><span>Sunday</span></td>
 							</tr>
 						</thead>
+
 						<tbody>
 							<tr id="till9">
 								<td id="time_till_9" draggable="false">08:00-09:00</td>
@@ -201,7 +312,8 @@
 								</td>
 								<td id="tuesday_10"><label id="goal_id_tuesday_10" hidden></label>
 								</td>
-								<td id="wednesday_10"><label id="goal_id_wednesday_10"	hidden></label></td>
+								<td id="wednesday_10"><label id="goal_id_wednesday_10"
+									hidden></label></td>
 								<td id="thursday_10"><label id="goal_id_thursday_10" hidden></label>
 								</td>
 								<td id="friday_10"><label id="goal_id_friday_10" hidden></label>
@@ -360,8 +472,8 @@
 					</table>
 				</div>
 			</div>
-			<button  type="submit" 
-				class="btn btn-primary btn-lg btn-block">Save that daily plan</button>
+			<button type="submit" class="btn btn-primary btn-lg btn-block">Save
+				that daily plan</button>
 		</form>
 	</div>
 

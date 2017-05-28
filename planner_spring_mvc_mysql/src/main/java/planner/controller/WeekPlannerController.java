@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -38,6 +39,7 @@ import com.google.gson.JsonParser;
 
 import planner.dao.GenericDao;
 import planner.dao.GenericPlanDao;
+import planner.dao.ParentGoalDao;
 import planner.dto.goal.DayPlanDto;
 import planner.model.goal.Goal;
 import planner.model.timeframe.WeekPlan;
@@ -61,6 +63,8 @@ public class WeekPlannerController {
 	@Autowired
 	MessageSource messageSource;
 	
+	private static final Logger logger = Logger.getLogger(WeekPlannerController.class);
+	
 	@RequestMapping(value="/plan/week", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String planTheWeek(Model model){
 		LocalDate currentDate = LocalDate.now();
@@ -71,13 +75,15 @@ public class WeekPlannerController {
 
 
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
+		WeekPlan weekPlan = weekPlanService.getWeekPlan(year, weekNumber);
+		
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
-		model.addAttribute("weekPlanner", "sefsdf");
+		model.addAttribute("weekPlan", weekPlan);
 		return "weekplanner";
 	}
 	
 	@RequestMapping(value="/plan/week", method= RequestMethod.POST)
-	public String saveWeekPlan( HttpServletRequest request) throws IOException{
+	public String saveWeekPlan(Model model, HttpServletRequest request) throws IOException{
 		
 		String body = CharStreams.toString(request.getReader());
 		System.out.println("body is " + body);
@@ -91,6 +97,7 @@ public class WeekPlannerController {
 		if(body != null && body.length() != 0){
 			WeekPlan plan = weekPlanConverter.convertjsonToWeekPlan(body, year, weekNumber);
 			weekPlanService.saveWeekPlan(plan);
+			model.addAttribute("weekPlan", plan);
 		}
 		
 		String viewName = "redirect:/planner/plan/week";
