@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
 import planner.model.goal.GoalScopeNames;
@@ -53,8 +54,7 @@ public class WeekPlanDaoTest {
 
 		dailyGoalDao.save(parentGoal);
 
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId());
-		mondayPlan.setDay("Monday");
+		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(), Day.MONDAY);
 
 		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
 				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
@@ -79,8 +79,8 @@ public class WeekPlanDaoTest {
 		assertNotNull(weekPlan.getId());
 	}
 
-	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3) {
-		DayPlan dayPlan = new DayPlan();
+	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3, Day day) {
+		DayPlan dayPlan = new DayPlan(day);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_9, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_10, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_11, goalId1);

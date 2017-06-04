@@ -3,9 +3,13 @@ package planner.model.timeframe;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,7 +42,7 @@ public class WeekPlan {
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name = "WEEK_DAY_PLAN", joinColumns = { @JoinColumn(name = "week_plan_id") }, 
 	inverseJoinColumns = { @JoinColumn(name = "day_plan_id") })
-	private Set<DayPlan> weekPlan = new HashSet<>();
+	private List<DayPlan> weekPlan = new ArrayList<DayPlan>();
 
 	public WeekPlan() {
 
@@ -81,11 +85,11 @@ public class WeekPlan {
 		this.weekPlan.addAll(dayPlans);
 	}
 
-	public Set<DayPlan> getWeekPlan() {
+	public List<DayPlan> getWeekPlan() {
 		return weekPlan;
 	}
 
-	public void setWeekPlan(Set<DayPlan> weekPlan) {
+	public void setWeekPlan(List<DayPlan> weekPlan) {
 		this.weekPlan = weekPlan;
 	}
 	

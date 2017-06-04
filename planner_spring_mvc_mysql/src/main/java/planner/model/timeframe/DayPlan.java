@@ -1,5 +1,6 @@
 package planner.model.timeframe;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.fail;
 
 import java.time.DayOfWeek;
@@ -13,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,20 +25,22 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
+import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 
 @Entity
 @Table(name="day_plan")
 @Transactional
-public class DayPlan {
+public class DayPlan implements Comparable<DayPlan>  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "day_plan_id", nullable = false)
 	private Long id;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="day", nullable = false)
-	private String day;
+	private Day day;
 	
 	
 	@ElementCollection(targetClass= Long.class, fetch=FetchType.EAGER)
@@ -57,10 +61,14 @@ public class DayPlan {
 		goals.put(WeekPlannerTimeSlot.TILL_17, null);
 		goals.put(WeekPlannerTimeSlot.AFTER_17, null);
 	}
-
-	public DayPlan(String day, Map<WeekPlannerTimeSlot, Long> goals){
+	
+	public DayPlan(Day day){
 		this();
 		this.day = day;
+	}
+
+	public DayPlan(Day day, Map<WeekPlannerTimeSlot, Long> goals){
+		this(day);
 		this.goals = goals;
 	}
 	
@@ -73,12 +81,12 @@ public class DayPlan {
 	}
 
 
-	public String getDay() {
+	public Day getDay() {
 		return day;
 	}
 
 
-	public void setDay(String day) {
+	public void setDay(Day day) {
 		this.day = day;
 	}
 	
@@ -93,4 +101,39 @@ public class DayPlan {
 	public void removeGoal(WeekPlannerTimeSlot slot){
 		this.goals.remove(slot);
 	}
+	
+	@Override
+	public int compareTo(DayPlan dayPlan){
+		return Integer.valueOf(this.day.getDayNumber()).compareTo(dayPlan.getDay().getDayNumber());
+	}
+	
+	@Override
+	public boolean equals(final Object object){
+		if(!(object instanceof DayPlan)){
+			return false;
+		}
+		
+		DayPlan dayPlan = (DayPlan) object;
+		
+		if(!dayPlan.getDay().name().equals(this.getDay().name())){
+			return false;
+		}
+		
+		if(!dayPlan.getGoals().equals(this.getGoals())){
+			return false;
+		}
+		
+		if(dayPlan.getId() != this.getId()){
+			return false;
+		}
+		
+		return true;
+	}
+	
+	  @Override
+      public int hashCode() {
+        long hashno = 7;
+        hashno = 13 * hashno + (this.getId() == null ? 0 : this.getId());
+        return (int)hashno;
+      }	
 }

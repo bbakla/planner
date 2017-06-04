@@ -1,5 +1,7 @@
 package planner.controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +44,9 @@ import planner.dao.GenericDao;
 import planner.dao.GenericPlanDao;
 import planner.dao.ParentGoalDao;
 import planner.dto.goal.DayPlanDto;
+import planner.model.enums.Day;
 import planner.model.goal.Goal;
+import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
 import planner.service.ParentGoalService;
 import planner.service.WeekPlanConverterService;
@@ -77,6 +82,12 @@ public class WeekPlannerController {
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		WeekPlan weekPlan = weekPlanService.getWeekPlan(year, weekNumber);
 		
+		if(weekPlan == null){
+			weekPlan = new WeekPlan(weekNumber, year);
+		}
+		weekPlanService.completeMissingDays(weekPlan);
+		
+		
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
 		model.addAttribute("weekPlan", weekPlan);
 		return "weekplanner";
@@ -97,6 +108,7 @@ public class WeekPlannerController {
 		if(body != null && body.length() != 0){
 			WeekPlan plan = weekPlanConverter.convertjsonToWeekPlan(body, year, weekNumber);
 			weekPlanService.saveWeekPlan(plan);
+			weekPlanService.completeMissingDays(plan);
 			model.addAttribute("weekPlan", plan);
 		}
 		

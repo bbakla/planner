@@ -19,6 +19,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
@@ -33,28 +34,29 @@ public class WeekPlanConverterService {
 	public WeekPlan convertjsonToWeekPlan(String weekPlan, int year, int weekNumber) {
 
 		initService(weekPlan);
-		Map<String, Map<String, String>> weekPlanAsMap = new HashMap<>();
+		Map<Day, Map<String, String>> weekPlanAsMap = new HashMap<>();
 
 		List<String> keysOfWeek = getKeysOfWeek();
 
 		for (String key : keysOfWeek) {
-			String day = weekAsJsonObject.getAsJsonObject(key).toString();
-			weekPlanAsMap.put(key, getDayToMap(day));
+			String day = weekAsJsonObject.getAsJsonObject(key.toString()).toString();
+			weekPlanAsMap.put(Day.findByKey(key), getDayToMap(day));
 		}
 
 		return convertMapToWeekPlan(weekPlanAsMap, year, weekNumber);
 	}
 
-	private WeekPlan convertMapToWeekPlan(Map<String, Map<String, String>> weekPlanAsMap, int year, int weekNumber) {
+	private WeekPlan convertMapToWeekPlan(Map<Day, Map<String, String>> weekPlanAsMap, int year, int weekNumber) {
 
 		WeekPlan weekPlan = new WeekPlan(weekNumber, year);
 
-		for (Map.Entry<String, Map<String, String>> entry : weekPlanAsMap.entrySet()) {
-			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+		for (Map.Entry<Day, Map<String, String>> entry : weekPlanAsMap.entrySet()) {
 
 			DayPlan dayPlan = new DayPlan(entry.getKey(), getGoals(entry.getValue()));
 			weekPlan.addDailyPlan(dayPlan);
 		}
+		
+		
 
 		return weekPlan;
 	}

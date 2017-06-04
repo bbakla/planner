@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
 import planner.dao.GenericPlanDao;
+import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
 import planner.model.goal.GoalScopeNames;
@@ -36,10 +37,11 @@ public class WeekPlanTest {
 	@Qualifier("ParentGoalDao")
 	private GenericDao<ParentGoal> dailyGoalDao;
 
+	
 	@Test
 	public void shouldBeAbleToSaveWeekPlanForOneDay() {
 
-		ParentGoal parentGoal = getWeeklyParentGoal();
+		ParentGoal parentGoal = getWeeklyParentGoal(21, 2017);
 
 		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
 				"childGoal1");
@@ -50,8 +52,7 @@ public class WeekPlanTest {
 
 		dailyGoalDao.save(parentGoal);
 
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId());
-		mondayPlan.setDay("Monday");
+		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(), Day.MONDAY);
 
 		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
 				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
@@ -71,7 +72,7 @@ public class WeekPlanTest {
 
 	@Test
 	public void shouldBeAbleToSaveAWeekPlan() {
-		ParentGoal parentGoal = getWeeklyParentGoal();
+		ParentGoal parentGoal = getWeeklyParentGoal(40, 2018);
 
 		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
 				"childGoal1");
@@ -90,8 +91,7 @@ public class WeekPlanTest {
 
 		weekPlan.addDailyPlans(get7DaysPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId()));
 		
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId());
-		mondayPlan.setDay("Monday");
+		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(),Day.MONDAY);
 		weekPlan2.addDailyPlan(mondayPlan);
 
 		assertNull(weekPlan.getId());
@@ -105,23 +105,17 @@ public class WeekPlanTest {
 
 	private Set<DayPlan> get7DaysPlan(Long goalId1, Long goalId2, Long goalId3) {
 
-		DayPlan monday = getDayPlan(goalId1, goalId2, goalId3);
-		monday.setDay("Monday");
+		DayPlan monday = getDayPlan(goalId1, goalId2, goalId3, Day.MONDAY);
 
-		DayPlan tuesday = getDayPlan(goalId2, goalId1, goalId3);
-		tuesday.setDay("Tuesday");
+		DayPlan tuesday = getDayPlan(goalId2, goalId1, goalId3, Day.TUESDAY);
 
-		DayPlan wednesday = getDayPlan(goalId3, goalId2, goalId1);
-		wednesday.setDay("Wednesday");
+		DayPlan wednesday = getDayPlan(goalId3, goalId2, goalId1, Day.WEDNESDAY);
 
-		DayPlan thursday = getDayPlan(goalId3, goalId1, goalId2);
-		thursday.setDay("Thursday");
+		DayPlan thursday = getDayPlan(goalId3, goalId1, goalId2, Day.THURSDAY);
 
-		DayPlan friday = getDayPlan(goalId1, goalId2, goalId3);
-		friday.setDay("Friday");
+		DayPlan friday = getDayPlan(goalId1, goalId2, goalId3, Day.FRIDAY);
 
-		DayPlan saturday = getDayPlan(goalId1, goalId2, goalId3);
-		saturday.setDay("Monday");
+		DayPlan saturday = getDayPlan(goalId1, goalId2, goalId3, Day.SATURDAY);
 
 		Set<DayPlan> weeklyPlan = new HashSet<>();
 		weeklyPlan.add(monday);
@@ -134,8 +128,8 @@ public class WeekPlanTest {
 		return weeklyPlan;
 	}
 
-	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3) {
-		DayPlan dayPlan = new DayPlan();
+	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3, Day day) {
+		DayPlan dayPlan = new DayPlan(day);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_9, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_10, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_11, goalId1);
@@ -149,10 +143,10 @@ public class WeekPlanTest {
 		return dayPlan;
 	}
 
-	private ParentGoal getWeeklyParentGoal() {
+	private ParentGoal getWeeklyParentGoal(int weekNumber, int yearNumber) {
 
-		ParentGoal yearlyGoal = new ParentGoal(null, 2017, GoalScopeNames.YEARLY, "yearlyGoal");
-		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, null, 5, GoalScopeNames.MONTHLY, "monthlyGoal");
+		ParentGoal yearlyGoal = new ParentGoal(null, yearNumber, GoalScopeNames.YEARLY, "yearlyGoal");
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, null, weekNumber, GoalScopeNames.MONTHLY, "monthlyGoal");
 
 		GoalDescription description = new GoalDescription("Wir müssen unserem Leben beherrschen");
 		List<String> comments = new ArrayList<>();
@@ -160,7 +154,7 @@ public class WeekPlanTest {
 		comments.add("erben");
 		comments.add("wir müssen die Regeln einhalten");
 		description.setComments(comments);
-		ParentGoal weeklyGoal = new ParentGoal(monthlyGoal, description, 20, GoalScopeNames.WEEKLY, "parentGoal1");
+		ParentGoal weeklyGoal = new ParentGoal(monthlyGoal, description, weekNumber, GoalScopeNames.WEEKLY, "parentGoal1");
 
 		return weeklyGoal;
 	}
