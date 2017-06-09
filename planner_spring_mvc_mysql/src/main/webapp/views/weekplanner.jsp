@@ -22,12 +22,15 @@
 <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js"
 	type="text/javascript"></script>
 
+
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/table.js"></script>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 <link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+	<link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/table.css">
 
 <script type="text/javascript">

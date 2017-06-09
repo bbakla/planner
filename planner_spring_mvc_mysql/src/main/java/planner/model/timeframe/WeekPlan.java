@@ -24,6 +24,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "week_plan", uniqueConstraints = @UniqueConstraint(columnNames = {"yearNumber", "weekNumber"}))
 public class WeekPlan {
@@ -40,6 +43,7 @@ public class WeekPlan {
 	private int weekNumber;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	@JoinTable(name = "WEEK_DAY_PLAN", joinColumns = { @JoinColumn(name = "week_plan_id") }, 
 	inverseJoinColumns = { @JoinColumn(name = "day_plan_id") })
 	private List<DayPlan> weekPlan = new ArrayList<DayPlan>();

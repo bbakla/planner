@@ -81,6 +81,7 @@ public class WeekPlannerController {
 
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		WeekPlan weekPlan = weekPlanService.getWeekPlan(year, weekNumber);
+		weekPlan.getWeekPlan().forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
 		
 		if(weekPlan == null){
 			weekPlan = new WeekPlan(weekNumber, year);

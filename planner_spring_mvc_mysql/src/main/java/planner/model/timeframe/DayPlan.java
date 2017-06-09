@@ -133,7 +133,7 @@ public class DayPlan implements Comparable<DayPlan>  {
 	  @Override
       public int hashCode() {
         long hashno = 7;
-        hashno = 13 * hashno + (this.getId() == null ? 0 : this.getId());
+        hashno = 13 * hashno + (this.getId() == null ? 0 : this.getId()) + this.goals.size();
         return (int)hashno;
       }	
 }

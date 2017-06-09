@@ -71,7 +71,10 @@ public class WeekPlanDatabaseService {
 
 		for (int i = dailyPlansOfWeek.size(); i < numberOfDaysInAWeek; i++) {
 			DayPlan dayPlan = new DayPlan(days[i]);
-			dailyPlansOfWeek.add(dayPlan);
+			if(!dailyPlansOfWeek.contains(dayPlan)){
+				dailyPlansOfWeek.add(dayPlan);
+			}
+			
 		}
 		
 		Collections.sort(dailyPlansOfWeek);
@@ -89,6 +92,7 @@ public class WeekPlanDatabaseService {
 	public void completeMissingDays(WeekPlan weekPlan) {
 		List<DayPlan> dayPlansOfWeek = weekPlan.getWeekPlan();
 
+		dayPlansOfWeek.forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
 		completeEmptyDays(dayPlansOfWeek);
 		
 		dayPlansOfWeek.forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
