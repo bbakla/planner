@@ -1,11 +1,15 @@
 package planner.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.validation.ConstraintViolationException;
 
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Service;
 import planner.controller.WeekPlannerController;
 import planner.dao.GenericPlanDao;
 import planner.model.enums.Day;
+import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
 
@@ -28,6 +33,9 @@ public class WeekPlanDatabaseService {
 	@Autowired
 	@Qualifier("WeekPlanDao")
 	private GenericPlanDao<WeekPlan> weekPlanDao;
+	
+	@Autowired
+	private PlanSorter sorter;
 
 	public void saveWeekPlan(WeekPlan weekPlan) {
 		try {
@@ -58,44 +66,23 @@ public class WeekPlanDatabaseService {
 
 	}
 
-	public WeekPlan getWeekPlan(int yearNumber, int weekNumber) {
-		return weekPlanDao.findByTimeLabel(yearNumber, weekNumber);
-	}
-
-	private void completeEmptyDays(List<DayPlan> dailyPlansOfWeek) {
-
-		Collections.sort(dailyPlansOfWeek);
-
-		int numberOfDaysInAWeek = 7;
-		Day[] days = Day.values();
-
-		for (int i = dailyPlansOfWeek.size(); i < numberOfDaysInAWeek; i++) {
-			DayPlan dayPlan = new DayPlan(days[i]);
-			if(!dailyPlansOfWeek.contains(dayPlan)){
-				dailyPlansOfWeek.add(dayPlan);
-			}
-			
-		}
+	public WeekPlan getSortedWeekPlan(int yearNumber, int weekNumber) {
+		WeekPlan weekPlan =  weekPlanDao.findByTimeLabel(yearNumber, weekNumber);
 		
-		Collections.sort(dailyPlansOfWeek);
-
-	}
-
-	private boolean isWeekPlanIdIfAlreadyInDatabase(WeekPlan weekPlan) {
-		WeekPlan weekPlanInDatabase = weekPlanDao.findByTimeLabel(weekPlan.getYearNumber(), weekPlan.getWeekNumber());
-		if (weekPlanInDatabase != null) {
-			weekPlan.setId(weekPlanInDatabase.getId());
+		if(weekPlan == null){
+			weekPlan = new WeekPlan(weekNumber, yearNumber);
 		}
-		return weekPlanDao.findByTimeLabel(weekPlan.getYearNumber(), weekPlan.getWeekNumber()) == null ? false : true;
-	}
-
-	public void completeMissingDays(WeekPlan weekPlan) {
-		List<DayPlan> dayPlansOfWeek = weekPlan.getWeekPlan();
-
-		dayPlansOfWeek.forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
-		completeEmptyDays(dayPlansOfWeek);
+		sorter.completeMissingDays(weekPlan);
 		
-		dayPlansOfWeek.forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
-
+		return weekPlan;
 	}
+	
+	public WeekPlan getSortedWeekPlan(WeekPlan weekPlan) {
+		
+		sorter.completeMissingDays(weekPlan);
+		
+		return weekPlan;
+	}
+
+	
 }

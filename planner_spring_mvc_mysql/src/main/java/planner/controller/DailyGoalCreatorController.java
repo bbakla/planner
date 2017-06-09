@@ -40,7 +40,6 @@ public class DailyGoalCreatorController {
 
 		LocalDate currentDate = LocalDate.now();
 
-		int month = currentDate.getMonth().getValue();
 		int year = currentDate.getYear();
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);

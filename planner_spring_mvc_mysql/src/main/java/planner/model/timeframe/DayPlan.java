@@ -94,6 +94,10 @@ public class DayPlan implements Comparable<DayPlan>  {
 		return goals;
 	}
 	
+	public void setGoals(Map<WeekPlannerTimeSlot, Long> goals) {
+		this.goals = goals;
+	}
+	
 	public void addGoal(WeekPlannerTimeSlot slot, Long goalId) {
 		this.goals.put(slot, goalId);
 	}
@@ -101,7 +105,7 @@ public class DayPlan implements Comparable<DayPlan>  {
 	public void removeGoal(WeekPlannerTimeSlot slot){
 		this.goals.remove(slot);
 	}
-	
+
 	@Override
 	public int compareTo(DayPlan dayPlan){
 		return Integer.valueOf(this.day.getDayNumber()).compareTo(dayPlan.getDay().getDayNumber());

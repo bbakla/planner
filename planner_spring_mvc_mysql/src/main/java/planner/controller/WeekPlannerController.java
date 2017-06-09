@@ -80,13 +80,7 @@ public class WeekPlannerController {
 
 
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
-		WeekPlan weekPlan = weekPlanService.getWeekPlan(year, weekNumber);
-		weekPlan.getWeekPlan().forEach(j -> System.out.println(j.getDay().name() + " " + j.getGoals().size()));
-		
-		if(weekPlan == null){
-			weekPlan = new WeekPlan(weekNumber, year);
-		}
-		weekPlanService.completeMissingDays(weekPlan);
+		WeekPlan weekPlan = weekPlanService.getSortedWeekPlan(year, weekNumber);
 		
 		
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
@@ -109,8 +103,9 @@ public class WeekPlannerController {
 		if(body != null && body.length() != 0){
 			WeekPlan plan = weekPlanConverter.convertjsonToWeekPlan(body, year, weekNumber);
 			weekPlanService.saveWeekPlan(plan);
-			weekPlanService.completeMissingDays(plan);
-			model.addAttribute("weekPlan", plan);
+			
+			WeekPlan weekPlan = weekPlanService.getSortedWeekPlan(plan);
+			model.addAttribute("weekPlan", weekPlan);
 		}
 		
 		String viewName = "redirect:/planner/plan/week";
