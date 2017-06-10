@@ -56,8 +56,11 @@ public class WeekPlanDatabaseService {
 					newPlan.setId(inDatabase.getId());
 				}
 
+				System.out.println(" fdgdfg " + weekPlan.getWeekPlan().get(0).getGoals().get(WeekPlannerTimeSlot.TILL_11));
 				weekPlanDao.update(weekPlan);
+				
 			} else {
+				System.out.println(" fdgdfg " + weekPlan.getWeekPlan().get(0).getGoals().get(WeekPlannerTimeSlot.TILL_11));
 				weekPlanDao.save(weekPlan);
 			}
 		} catch (ConstraintViolationException e) {

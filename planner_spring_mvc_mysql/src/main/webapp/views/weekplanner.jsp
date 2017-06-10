@@ -48,6 +48,7 @@
 							var saturday = {};
 							var sunday = {};
 
+							var till_9 = 
 							monday["till_9"] = $('#goal_id_monday_9').text();
 							monday["till_10"] = $('#goal_id_monday_10').text();
 							monday["till_11"] = $('#goal_id_monday_11').text();
@@ -256,11 +257,13 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${weekPlan.weekPlan}" var="plan">
-								<tr>
+								<tr id="${plan.day}">
 									<td>${plan.day}</td>
 									<c:forEach items="${plan.goals}" var="dailyGoal">
-										<td id="v">
-											<%-- 												<label>${dailyGoal.key}</label> --%> <label>${dailyGoal.value}</label>
+									 
+										<td id="${dailyGoal.key}">
+											<label hidden>${dailyGoal.value.id}</label>
+											<label>${dailyGoal.value.name}</label>
 										</td>
 									</c:forEach>
 
@@ -290,13 +293,15 @@
 						<tbody>
 							<tr id="till9">
 								<td id="time_till_9" draggable="false">08:00-09:00</td>
-								<td id="monday_9"><label id="goal_id_monday_9" hidden></label>
+								<td id="monday_9">
+									<label id="goal_id_monday_9" hidden></label>
 								</td>
 								<td id="tuesday_9"><label id="goal_id_tuesday_9" hidden></label>
 								</td>
 
-								<td id="wednesday_9"><label id="goal_name_wednesday_9"
-									hidden></label> <label id="goal_id_wednesday_9" hidden></label>
+								<td id="wednesday_9">
+									<label id="goal_name_wednesday_9" hidden></label>
+									<label id="goal_id_wednesday_9" hidden></label>
 								</td>
 
 								<td id="thursday_9"><label id="goal_id_thursday_9" hidden></label>

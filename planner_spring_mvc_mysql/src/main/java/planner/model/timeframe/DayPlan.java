@@ -27,6 +27,7 @@ import javax.transaction.Transactional;
 
 import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
+import planner.model.goal.GoalIdentity;
 
 @Entity
 @Table(name="day_plan")
@@ -43,11 +44,11 @@ public class DayPlan implements Comparable<DayPlan>  {
 	private Day day;
 	
 	
-	@ElementCollection(targetClass= Long.class, fetch=FetchType.EAGER)
+	@ElementCollection(targetClass= GoalIdentity.class, fetch=FetchType.EAGER)
 	@CollectionTable(name="day_plan_goals", joinColumns=@JoinColumn(name="day_plan_id"))
 	@MapKeyEnumerated(EnumType.STRING)
 	@Column(name="daily_goal_id")
-	private Map<WeekPlannerTimeSlot, Long> goals = new HashMap<>();
+	private Map<WeekPlannerTimeSlot, GoalIdentity> goals = new HashMap<>();
 	
 	public DayPlan(){
 		goals.put(WeekPlannerTimeSlot.TILL_9, null);
@@ -67,7 +68,7 @@ public class DayPlan implements Comparable<DayPlan>  {
 		this.day = day;
 	}
 
-	public DayPlan(Day day, Map<WeekPlannerTimeSlot, Long> goals){
+	public DayPlan(Day day, Map<WeekPlannerTimeSlot, GoalIdentity> goals){
 		this(day);
 		this.goals = goals;
 	}
@@ -90,15 +91,15 @@ public class DayPlan implements Comparable<DayPlan>  {
 		this.day = day;
 	}
 	
-	public Map<WeekPlannerTimeSlot, Long> getGoals() {
+	public Map<WeekPlannerTimeSlot, GoalIdentity> getGoals() {
 		return goals;
 	}
 	
-	public void setGoals(Map<WeekPlannerTimeSlot, Long> goals) {
+	public void setGoals(Map<WeekPlannerTimeSlot, GoalIdentity> goals) {
 		this.goals = goals;
 	}
 	
-	public void addGoal(WeekPlannerTimeSlot slot, Long goalId) {
+	public void addGoal(WeekPlannerTimeSlot slot, GoalIdentity goalId) {
 		this.goals.put(slot, goalId);
 	}
 	

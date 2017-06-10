@@ -21,6 +21,7 @@ import planner.dao.GenericPlanDao;
 import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
+import planner.model.goal.GoalIdentity;
 import planner.model.goal.GoalScopeNames;
 import planner.model.goal.ParentGoal;
 import planner.test.config.HibernateTestConfiguration;
@@ -52,7 +53,9 @@ public class WeekPlanTest {
 
 		dailyGoalDao.save(parentGoal);
 
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(), Day.MONDAY);
+		DayPlan mondayPlan = getDayPlan(new GoalIdentity(dailyGoal1.getTitle(), dailyGoal1.getId()), 
+				new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()), 
+			    new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId()), Day.MONDAY);
 
 		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
 				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
@@ -89,9 +92,13 @@ public class WeekPlanTest {
 		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeLabel()  + 1,
 				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
 
-		weekPlan.addDailyPlans(get7DaysPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId()));
+		weekPlan.addDailyPlans(get7DaysPlan(new GoalIdentity(dailyGoal1.getTitle(), dailyGoal1.getId()), 
+				                            new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()),
+				                            new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId())));
 		
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(),Day.MONDAY);
+		DayPlan mondayPlan = getDayPlan(new GoalIdentity(dailyGoal1.getTitle(), dailyGoal1.getId()), 
+				new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()), 
+			    new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId()), Day.MONDAY);
 		weekPlan2.addDailyPlan(mondayPlan);
 
 		assertNull(weekPlan.getId());
@@ -103,7 +110,7 @@ public class WeekPlanTest {
 		assertEquals(weekPlan.getId(), savedWeeklyPlan.getId());
 	}
 
-	private Set<DayPlan> get7DaysPlan(Long goalId1, Long goalId2, Long goalId3) {
+	private Set<DayPlan> get7DaysPlan(GoalIdentity goalId1, GoalIdentity goalId2, GoalIdentity goalId3) {
 
 		DayPlan monday = getDayPlan(goalId1, goalId2, goalId3, Day.MONDAY);
 
@@ -128,7 +135,7 @@ public class WeekPlanTest {
 		return weeklyPlan;
 	}
 
-	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3, Day day) {
+	private DayPlan getDayPlan(GoalIdentity goalId1, GoalIdentity goalId2, GoalIdentity goalId3, Day day) {
 		DayPlan dayPlan = new DayPlan(day);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_9, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_10, goalId1);

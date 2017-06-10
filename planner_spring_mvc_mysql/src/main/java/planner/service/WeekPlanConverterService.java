@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.common.reflect.TypeToken;
@@ -21,6 +22,8 @@ import com.google.gson.JsonParser;
 
 import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
+import planner.model.goal.GoalIdentity;
+import planner.model.goal.ParentGoal;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
 
@@ -28,8 +31,13 @@ import planner.model.timeframe.WeekPlan;
 @Transactional
 public class WeekPlanConverterService {
 
+	@Autowired
+	private ParentGoalService dao;
+	
 	private JsonParser parser;
 	private JsonObject weekAsJsonObject;
+	
+	
 
 	public WeekPlan convertjsonToWeekPlan(String weekPlan, int year, int weekNumber) {
 
@@ -61,12 +69,19 @@ public class WeekPlanConverterService {
 		return weekPlan;
 	}
 
-	private Map<WeekPlannerTimeSlot, Long> getGoals(Map<String, String> dayGoals) {
-		Map<WeekPlannerTimeSlot, Long> goals = new HashMap<>();
+	private Map<WeekPlannerTimeSlot, GoalIdentity> getGoals(Map<String, String> dayGoals) {
+		Map<WeekPlannerTimeSlot, GoalIdentity> goals = new HashMap<>();
 		for (Map.Entry<String, String> entry : dayGoals.entrySet()) {
 			Long goalId = entry.getValue() == null || entry.getValue().length() == 0 ? null
 					: Long.parseLong(entry.getValue());
-			goals.put(WeekPlannerTimeSlot.findByKey(entry.getKey()), goalId);
+			
+			GoalIdentity goalIdentity = null;
+			
+			if(goalId != null){
+				ParentGoal goal = dao.findById(goalId);
+				goalIdentity = new GoalIdentity(goal.getTitle(), goalId);
+			} 
+			goals.put(WeekPlannerTimeSlot.findByKey(entry.getKey()), goalIdentity);
 		}
 
 		return goals;

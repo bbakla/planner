@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.goal.GoalDescription;
+import planner.model.goal.GoalIdentity;
 import planner.model.goal.GoalScopeNames;
 import planner.model.goal.ParentGoal;
 import planner.model.timeframe.DayPlan;
@@ -54,7 +55,9 @@ public class WeekPlanDaoTest {
 
 		dailyGoalDao.save(parentGoal);
 
-		DayPlan mondayPlan = getDayPlan(dailyGoal1.getId(), dailyGoal2.getId(), dailyGoal3.getId(), Day.MONDAY);
+		DayPlan mondayPlan = getDayPlan(new GoalIdentity(dailyGoal1.getTitle(), dailyGoal1.getId()), 
+										new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()), 
+									    new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId()), Day.MONDAY);
 
 		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
 				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
@@ -79,7 +82,7 @@ public class WeekPlanDaoTest {
 		assertNotNull(weekPlan.getId());
 	}
 
-	private DayPlan getDayPlan(Long goalId1, Long goalId2, Long goalId3, Day day) {
+	private DayPlan getDayPlan(GoalIdentity goalId1, GoalIdentity goalId2, GoalIdentity goalId3, Day day) {
 		DayPlan dayPlan = new DayPlan(day);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_9, goalId1);
 		dayPlan.addGoal(WeekPlannerTimeSlot.TILL_10, goalId1);

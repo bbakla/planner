@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
+import planner.model.goal.GoalIdentity;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
 
@@ -24,7 +25,6 @@ public class PlanSorter {
 			
 			System.out.println();
 			System.out.print(dayPlan.getDay() + " ");
-			dayPlan.getGoals().forEach((key, value) -> System.out.print(key + " " + value + "   "));
 		}
 		
 		completeEmptyDays(dayPlansOfWeek);
@@ -54,8 +54,8 @@ public class PlanSorter {
 
 	}
 
-	private Map<WeekPlannerTimeSlot, Long> completeEmptyTimeSlotsOfADayPlan(Map<WeekPlannerTimeSlot, Long> goalsByHourlyTimeSlot){
-		Map<WeekPlannerTimeSlot, Long> goalsByHourlyTimeSlotSorted = new TreeMap<>(goalsByHourlyTimeSlot);
+	private Map<WeekPlannerTimeSlot, GoalIdentity> completeEmptyTimeSlotsOfADayPlan(Map<WeekPlannerTimeSlot, GoalIdentity> goalsByHourlyTimeSlot){
+		Map<WeekPlannerTimeSlot, GoalIdentity> goalsByHourlyTimeSlotSorted = new TreeMap<>(goalsByHourlyTimeSlot);
 		for(WeekPlannerTimeSlot timeSlot : WeekPlannerTimeSlot.values())
 		{
 			if(!goalsByHourlyTimeSlot.containsKey(timeSlot)){
