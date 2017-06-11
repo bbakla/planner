@@ -6,10 +6,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class GoalIdentity {
 
-	@Column
+	@Column(name="goal_title")
 	private String name;
 	
-	@Column
+	@Column(name="daily_goal_id")
 	private Long id;
 	
 	public GoalIdentity(){
@@ -34,6 +34,4 @@ public class GoalIdentity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
 }

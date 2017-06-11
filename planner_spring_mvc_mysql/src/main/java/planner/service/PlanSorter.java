@@ -23,8 +23,6 @@ public class PlanSorter {
 
 			dayPlan.setGoals(completeEmptyTimeSlotsOfADayPlan(dayPlan.getGoals()));
 			
-			System.out.println();
-			System.out.print(dayPlan.getDay() + " ");
 		}
 		
 		completeEmptyDays(dayPlansOfWeek);

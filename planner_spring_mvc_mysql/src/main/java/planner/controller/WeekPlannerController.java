@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.io.CharStreams;
 import com.google.common.reflect.TypeToken;
@@ -70,7 +72,7 @@ public class WeekPlannerController {
 	
 	private static final Logger logger = Logger.getLogger(WeekPlannerController.class);
 	
-	@RequestMapping(value="/plan/week", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/plan/week", method= RequestMethod.GET)
 	public String planTheWeek(Model model){
 		LocalDate currentDate = LocalDate.now();
 
@@ -78,21 +80,20 @@ public class WeekPlannerController {
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);
 
-
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		WeekPlan weekPlan = weekPlanService.getSortedWeekPlan(year, weekNumber);
 		
-		
-		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
 		model.addAttribute("weekPlan", weekPlan);
+		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
+		
 		return "weekplanner";
 	}
 	
 	@RequestMapping(value="/plan/week", method= RequestMethod.POST)
-	public String saveWeekPlan(Model model, HttpServletRequest request) throws IOException{
+	public String saveWeekPlan(Model model, HttpServletRequest request, SessionStatus sessionStatus) throws IOException{
 		
 		String body = CharStreams.toString(request.getReader());
-		System.out.println("body is " + body);
+		logger.info("body is " + body);
 		
 		LocalDate currentDate = LocalDate.now();
 
@@ -100,21 +101,16 @@ public class WeekPlannerController {
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);
 		
-		if(body != null && body.length() != 0){
+//		if(body != null && body.length() != 0){
 			WeekPlan plan = weekPlanConverter.convertjsonToWeekPlan(body, year, weekNumber);
 			weekPlanService.saveWeekPlan(plan);
 			
-			WeekPlan weekPlan = weekPlanService.getSortedWeekPlan(plan);
-			model.addAttribute("weekPlan", weekPlan);
-		}
+//		}
 		
 		String viewName = "redirect:/planner/plan/week";
+		sessionStatus.setComplete();
 		
 		return viewName;
-	}
-	
-	public static Object fromJson(String jsonString, Type type) {
-	    return new Gson().fromJson(jsonString, type);
 	}
 
 }
