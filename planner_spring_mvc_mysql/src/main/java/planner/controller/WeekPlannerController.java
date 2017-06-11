@@ -90,7 +90,7 @@ public class WeekPlannerController {
 	}
 	
 	@RequestMapping(value="/plan/week", method= RequestMethod.POST)
-	public String saveWeekPlan(Model model, HttpServletRequest request, SessionStatus sessionStatus) throws IOException{
+	public String saveWeekPlan(HttpServletRequest request, SessionStatus sessionStatus) throws IOException{
 		
 		String body = CharStreams.toString(request.getReader());
 		logger.info("body is " + body);
