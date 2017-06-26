@@ -31,9 +31,16 @@
 				
 				var style = "width:" + progressPercentage +"%";
 				$('div#innerProgressBar').attr("style", style);
-				
 			});
-			</script>
+ </script>
+ 
+ <script type="text/javascript">
+ 	$(document)
+ 		.ready(function()
+ 				{
+ 					var timeFrame = $('timeframe').text();
+ 				});
+ </script>
 
 </head>
 <body>
@@ -56,8 +63,10 @@
 						</form:select>
 
 					<div class="form-group">
-						<label for="timeLabel" class="col-2 col-form-label">Time label:</label>
-						<form:input path="details.timeLabel" id="timeLabel" class="form-control" />
+						<label for="timeframeSelect" class="col-2 col-form-label">Time label:</label>
+						<form:select name="timeframeSelect" path="details.timeUnit" class="form-control">
+							<form:options items = "${months}"/>
+						</form:select>
 					</div>
 					<div class="form-group">
 						<label for="description" class="col-2 col-form-label">Description:</label>
@@ -80,10 +89,7 @@
 			<div class="col-md-12">
 				<h4 id="month"></h4>
 				<div class="table-responsive">
-
-
 					<table id="mytable" class="table table-bordred table-striped">
-
 						<thead>
 
 							<th><input type="checkbox" id="checkall" /></th>

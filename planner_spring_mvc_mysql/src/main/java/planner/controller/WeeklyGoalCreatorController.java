@@ -37,10 +37,10 @@ public class WeeklyGoalCreatorController {
 		
 		LocalDate currentDate = LocalDate.now(); 
 		
-		int month = currentDate.getMonth().getValue();
-		int year = currentDate.getYear();
+		String month = Integer.toString(currentDate.getMonth().getValue());
+		String year = Integer.toString(currentDate.getYear());
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
-		int weekNumber = currentDate.get(woy);
+		String weekNumber = Integer.toString(currentDate.get(woy));
 		
 		List<Goal> goalsOfCurrentMonth = service.findMonthlyGoals(year, month);
 		List<Goal> weeklyGoals = service.findWeeklyGoals(year, weekNumber);
@@ -68,7 +68,7 @@ public class WeeklyGoalCreatorController {
 			TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
 			int weekNumber = currentDate.get(woy);
 			
-			goal.setTimeLabel(weekNumber);
+			goal.setTimeUnit(Integer.valueOf(weekNumber).toString());
 			
 			ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
 			goal.setParentGoal(parentGoal);

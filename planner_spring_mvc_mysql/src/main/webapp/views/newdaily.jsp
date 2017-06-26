@@ -58,7 +58,7 @@
 					</div>
 					<div class="form-group">
 						<label for="timeLabel" class="col-2 col-form-label">Time label:</label>
-						<form:input path="details.timeLabel" id="timeLabel" class="form-control"/>
+						<form:input path="details.timeUnit" id="timeLabel" class="form-control"/>
 					</div>
 					<div class="form-group">
 						<label for="description" class="col-2 col-form-label">Description:</label>

@@ -37,10 +37,10 @@ public class WeekPlan {
 	protected Long id;
 
 	@Column
-	private int yearNumber;
+	private String yearNumber;
 
 	@Column
-	private int weekNumber;
+	private String weekNumber;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@Fetch(FetchMode.SELECT)
@@ -53,12 +53,12 @@ public class WeekPlan {
 		LocalDate currentDate = LocalDate.now();
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		
-		this.yearNumber = currentDate.getYear();
+		this.yearNumber = Integer.toString(currentDate.getYear());
 		
-		this.weekNumber = currentDate.get(woy);
+		this.weekNumber = Integer.toString(currentDate.get(woy));
 	}
 
-	public WeekPlan(int weekNumber, int yearNumber) {
+	public WeekPlan(String weekNumber, String yearNumber) {
 
 		this();
 		this.yearNumber = yearNumber;
@@ -73,11 +73,11 @@ public class WeekPlan {
 		this.id = id;
 	}
 
-	public int getYearNumber() {
+	public String getYearNumber() {
 		return yearNumber;
 	}
 
-	public int getWeekNumber() {
+	public String getWeekNumber() {
 		return weekNumber;
 	}
 

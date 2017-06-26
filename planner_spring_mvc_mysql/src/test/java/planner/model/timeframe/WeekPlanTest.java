@@ -42,13 +42,13 @@ public class WeekPlanTest {
 	@Test
 	public void shouldBeAbleToSaveWeekPlanForOneDay() {
 
-		ParentGoal parentGoal = getWeeklyParentGoal(21, 2017);
+		ParentGoal parentGoal = getWeeklyParentGoal("21", "2017");
 
-		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal1");
-		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal2");
-		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal3");
 
 		dailyGoalDao.save(parentGoal);
@@ -57,10 +57,10 @@ public class WeekPlanTest {
 				new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()), 
 			    new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId()), Day.MONDAY);
 
-		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
-		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeLabel(),
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel() + 1);
+		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeUnit(),
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit());
+		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeUnit(),
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit() + 1);
 
 		weekPlan.addDailyPlan(mondayPlan);
 
@@ -75,22 +75,22 @@ public class WeekPlanTest {
 
 	@Test
 	public void shouldBeAbleToSaveAWeekPlan() {
-		ParentGoal parentGoal = getWeeklyParentGoal(40, 2018);
+		ParentGoal parentGoal = getWeeklyParentGoal("40", "2018");
 
-		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal1");
-		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal2");
-		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal3");
 
 		dailyGoalDao.save(parentGoal);
 
 
-		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
-		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeLabel()  + 1,
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
+		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeUnit(),
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit());
+		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeUnit()  + 1,
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit());
 
 		weekPlan.addDailyPlans(get7DaysPlan(new GoalIdentity(dailyGoal1.getTitle(), dailyGoal1.getId()), 
 				                            new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()),
@@ -150,7 +150,7 @@ public class WeekPlanTest {
 		return dayPlan;
 	}
 
-	private ParentGoal getWeeklyParentGoal(int weekNumber, int yearNumber) {
+	private ParentGoal getWeeklyParentGoal(String weekNumber, String yearNumber) {
 
 		ParentGoal yearlyGoal = new ParentGoal(null, yearNumber, GoalScopeNames.YEARLY, "yearlyGoal");
 		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, null, weekNumber, GoalScopeNames.MONTHLY, "monthlyGoal");

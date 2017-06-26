@@ -37,7 +37,7 @@
 
 		<tr>
 			<td><label>time frame</label></td>
-			<td><form:input path="goal.details.timeLabel" id="timeLabel" /></td>
+			<td><form:input path="goal.details.timeUnit" id="timeLabel" /></td>
 		</tr>
 	</table>
 

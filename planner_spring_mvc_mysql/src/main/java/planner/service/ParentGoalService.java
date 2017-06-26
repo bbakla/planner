@@ -11,11 +11,11 @@ public interface ParentGoalService {
 	List<Goal> findChilds(Long id);
 	ParentGoal findParent(Long id);
 	List<ParentGoal> findAll();
-	List<ParentGoal> findYearlyGoals(int year);
-	List<Goal> findMonthlyGoals(int year, int month);
-	List<Goal> findWeeklyGoals(int year, int weekNumber);
-	List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber);
-	List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber);
+	List<ParentGoal> findYearlyGoals(String year);
+	List<Goal> findMonthlyGoals(String year, String month);
+	List<Goal> findWeeklyGoals(String year, String weekNumber);
+	List<Goal> findDailyGoals(String year, String weeekNumber, String dayNumber);
+	List<Goal> findDailyGoalsOfTheWeek(String year, String weekNumber);
 	
 	void saveGoal(ParentGoal goal);
 	void updateGoal(ParentGoal goal);

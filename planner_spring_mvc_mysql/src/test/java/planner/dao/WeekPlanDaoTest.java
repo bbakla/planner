@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,19 +39,19 @@ public class WeekPlanDaoTest {
 	@Qualifier("ParentGoalDao")
 	private GenericDao<ParentGoal> dailyGoalDao;
 	
-	private final int weekNumber = 20;
-	private final int month = 5;
-	private final int yearNumber = 2017;
+	private final String weekNumber = "20";
+	private final String month = Month.MAY.toString();
+	private final String yearNumber = "2017";
 
 	@Before
 	public void setUp() {
 		ParentGoal parentGoal = getWeeklyParentGoal();
 
-		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal1 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal1");
-		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal2 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal2");
-		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Calendar.MONDAY + 1, GoalScopeNames.DAILY,
+		ParentGoal dailyGoal3 = new ParentGoal(parentGoal, null, Day.TUESDAY.toString(), GoalScopeNames.DAILY,
 				"childGoal3");
 
 		dailyGoalDao.save(parentGoal);
@@ -59,10 +60,10 @@ public class WeekPlanDaoTest {
 										new GoalIdentity(dailyGoal2.getTitle(), dailyGoal2.getId()), 
 									    new GoalIdentity(dailyGoal3.getTitle(), dailyGoal3.getId()), Day.MONDAY);
 
-		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeLabel(),
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel());
-		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeLabel(),
-				parentGoal.getParentGoal().getParentGoal().getTimeLabel() + 1);
+		WeekPlan weekPlan = new WeekPlan(parentGoal.getTimeUnit(),
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit());
+		WeekPlan weekPlan2 = new WeekPlan(parentGoal.getTimeUnit(),
+				parentGoal.getParentGoal().getParentGoal().getTimeUnit() + 1);
 
 		weekPlan.addDailyPlan(mondayPlan);
 
@@ -75,7 +76,7 @@ public class WeekPlanDaoTest {
 	@Test
 	public void searchWeekPlanDueToYearAndWeekNumber(){
 		
-		WeekPlan weekPlan = weekPlanDao.findByTimeLabel(yearNumber, weekNumber);
+		WeekPlan weekPlan = weekPlanDao.findByTimeUnit(yearNumber, weekNumber);
 		
 		assertEquals(weekNumber, weekPlan.getWeekNumber());
 		assertEquals(yearNumber, weekPlan.getYearNumber());

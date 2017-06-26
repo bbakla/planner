@@ -30,7 +30,7 @@ public class WeekPlanDao extends AbstractDao<Long, WeekPlan>  implements Generic
 	}
 
 	@Override
-	public WeekPlan findByTimeLabel(int year, int weekNumber) {
+	public WeekPlan findByTimeUnit(String year, String weekNumber) {
 		Criteria criteria = createEntityCriteria()
 				.add(Restrictions.eq("yearNumber", year))
 				.add(Restrictions.eq("weekNumber", weekNumber))

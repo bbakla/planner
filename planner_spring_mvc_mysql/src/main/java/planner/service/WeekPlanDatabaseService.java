@@ -1,15 +1,8 @@
 package planner.service;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
-import java.awt.event.ItemEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import javax.validation.ConstraintViolationException;
 
@@ -18,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import planner.controller.WeekPlannerController;
 import planner.dao.GenericPlanDao;
-import planner.model.enums.Day;
 import planner.model.enums.WeekPlannerTimeSlot;
 import planner.model.timeframe.DayPlan;
 import planner.model.timeframe.WeekPlan;
@@ -39,7 +30,7 @@ public class WeekPlanDatabaseService {
 
 	public void saveWeekPlan(WeekPlan weekPlan) {
 		try {
-			WeekPlan weekPlanInDatabase = weekPlanDao.findByTimeLabel(weekPlan.getYearNumber(),
+			WeekPlan weekPlanInDatabase = weekPlanDao.findByTimeUnit(weekPlan.getYearNumber(),
 					weekPlan.getWeekNumber());
 			if (weekPlanInDatabase != null) {
 				weekPlan.setId(weekPlanInDatabase.getId());
@@ -69,8 +60,8 @@ public class WeekPlanDatabaseService {
 
 	}
 
-	public WeekPlan getSortedWeekPlan(int yearNumber, int weekNumber) {
-		WeekPlan weekPlan =  weekPlanDao.findByTimeLabel(yearNumber, weekNumber);
+	public WeekPlan getSortedWeekPlan(String yearNumber, String weekNumber) {
+		WeekPlan weekPlan =  weekPlanDao.findByTimeUnit(yearNumber, weekNumber);
 		
 		if(weekPlan == null){
 			weekPlan = new WeekPlan(weekNumber, yearNumber);

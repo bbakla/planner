@@ -44,8 +44,8 @@ public class DailyGoalCreatorController {
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);
 
-		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(year, weekNumber);
-		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
+		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(Integer.toString(year), Integer.toString(weekNumber));
+		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(Integer.toString(year), Integer.toString(weekNumber));
 		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
 

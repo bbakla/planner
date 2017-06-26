@@ -76,9 +76,9 @@ public class WeekPlannerController {
 	public String planTheWeek(Model model){
 		LocalDate currentDate = LocalDate.now();
 
-		int year = currentDate.getYear();
+		String year = Integer.toString(currentDate.getYear());
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
-		int weekNumber = currentDate.get(woy);
+		String weekNumber = Integer.toString(currentDate.get(woy));
 
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(year, weekNumber);
 		WeekPlan weekPlan = weekPlanService.getSortedWeekPlan(year, weekNumber);
@@ -97,9 +97,9 @@ public class WeekPlannerController {
 		
 		LocalDate currentDate = LocalDate.now();
 
-		int year = currentDate.getYear();
+		String year = Integer.toString(currentDate.getYear());
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
-		int weekNumber = currentDate.get(woy);
+		String weekNumber = Integer.toString(currentDate.get(woy));
 		
 //		if(body != null && body.length() != 0){
 			WeekPlan plan = weekPlanConverter.convertjsonToWeekPlan(body, year, weekNumber);

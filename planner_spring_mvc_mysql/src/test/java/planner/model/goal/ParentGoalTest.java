@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import planner.dao.GenericDao;
+import planner.model.enums.Day;
 import planner.test.config.HibernateTestConfiguration;
 
 @ContextConfiguration(classes = { HibernateTestConfiguration.class })
@@ -60,10 +61,10 @@ public class ParentGoalTest {
 		descriptionForChild2.setComments(commentsForChilds);
 		
 		
-		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "parentGoal1");
+		ParentGoal yearlyGoal = new ParentGoal(description, "2016", GoalScopeNames.YEARLY, "parentGoal1");
 		
-		Goal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
-		Goal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2,  Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
+		Goal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Month.APRIL.toString(), GoalScopeNames.MONTHLY, "childGoal1");
+		Goal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2,  Month.MAY.toString(), GoalScopeNames.MONTHLY, "childGoal2");
 	
 		
 		yearlyGoal.addChildGoal(monthlyGoal);
@@ -95,12 +96,12 @@ public class ParentGoalTest {
 		descriptionForChild2.setComments(commentsForChilds);
 		
 		
-		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "yearly_parentGoal1");
+		ParentGoal yearlyGoal = new ParentGoal(description, "2016", GoalScopeNames.YEARLY, "yearly_parentGoal1");
 		
-		ParentGoal monthlyGoal = new ParentGoal(descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "monthly_parentGoal1");
+		ParentGoal monthlyGoal = new ParentGoal(descriptionForChild, Month.APRIL.toString(), GoalScopeNames.MONTHLY, "monthly_parentGoal1");
 		monthlyGoal.setParentGoal(yearlyGoal);
 		
-		Goal dailyGoal = new ParentGoal(monthlyGoal, descriptionForChild2,  Calendar.MONDAY, GoalScopeNames.MONTHLY, "dailychildGoal1");
+		Goal dailyGoal = new ParentGoal(monthlyGoal, descriptionForChild2,  Day.MONDAY.toString(), GoalScopeNames.MONTHLY, "dailychildGoal1");
 		
 		
 		yearlyGoal.addChildGoal(monthlyGoal);

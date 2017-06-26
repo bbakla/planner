@@ -44,11 +44,11 @@ public abstract class Goal implements Serializable {
 		this.progress = new GoalProgress();
 	}
 
-	public Goal(GoalDescription description, int timeLabel, GoalScopeNames scope, String title) {
+	public Goal(GoalDescription description, String timeUnit, GoalScopeNames scope, String title) {
 		
 		this();
 		
-		this.details = new GoalDetails(description, timeLabel, scope);
+		this.details = new GoalDetails(description, timeUnit, scope);
 		this.title = title;
 	}
 
@@ -63,14 +63,6 @@ public abstract class Goal implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getTimeLabel() {
-		return details.getTimeLabel();
-	}
-
-	public void setTimeLabel(int timeLabel) {
-		details.setTimeLabel(timeLabel);
 	}
 
 	public void setDetails(GoalDetails details) {
@@ -103,5 +95,14 @@ public abstract class Goal implements Serializable {
 		this.progress = progress;
 	}
 
+	public String getTimeUnit() {
+		return details.getTimeUnit();
+	}
+	
+	public void setTimeUnit(String timeUnit){
+		details.setTimeUnit(timeUnit);
+	}
+
+	
 
 }

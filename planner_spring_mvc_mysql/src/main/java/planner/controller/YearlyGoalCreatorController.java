@@ -30,7 +30,8 @@ public class YearlyGoalCreatorController {
 	
 	@RequestMapping(value = {"/new/year"}, method = RequestMethod.GET)
 	public String createParentGoal(Model model){
-		List<ParentGoal> yearlyGoals = service.findYearlyGoals(Calendar.getInstance().get(Calendar.YEAR));
+		String currentYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+		List<ParentGoal> yearlyGoals = service.findYearlyGoals(currentYear);
 		
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
@@ -52,12 +53,12 @@ public class YearlyGoalCreatorController {
 		try{
 			goal.setStatus(GoalStatus.NOT_STARTED);
 			goal.setScope(GoalScopeNames.YEARLY);
-			goal.setTimeLabel(Calendar.getInstance().get(Calendar.YEAR));
+			
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			
+			goal.setTimeUnit(Integer.toString(year));
 			
 			service.saveGoal(goal);
-			System.out.println(goal.getParentGoal());
-			ParentGoal g = service.findById(goal.getId());
-			System.out.println(g.getParentGoal());
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/planner/new/year";
 			sessionStatus.setComplete();

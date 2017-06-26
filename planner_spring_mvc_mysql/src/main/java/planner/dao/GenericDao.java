@@ -9,8 +9,8 @@ public interface GenericDao <T> {
 
 	T findById(Long id);
 	List<T> findAll();
-	List<T> findByTimeLabel(int time);
-	List<Goal> findByTimeLabel(int year, int weekNumber);
+	List<T> findByTimeUnit(String time);
+	List<Goal> findByTimeUnit(String year, String weekNumber);
 	
 	void save(T entity);
 	void delete(T entity);

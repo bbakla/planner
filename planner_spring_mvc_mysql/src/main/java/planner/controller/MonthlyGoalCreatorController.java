@@ -20,6 +20,7 @@ import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
 import planner.model.goal.GoalScopeNames;
 import planner.service.ParentGoalService;
+import planner.service.TimeService;
 
 @Controller
 public class MonthlyGoalCreatorController {
@@ -30,20 +31,25 @@ public class MonthlyGoalCreatorController {
 	@Autowired
 	MessageSource messageSource;
 	
+	@Autowired
+	private TimeService timeService;
+	
 	@RequestMapping(value = {"/new/month"}, method = RequestMethod.GET)
 	public String createMonthlyGoal(Model model){
 	LocalDate currentDate = LocalDate.now(); 
 		
-		int month = currentDate.getMonth().getValue();
-		int year = currentDate.getYear();
+		int currentMonth = currentDate.getMonth().getValue();
+		int currentYear = currentDate.getYear();
 		
-		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(year);
-		List<Goal> monthlyGoals = service.findMonthlyGoals(year, month);
+		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(Integer.toString(currentYear));
+		List<Goal> monthlyGoals = service.findMonthlyGoals(Integer.toString(currentYear), Integer.toString(currentMonth));
+		String[] months = timeService.getMonthsOfYear();
 		
 		model.addAttribute("yearlyGoals", yearlyGoalofTheYear);
 		model.addAttribute("monthlyGoals", monthlyGoals);
 		model.addAttribute("parent", new ParentGoal());
 		model.addAttribute("edit", "new");
+		model.addAttribute("months", months);
 		
 		return "newmonthly";
 	}

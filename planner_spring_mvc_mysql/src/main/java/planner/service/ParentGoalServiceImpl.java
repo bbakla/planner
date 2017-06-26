@@ -2,6 +2,7 @@ package planner.service;
 
 import java.util.List;
 
+import javax.management.StringValueExp;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,28 +46,28 @@ public class ParentGoalServiceImpl implements ParentGoalService{
 	}
 	
 	@Override
-	public List<ParentGoal> findYearlyGoals(int timeLabel) {
-		return dao.findByTimeLabel(timeLabel);
+	public List<ParentGoal> findYearlyGoals(String timeUnit) {
+		return dao.findByTimeUnit(timeUnit);
 	}
 	
 	@Override
-	public List<Goal> findMonthlyGoals(int year, int month) {
+	public List<Goal> findMonthlyGoals(String year, String month) {
 		return dao.findMonthlyGoals(year, month);
 	}
 
 	@Override
-	public List<Goal> findWeeklyGoals(int year, int weekNumber) {
+	public List<Goal> findWeeklyGoals(String year, String weekNumber) {
 		return dao.findWeeklyGoals(year, weekNumber);
 	}
 
 	@Override
-	public List<Goal> findDailyGoals(int year, int weeekNumber, int dayNumber) {
+	public List<Goal> findDailyGoals(String year, String weeekNumber, String dayNumber) {
 		return dao.findDailyGoals(year, weeekNumber, dayNumber);
 	}
 	
 	@Override
-	public List<Goal> findDailyGoalsOfTheWeek(int year, int weekNumber) {
-		return dao.findByTimeLabel(year, weekNumber);
+	public List<Goal> findDailyGoalsOfTheWeek(String year, String weekNumber) {
+		return dao.findByTimeUnit(year, weekNumber);
 	}
 
 	@Override

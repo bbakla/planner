@@ -49,11 +49,11 @@ public class MonthlyGoalTest {
 		descriptionForChild2.setComments(commentsForChilds);
 		
 		
-		ParentGoal yearlyGoal = new ParentGoal(description, 2016, GoalScopeNames.YEARLY, "parentGoal1");
+		ParentGoal yearlyGoal = new ParentGoal(description, "2016", GoalScopeNames.YEARLY, "parentGoal1");
 	
 		
-		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Calendar.APRIL, GoalScopeNames.MONTHLY, "childGoal1");
-		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2, Calendar.MAY, GoalScopeNames.MONTHLY, "childGoal2");
+		ParentGoal monthlyGoal = new ParentGoal(yearlyGoal, descriptionForChild, Integer.toString(Calendar.APRIL), GoalScopeNames.MONTHLY, "childGoal1");
+		ParentGoal monthlyGoal2 = new ParentGoal(yearlyGoal, descriptionForChild2, Integer.toString(Calendar.MAY), GoalScopeNames.MONTHLY, "childGoal2");
 		
 		assertEquals(2, yearlyGoal.getChildGoals().size());
 	

@@ -54,39 +54,29 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 	}
 
 	@Override
-	public List<ParentGoal> findByTimeLabel(int time) {
+	public List<ParentGoal> findByTimeUnit(String time) {
 			Criteria criteria = createEntityCriteria()
 						.createAlias("details", "d")
-						.add(Restrictions.eq("d.timeLabel", time))
+						.add(Restrictions.eq("d.timeUnit", time))
 						.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 			
-			
-//			ProjectionList projectionList = Projections.projectionList();
-//			projectionList.add(Projections.property("d.timeLabel"), "d.timeLabel");
-//			criteria.setProjection(projectionList);
-			
 			List<ParentGoal> goals = criteria.list();
-			
-			
 			
 			return goals;
 		}
 
 	@Override
-	public List<ParentGoal> findYearlyGoals(int year) {
-		return this.findByTimeLabel(year);
+	public List<ParentGoal> findYearlyGoals(String year) {
+		return this.findByTimeUnit(year);
 	}
 
 	@Override
-	public List<Goal> findMonthlyGoals(int year, int month) {
+	public List<Goal> findMonthlyGoals(String year, String month) {
 		
 		Criteria criteria = createEntityCriteria()
 				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", year))
+				.add(Restrictions.eq("d.timeUnit", year))
 				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
-//				.createAlias("childGoals.details", "c")
-//				.add(Restrictions.eq("c.timeLabel", month))
-//				.add(Restrictions.eq("c.scope", GoalScopeNames.MONTHLY));
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
@@ -96,7 +86,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 		for (ParentGoal parentGoal : goals) {
 			List<Goal> childs = parentGoal.getChildGoals();
 			for (Goal goal : childs) {
-				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY && goal.getTimeLabel() == month){
+				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY && goal.getTimeUnit().equals(month)){
 					childGoals.add(goal);
 				}
 				
@@ -107,14 +97,11 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 	}
 
 	@Override
-	public List<Goal> findWeeklyGoals(int year, int weekNumber) {
+	public List<Goal> findWeeklyGoals(String year, String weekNumber) {
 		Criteria criteria = createEntityCriteria()
 				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", year))
+				.add(Restrictions.eq("d.timeUnit", year))
 				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
-//				.createAlias("childGoals.details", "c")
-//				.add(Restrictions.eq("c.timeLabel", month))
-//				.add(Restrictions.eq("c.scope", GoalScopeNames.MONTHLY));
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
@@ -136,8 +123,9 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 			ParentGoal goal = (ParentGoal) monthlyGoal;
 			List<Goal> childs = goal.getChildGoals();
 			for (Goal weekly : childs) {
-				System.out.println(weekly.getTimeLabel() + " " + weekly.getDetails().getScope());
-				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeLabel() == weekNumber){
+				System.out.println(weekly.getTimeUnit() + " " + weekly.getDetails().getScope());
+				
+				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeUnit().equals(Integer.valueOf(weekNumber).toString())){
 					weeklyGoals.add(weekly);
 				}
 				
@@ -149,14 +137,11 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 	}
 
 	@Override
-	public List<Goal> findDailyGoals(int year, int weekNumber, int dayNumber) {
+	public List<Goal> findDailyGoals(String year, String weekNumber, String dayNumber) {
 		Criteria criteria = createEntityCriteria()
 				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", year))
+				.add(Restrictions.eq("d.timeUnit", year))
 				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
-//				.createAlias("childGoals.details", "c")
-//				.add(Restrictions.eq("c.timeLabel", month))
-//				.add(Restrictions.eq("c.scope", GoalScopeNames.MONTHLY));
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
@@ -179,7 +164,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 			ParentGoal goal = (ParentGoal) monthlyGoal;
 			List<Goal> childs = goal.getChildGoals();
 			for (Goal weekly : childs) {
-				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeLabel() == weekNumber){
+				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeUnit().equals(Integer.valueOf(weekNumber).toString())){
 					weeklyGoals.add(weekly);
 			}
 		}
@@ -190,7 +175,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 			List<Goal> childs = weekly.getChildGoals();
 			
 			for(Goal daily : childs){
-				if(daily.getDetails().getScope() == GoalScopeNames.DAILY && daily.getTimeLabel() == dayNumber){
+				if(daily.getDetails().getScope() == GoalScopeNames.DAILY && daily.getTimeUnit().equals(dayNumber)){
 					dailyGoals.add(daily);
 				}
 			}
@@ -200,14 +185,12 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 }
 
 	@Override
-	public List<Goal> findByTimeLabel(int year, int weekNumber) {
+	public List<Goal> findByTimeUnit(String year, String weekNumber) {
 		Criteria criteria = createEntityCriteria()
 				.createAlias("details", "d")
-				.add(Restrictions.eq("d.timeLabel", year))
+				.add(Restrictions.eq("d.timeUnit", year))
 				.add(Restrictions.eq("d.scope", GoalScopeNames.YEARLY))
-//				.createAlias("childGoals.details", "c")
-//				.add(Restrictions.eq("c.timeLabel", month))
-//				.add(Restrictions.eq("c.scope", GoalScopeNames.MONTHLY));
+//				.createAlias("childGotimeUnitc.scope", GoalScopeNames.MONTHLY));
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
@@ -230,7 +213,7 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 			ParentGoal goal = (ParentGoal) monthlyGoal;
 			List<Goal> childs = goal.getChildGoals();
 			for (Goal weekly : childs) {
-				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeLabel() == weekNumber){
+				if(weekly.getDetails().getScope() == GoalScopeNames.WEEKLY && weekly.getTimeUnit().equals(Integer.valueOf(weekNumber).toString())){
 					weeklyGoals.add(weekly);
 			}
 		}

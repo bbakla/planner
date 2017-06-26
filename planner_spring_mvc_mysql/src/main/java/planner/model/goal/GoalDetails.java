@@ -25,8 +25,8 @@ public class GoalDetails {
 	@Column(name="status", nullable = false)
 	private GoalStatus status;
 	
-	@Column(name= "time_label", nullable= false)
-	private int timeLabel;
+	@Column(name= "time_unit", nullable= false)
+	private String timeUnit;
 	
 	@Enumerated(EnumType.STRING)
 	private GoalScopeNames scope;
@@ -39,15 +39,15 @@ public class GoalDetails {
 		
 	}
 	
-	public GoalDetails(GoalDescription description, int timeLabel, GoalScopeNames scope) {
-		this(description, timeLabel, scope, GoalStatus.NOT_STARTED);
+	public GoalDetails(GoalDescription description, String timeUnit, GoalScopeNames scope) {
+		this(description, timeUnit, scope, GoalStatus.NOT_STARTED);
 	}
 
-	public GoalDetails(GoalDescription description, int timeLabel, GoalScopeNames scope, GoalStatus status) {
+	public GoalDetails(GoalDescription description, String timeUnit, GoalScopeNames scope, GoalStatus status) {
 		this.scope = scope;
 		this.description = description;
 		this.status = status;
-		this.timeLabel = timeLabel;
+		this.timeUnit = timeUnit;
 	}
 
 	public GoalStatus getStatus() {
@@ -58,12 +58,6 @@ public class GoalDetails {
 		this.status = status;
 	}
 
-	public int getTimeLabel() {
-		return timeLabel;
-	}
-	public void setTimeLabel(int timeLabel) {
-		this.timeLabel = timeLabel;
-	}
 	public GoalScopeNames getScope() {
 		return scope;
 	}
@@ -85,5 +79,13 @@ public class GoalDetails {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getTimeUnit() {
+		return timeUnit;
+	}
+
+	public void setTimeUnit(String timeUnit) {
+		this.timeUnit = timeUnit;
 	}
 }

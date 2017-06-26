@@ -39,7 +39,7 @@ public class WeekPlanConverterService {
 	
 	
 
-	public WeekPlan convertjsonToWeekPlan(String weekPlan, int year, int weekNumber) {
+	public WeekPlan convertjsonToWeekPlan(String weekPlan, String year, String weekNumber) {
 
 		initService(weekPlan);
 		Map<Day, Map<String, String>> weekPlanAsMap = new HashMap<>();
@@ -54,7 +54,7 @@ public class WeekPlanConverterService {
 		return convertMapToWeekPlan(weekPlanAsMap, year, weekNumber);
 	}
 
-	private WeekPlan convertMapToWeekPlan(Map<Day, Map<String, String>> weekPlanAsMap, int year, int weekNumber) {
+	private WeekPlan convertMapToWeekPlan(Map<Day, Map<String, String>> weekPlanAsMap, String year, String weekNumber) {
 
 		WeekPlan weekPlan = new WeekPlan(weekNumber, year);
 
