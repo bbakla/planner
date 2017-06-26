@@ -23,8 +23,8 @@ public class ParentListController {
 	MessageSource messageSource;
 	
 	@RequestMapping(value = {"/goals/yearly/{year}"}, method = RequestMethod.GET)
-	public String listYearlyGoals(ModelMap modelMap, @PathVariable int year){
-		List<ParentGoal> yearlyGoals = service.findYearlyGoals(Integer.toString(year)); 
+	public String listYearlyGoals(ModelMap modelMap, @PathVariable String year){
+		List<ParentGoal> yearlyGoals = service.findYearlyGoals(year); 
 		
 		modelMap.addAttribute("yearlyGoals", yearlyGoals);
 		

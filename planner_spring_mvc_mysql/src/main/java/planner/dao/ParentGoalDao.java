@@ -81,12 +81,12 @@ public class ParentGoalDao extends AbstractDao<Long, ParentGoal>  implements Goa
 		
 		List<ParentGoal> goals = (List<ParentGoal>) criteria.list();
 		
-		List<Goal> childGoals = new ArrayList<Goal>();
+		List<Goal> childGoals = new ArrayList<>();
 		
 		for (ParentGoal parentGoal : goals) {
 			List<Goal> childs = parentGoal.getChildGoals();
 			for (Goal goal : childs) {
-				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY && goal.getTimeUnit().equals(month)){
+				if(goal.getDetails().getScope() == GoalScopeNames.MONTHLY && goal.getTimeUnit().equalsIgnoreCase(month)){
 					childGoals.add(goal);
 				}
 				

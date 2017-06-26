@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 	$(document)
@@ -38,7 +38,22 @@
  	$(document)
  		.ready(function()
  				{
- 					var timeFrame = $('timeframe').text();
+ 			
+ 			var date = new Date();
+ 			var monthNumber = date.getMonth();
+ 			
+ 			var options = $('#timeframeSelect option');
+
+ 			var values = $.map(options ,function(option) {
+ 			    return option.value;
+ 			});
+ 			
+ 			var currentMonth = values[monthNumber]; 
+ 			
+ 			$("#timeframeSelect").val(currentMonth);
+ 			$("#timeframeSelectMonth").val(currentMonth);
+ 			
+ 			
  				});
  </script>
 
@@ -64,7 +79,7 @@
 
 					<div class="form-group">
 						<label for="timeframeSelect" class="col-2 col-form-label">Time label:</label>
-						<form:select name="timeframeSelect" path="details.timeUnit" class="form-control">
+						<form:select id="timeframeSelect" path="details.timeUnit" class="form-control">
 							<form:options items = "${months}"/>
 						</form:select>
 					</div>
@@ -87,7 +102,10 @@
 		<div class="row">
 
 			<div class="col-md-12">
-				<h4 id="month"></h4>
+<!-- 				<h4 id="month"></h4> -->
+
+				<form:select id="timeframeSelectMonth" path="months" class="form-control" items= "${months}"/>
+				
 				<div class="table-responsive">
 					<table id="mytable" class="table table-bordred table-striped">
 						<thead>
@@ -165,11 +183,4 @@
 	<font color="red">${message}</font>
 </body>
 
-<script>
- 	var months = [ 'January', 'February', 'March', 'April', 'May', 'June',
- 			'July', 'August', 'September', 'October', 'November', 'December' ];
-	
-	var date = new Date();
-	document.getElementById("month").innerHTML = months[date.getMonth()] + ' '	+ date.getFullYear();
-</script>
 </html>

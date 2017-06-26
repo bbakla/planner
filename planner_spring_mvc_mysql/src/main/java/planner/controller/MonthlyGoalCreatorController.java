@@ -38,11 +38,11 @@ public class MonthlyGoalCreatorController {
 	public String createMonthlyGoal(Model model){
 	LocalDate currentDate = LocalDate.now(); 
 		
-		int currentMonth = currentDate.getMonth().getValue();
-		int currentYear = currentDate.getYear();
+		String currentMonth = currentDate.getMonth().toString();
+		String currentYear = Integer.toString(currentDate.getYear());
 		
-		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(Integer.toString(currentYear));
-		List<Goal> monthlyGoals = service.findMonthlyGoals(Integer.toString(currentYear), Integer.toString(currentMonth));
+		List<ParentGoal> yearlyGoalofTheYear = service.findYearlyGoals(currentYear);
+		List<Goal> monthlyGoals = service.findMonthlyGoals(currentYear, currentMonth);
 		String[] months = timeService.getMonthsOfYear();
 		
 		model.addAttribute("yearlyGoals", yearlyGoalofTheYear);
@@ -54,18 +54,11 @@ public class MonthlyGoalCreatorController {
 		return "newmonthly";
 	}
 	
-//	@RequestMapping(value="/creationFailed", method=RequestMethod.GET)
-//	public String createFailed(){
-//		return "newmonthgoal";
-//	}
-	
 	@RequestMapping(value={"/new/month"}, method = RequestMethod.POST)
 	public String saveMonthlyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
 		String message = "";
 		String viewName ="";
 		
-	    goal.setScope(GoalScopeNames.MONTHLY);
-			
 		ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
 		goal.setParentGoal(parentGoal);
 
