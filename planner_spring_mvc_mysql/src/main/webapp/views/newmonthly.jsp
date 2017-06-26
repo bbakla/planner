@@ -15,15 +15,25 @@
 }
 </style>
 
-
-
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script> --%>
 <link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document)
+			.ready(function() {
+				
+				var progressPercentage = $('#percentage').text();
+				
+				var style = "width:" + progressPercentage +"%";
+				$('div#innerProgressBar').attr("style", style);
+				
+			});
+			</script>
 
 </head>
 <body>
@@ -67,7 +77,6 @@
 	<div class="container">
 		<div class="row">
 
-
 			<div class="col-md-12">
 				<h4 id="month"></h4>
 				<div class="table-responsive">
@@ -80,20 +89,24 @@
 							<th><input type="checkbox" id="checkall" /></th>
 							<th>Id</th>
 							<th>Goal name</th>
+							<th>Progress</th>
+							<th>Status</th>
 							<th>Edit</th>
-
 							<th>Delete</th>
 						</thead>
 						<tbody>
 							<c:forEach items="${monthlyGoals}" var="goal">
+							<label id="percentage" hidden>${goal.progress.progressPercentage}</label>
 								<tr>
 									<td><input type="checkbox" class="checkthis" /></td>
 								    <td>${goal.id}</td>
 									<td><a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a></td>
+									<td>${goal.progress.completed}</td>
 									<td>
-										<div class="progress">
-											<div style="width: 60%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="red progress-bar">
-												<span>60%</span>
+										<div id="progressBar" class="progress">
+											
+											<div id="innerProgressBar" style="width: 80%;" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar">
+												<span>${goal.progress.progressPercentage}</span>
 									       </div>
 									 	</div>
 									</td>

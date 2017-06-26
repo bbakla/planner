@@ -194,9 +194,10 @@
 					<div id="dragdiv" class="panel-body">
 						<ul class="list-group">
 							<c:forEach items="${dailyGoalsOfTheWeek}" var="goal">
-								<li class="list-group-item"><a
-									href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a>
-									<label id="goal_id" hidden>${goal.id}</label></li>
+								<li class="list-group-item">
+								<label id="goal_id" hidden>${goal.id}</label>
+								<a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a>
+									</li>
 
 							</c:forEach>
 						</ul>
@@ -254,7 +255,7 @@
 						<tbody>
 							<c:forEach items="${weekPlan.weekPlan}" var="plan">
 								<tr id="${plan.day}">
-									<td>${plan.day}</td>
+									<td draggable="false"><span>${plan.day}</span></td>
 									<c:forEach items="${plan.goals}" var="dailyGoal">
 										<c:set var="goal_id" value="goal_id_${plan.day}_${dailyGoal.key}"/>
 										<c:set var="goal_name" value="goal_name_${plan.day}_${dailyGoal.key}"/>

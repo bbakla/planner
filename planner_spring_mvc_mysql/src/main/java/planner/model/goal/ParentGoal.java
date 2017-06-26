@@ -28,6 +28,7 @@ public class ParentGoal extends Goal implements Serializable{
 	@JoinColumn(name= "goal_id", nullable = true)
 	private ParentGoal parentGoal;
 	
+	
 	public ParentGoal(){
 		childGoals = new ArrayList<>();
 	}
@@ -47,8 +48,6 @@ public class ParentGoal extends Goal implements Serializable{
 			this.parentGoal = parentGoal;
 			parentGoal.addChildGoal(this);
 		}
-			
-		
 	}
 	
 	public List<Goal> getChildGoals() {

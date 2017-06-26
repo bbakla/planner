@@ -37,26 +37,34 @@ $(function () {
                     var $this = $(this);
                 },
                 drop: function (event, ui) {
-                    var goalName = ui.draggable.text();
-                    var id = $(ui.draggable).children()[1].innerHTML;
-                    goalName = goalName.replace(id, "").trim();
+                    var goalId = ui.draggable.text();
+                    var goalName = $(ui.draggable).children()[1].innerHTML;
+                    goalName = goalName.replace(goalId, "").trim();
+                    var id = goalId.replace(goalName, "").trim();
 
-                    $("<td></td>").text(goalName).appendTo(this);
                     $(this)[0].children[0].innerHTML = id;
+                    $(this)[0].children[1].innerHTML = goalName;
+                    
+                    var hiddenLabelId = ($(ui.draggable).children()[0]).id;
+                    var nameLabelId = ($(ui.draggable).children()[1]).id;
+                  
+                    var dragged = $($(ui.draggable).children()[1]).is("a.ui-droppable");
 
-                    cleanContent(ui);
+                    cleanContent(dragged, hiddenLabelId, nameLabelId);
                 }
             });
     }
 
-    function cleanContent(ui) {
-        var id = $(ui.draggable).prop('id');
-        id = '#' + id;
+    function cleanContent(dragged, hiddenLabelId, nameLabelId) {
+        
+    	if(!dragged){
+        	hiddenLabelId = '#' + hiddenLabelId;
+        	nameLabelId = '#' + nameLabelId;
+        	
+        	$(nameLabelId)[0].innerHTML = "";
+        	$(hiddenLabelId)[0].innerHTML = "";
 
-        var draggedElement = $(id);
-        if (draggedElement.is("td")) {
-            $(id).html("");
-        }
+    	}
     }
 });
 
