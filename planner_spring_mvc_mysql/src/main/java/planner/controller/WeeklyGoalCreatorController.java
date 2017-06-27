@@ -33,19 +33,19 @@ public class WeeklyGoalCreatorController {
 	MessageSource messageSource;
 	
 	@RequestMapping(value = {"/new/week"}, method = RequestMethod.GET)
-	public String createMonthlyGoal(Model model){
+	public String getWeeklyGoal(Model model){
 		
 		LocalDate currentDate = LocalDate.now(); 
 		
-		String month = Integer.toString(currentDate.getMonth().getValue());
-		String year = Integer.toString(currentDate.getYear());
+		String currentMonth = currentDate.getMonth().toString();
+		String currentYear = Integer.toString(currentDate.getYear());
+		
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
 		String weekNumber = Integer.toString(currentDate.get(woy));
 		
-		List<Goal> goalsOfCurrentMonth = service.findMonthlyGoals(year, month);
-		List<Goal> weeklyGoals = service.findWeeklyGoals(year, weekNumber);
+		List<Goal> goalsOfCurrentMonth = service.findMonthlyGoals(currentYear, currentMonth);
+		List<Goal> weeklyGoals = service.findWeeklyGoals(currentYear, weekNumber);
 		
-//		model.addAttribute("months", Arrays.asList(Month.buildMonths()));
 		model.addAttribute("parentMontlhyGoals", goalsOfCurrentMonth);
 		model.addAttribute("weeklyGoals", weeklyGoals);
 		model.addAttribute("parent", new ParentGoal());
@@ -55,7 +55,7 @@ public class WeeklyGoalCreatorController {
 	}
 	
 	@RequestMapping(value={"/new/week"}, method = RequestMethod.POST)
-	public String saveMonthlyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
+	public String saveWeeklyGoal(@ModelAttribute ParentGoal goal, RedirectAttributes redirectAttributes, SessionStatus sessionStatus){
 		String message = "";
 		String viewName ="";
 		
@@ -68,7 +68,7 @@ public class WeeklyGoalCreatorController {
 			TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(); 
 			int weekNumber = currentDate.get(woy);
 			
-			goal.setTimeUnit(Integer.valueOf(weekNumber).toString());
+			goal.setTimeUnit(Integer.toString(weekNumber));
 			
 			ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
 			goal.setParentGoal(parentGoal);

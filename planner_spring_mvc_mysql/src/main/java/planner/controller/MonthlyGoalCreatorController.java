@@ -35,7 +35,7 @@ public class MonthlyGoalCreatorController {
 	private TimeService timeService;
 	
 	@RequestMapping(value = {"/new/month"}, method = RequestMethod.GET)
-	public String createMonthlyGoal(Model model){
+	public String getMonthlyGoal(Model model){
 	LocalDate currentDate = LocalDate.now(); 
 		
 		String currentMonth = currentDate.getMonth().toString();

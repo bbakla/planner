@@ -14,13 +14,13 @@
 	color: #ff0000;
 }
 </style>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script> --%>
 <link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script> --%>
+<!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
 	$(document)
@@ -30,7 +30,39 @@
 				var style = "width:" + progressPercentage +"%";
 				$('div#innerProgressBar').attr("style", style);
 			});
-			</script>
+</script>
+
+<script type="text/javascript">
+	$(document)
+		.ready(function() {
+			var date = new Date();
+			var onejan = new Date(date.getFullYear(), 0, 1);
+			var weekNumber =  Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
+			
+			var d1 = new Date(date);
+			var index = d1.getDay();
+			
+			if(index == 0) {
+				 date.setDate(date.getDate() - 6);   
+		         d1.setDate(d1.getDate() - 2);  
+		         
+			} else if(index == 1) {
+		         date.setDate(date.getDate());
+		         d1.setDate(d1.getDate()+4);  
+		         
+		    } else if(index != 1 && index > 0) {
+		          date.setDate(date.getDate() - (index - 1));
+		            d1.setDate(d1.getDate() + (index + 3));
+		        }
+			
+			var startDate = date.getDate() + "." + (date.getMonth() + 1 )+ "." + date.getYear();
+			var endDate = d1.getDate() + "." + (d1.getMonth() + 1) + "." + d1.getYear();
+			
+			var goalTitle = "Goals of " +  weekNumber + ". week (" + startDate + " - " + endDate + ")" ; 
+			
+			$('#goalTitle')[0].innerHTML = goalTitle;
+		});
+</script>
 			
 </head>
 <body>
@@ -45,14 +77,6 @@
 						<label for="title" class="col-2 col-form-label">Enter your weekly goal </label>
 						<form:input path="title" id="title" class="form-control"/>
 					</div>
-					<!-- 			<tr> -->
-					<!-- 				<td><label for="months">Month</label></td> -->
-					<!-- 				<td> -->
-					<%-- 				<form:select id="months" path="parentGoal"> --%>
-					<%-- 						<form:options items="${months}" itemLabel="monthName" --%>
-					<%--  							itemValue="monthNumber"></form:options>  --%>
-					<%--  					</form:select> --%>
-					<!-- 				</td> -->
 					<div class="form-group">
 						<label for="parentList" class="col-2 col-form-label">Select the related monthly goal</label>
 						<form:select id="parentList" path="parentGoal.id" class="form-control">
@@ -61,12 +85,8 @@
 						</form:select>
 					</div>
 					<div class="form-group">
-						<label for="timeLabel" class="col-2 col-form-label">Time label:</label>
-						<form:input path="details.timeLabel" id="timeLabel" class="form-control"/>
-					</div>
-					<div class="form-group">
 						<label for="description" class="col-2 col-form-label">Description:</label>
-						<form:input path="details.description.description" id="timeLabel" class="form-control"/>
+						<form:input path="details.description.description" id="description" class="form-control"/>
 					</div>
 					<form:button name="Create">Create</form:button>
 				</form:form>
@@ -82,7 +102,7 @@
 
 
 			<div class="col-md-12">
-				<h4>Your goals</h4>
+				<h4 id="goalTitle"></h4>
 				<div class="table-responsive">
 
 

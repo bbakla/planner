@@ -52,8 +52,7 @@
  			
  			$("#timeframeSelect").val(currentMonth);
  			$("#timeframeSelectMonth").val(currentMonth);
- 			
- 			
+
  				});
  </script>
 
