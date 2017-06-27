@@ -17,7 +17,7 @@ $(function () {
             //ui: element being dragged
             //this: element being dropped into
 
-            cleanContent(ui);
+        	cleanContentFromTable(ui);
 
         },
         over: function (event, ui) {
@@ -55,6 +55,14 @@ $(function () {
             });
     }
 
+    function cleanContentFromTable(ui){
+        var elementId = ui.draggable.attr('id');
+        elementId = '#'+elementId;
+        
+        $(elementId)[0].children[0].innerHTML = "";
+        $(elementId)[0].children[1].innerHTML = "";
+    }
+    
     function cleanContent(dragged, hiddenLabelId, nameLabelId) {
         
     	if(!dragged){
@@ -63,7 +71,6 @@ $(function () {
         	
         	$(nameLabelId)[0].innerHTML = "";
         	$(hiddenLabelId)[0].innerHTML = "";
-
     	}
     }
 });

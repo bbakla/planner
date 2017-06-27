@@ -255,13 +255,6 @@ $(document).ready(function()
 		<h3 id="goalTitle"></h3>
 		
 		<form id="weekTable" method="post">
-			<%-- 			action="${pageContext.request.contextPath}/planner/plan/week" --%>
-			<!-- 			commandName="weekPlanner"> -->
-
-<!-- 			<h3 id="goalTitle"></h3> -->
-<%-- 				<c:out value="${weekPlan.yearNumber}" /> --%>
-<%-- 				<c:out value="${weekPlan.weekNumber}" /> --%>
-			
 			<div id="dropdiv" class="row">
 				<div class="col-md-12">
 					<table border="1" cellspacing="1"
@@ -288,8 +281,10 @@ $(document).ready(function()
 									<c:forEach items="${plan.goals}" var="dailyGoal">
 										<c:set var="goal_id" value="goal_id_${plan.day}_${dailyGoal.key}"/>
 										<c:set var="goal_name" value="goal_name_${plan.day}_${dailyGoal.key}"/>
+										<c:set var="td_id" value="${plan.day}_${dailyGoal.key}"/>
+										
 									 
-										<td id="${dailyGoal.key}">
+										<td id="${td_id}">
 											<label id="${goal_id}" hidden>${dailyGoal.value.id}</label>
 											<label id="${goal_name}">${dailyGoal.value.name}</label>
 										</td>
