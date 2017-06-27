@@ -31,8 +31,9 @@
 <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/table.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<%-- <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"> --%>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
-<link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
+<link href="${pageContext.request.contextPath}/js/dateUtil.js">
 
 <script type="text/javascript">
 	$(document)
@@ -257,27 +258,26 @@ $(document).ready(function()
 		<form id="weekTable" method="post">
 			<div id="dropdiv" class="row">
 				<div class="col-md-12">
-					<table border="1" cellspacing="1"
-						class="table table-striped table-bordered  table-hovered">
+					<table border="1" cellspacing="1" class="table table-striped table-bordered  table-hovered">
 						<thead>
 							<tr id="days">
-								<td draggable="false"></td>
-								<td draggable="false"><span>8-9</span></td>
-								<td draggable="false"><span>9-10</span></td>
-								<td draggable="false"><span>10-11</span></td>
-								<td draggable="false"><span>11-12</span></td>
-								<td draggable="false"><span>12-13</span></td>
-								<td draggable="false"><span>13-14</span></td>
-								<td draggable="false"><span>14-15</span></td>
-								<td draggable="false"><span>15-16</span></td>
-								<td draggable="false"><span>16-17</span></td>
-								<td draggable="false"><span>17-</span></td>
+								<th draggable="false"></th>
+								<th draggable="false"><span>8-9</span></th>
+								<th draggable="false"><span>9-10</span></th>
+								<th draggable="false"><span>10-11</span></th>
+								<th draggable="false"><span>11-12</span></th>
+								<th draggable="false"><span>12-13</span></th>
+								<th draggable="false"><span>13-14</span></th>
+								<th draggable="false"><span>14-15</span></th>
+								<th draggable="false"><span>15-16</span></th>
+								<th draggable="false"><span>16-17</span></th>
+								<th draggable="false"><span>After 17</span></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${weekPlan.weekPlan}" var="plan">
 								<tr id="${plan.day}">
-									<td draggable="false"><span>${plan.day}</span></td>
+									<th scope="row" draggable="false"><span>${plan.day}</span></th>
 									<c:forEach items="${plan.goals}" var="dailyGoal">
 										<c:set var="goal_id" value="goal_id_${plan.day}_${dailyGoal.key}"/>
 										<c:set var="goal_name" value="goal_name_${plan.day}_${dailyGoal.key}"/>

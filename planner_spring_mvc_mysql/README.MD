@@ -11,12 +11,10 @@ TODOS
 * there are problems with look&view
 * dailyplan should be vertical not horizantal
 * page doesnt refresh after saving. not a problem anymore
-* timeframe in plan creation
-   * weekly
-   * daily
-* table should be filtered based on month, weekNumbers and day
-* week page shows goals weekly goals without filtering based on timeframe.
+* table should be filtered based on month, weekNumbers
 * copy goal to create a new one
+* optimize database
+* improve goal details
 
 
 

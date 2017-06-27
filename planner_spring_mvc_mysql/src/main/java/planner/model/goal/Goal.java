@@ -102,7 +102,4 @@ public abstract class Goal implements Serializable {
 	public void setTimeUnit(String timeUnit){
 		details.setTimeUnit(timeUnit);
 	}
-
-	
-
 }

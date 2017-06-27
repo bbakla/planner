@@ -73,9 +73,4 @@ public class ParentGoal extends Goal implements Serializable{
 		parentGoal.addChildGoal(this);
 	}
 	
-	
-	
-	
-	
-	
 }
