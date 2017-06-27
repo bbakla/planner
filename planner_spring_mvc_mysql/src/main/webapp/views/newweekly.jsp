@@ -14,11 +14,11 @@
 	color: #ff0000;
 }
 </style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script> --%>
 <!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 
@@ -33,35 +33,38 @@
 </script>
 
 <script type="text/javascript">
-	$(document)
-		.ready(function() {
-			var date = new Date();
-			var onejan = new Date(date.getFullYear(), 0, 1);
-			var weekNumber =  Math.ceil((((date - onejan) / 86400000) + onejan.getDay()+1)/7);
-			
-			var d1 = new Date(date);
-			var index = d1.getDay();
-			
-			if(index == 0) {
-				 date.setDate(date.getDate() - 6);   
-		         d1.setDate(d1.getDate() - 2);  
-		         
-			} else if(index == 1) {
-		         date.setDate(date.getDate());
-		         d1.setDate(d1.getDate()+4);  
-		         
-		    } else if(index != 1 && index > 0) {
-		          date.setDate(date.getDate() - (index - 1));
-		            d1.setDate(d1.getDate() + (index + 3));
-		        }
-			
-			var startDate = date.getDate() + "." + (date.getMonth() + 1 )+ "." + date.getYear();
-			var endDate = d1.getDate() + "." + (d1.getMonth() + 1) + "." + d1.getYear();
-			
-			var goalTitle = "Goals of " +  weekNumber + ". week (" + startDate + " - " + endDate + ")" ; 
-			
-			$('#goalTitle')[0].innerHTML = goalTitle;
+$(document).ready(function()
+		{
+	
+	var date = new Date();
+	var onejan = new Date(date.getFullYear(), 0, 1);
+	var weekNumber = Math.ceil((((date - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+
+	var d1 = new Date(date);
+	var index = d1.getDay();
+
+	if (index == 0) {
+		date.setDate(date.getDate() - 6);
+		d1.setDate(d1.getDate() - 2);
+
+	} else if (index == 1) {
+		date.setDate(date.getDate());
+		d1.setDate(d1.getDate() + 4);
+
+	} else if (index != 1 && index > 0) {
+		date.setDate(date.getDate() - (index - 1));
+		d1.setDate(d1.getDate() + (index + 3));
+	}
+
+	var startDate = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getYear();
+	var endDate = d1.getDate() + "." + (d1.getMonth() + 1) + "." + d1.getYear();
+
+	var goalTitle = "Goals of " + weekNumber + ". week (" + startDate + " - " + endDate + ")";
+
+	$('#goalTitle')[0].innerHTML = goalTitle;
+	
 		});
+
 </script>
 			
 </head>
@@ -102,7 +105,7 @@
 
 
 			<div class="col-md-12">
-				<h4 id="goalTitle"></h4>
+				<h3 id="goalTitle"></h3>
 				<div class="table-responsive">
 
 

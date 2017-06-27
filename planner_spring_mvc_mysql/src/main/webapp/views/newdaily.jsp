@@ -39,6 +39,7 @@
 			});
 			</script>
 </head>
+
 <body>
 	<div class="container">
 		<div class="row">
@@ -56,10 +57,12 @@
 							<form:options items="${weeklyGoals}" itemLabel="title" itemValue="id"></form:options>
 						</form:select>
 					</div>
-					<div class="form-group">
-						<label for="timeLabel" class="col-2 col-form-label">Time label:</label>
-						<form:input path="details.timeUnit" id="timeLabel" class="form-control"/>
-					</div>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="timeLabel" class="col-2 col-form-label">Time label:</label> -->
+<%-- 							<form:select id="timeframeSelect" path="details.timeUnit" class="form-control"> --%>
+<%-- 							<form:options items = "${days}"/> --%>
+<%-- 						</form:select> --%>
+<!-- 					</div> -->
 					<div class="form-group">
 						<label for="description" class="col-2 col-form-label">Description:</label>
 						<form:input path="details.description.description" id="timeLabel" class="form-control"/>

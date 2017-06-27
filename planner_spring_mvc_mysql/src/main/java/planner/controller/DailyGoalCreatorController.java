@@ -23,12 +23,16 @@ import planner.model.goal.GoalScopeNames;
 import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
 import planner.service.ParentGoalService;
+import planner.service.TimeService;
 
 @Controller
 public class DailyGoalCreatorController {
 
 	@Autowired
 	private ParentGoalService service;
+	
+//	@Autowired
+//	private TimeService timeService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -43,11 +47,14 @@ public class DailyGoalCreatorController {
 		int year = currentDate.getYear();
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);
+//		String[] days = timeService.getDaysOfWeek();
 
 		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(Integer.toString(year), Integer.toString(weekNumber));
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(Integer.toString(year), Integer.toString(weekNumber));
+		
 		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
+//		model.addAttribute("days", days);
 
 		return "newdaily";
 	}

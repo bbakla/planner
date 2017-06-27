@@ -27,19 +27,12 @@
 
 <%-- <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css"> --%>
 
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
-	type="text/javascript"></script>
-<script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js"
-	type="text/javascript"></script>
-
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/table.js"></script>
-
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/table.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/table.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
+<link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
 
 <script type="text/javascript">
 	$(document)
@@ -161,6 +154,40 @@
 					});
 </script>
 
+<script type="text/javascript">
+$(document).ready(function()
+		{
+	
+	var date = new Date();
+	var onejan = new Date(date.getFullYear(), 0, 1);
+	var weekNumber = Math.ceil((((date - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+
+	var d1 = new Date(date);
+	var index = d1.getDay();
+
+	if (index == 0) {
+		date.setDate(date.getDate() - 6);
+		d1.setDate(d1.getDate() - 2);
+
+	} else if (index == 1) {
+		date.setDate(date.getDate());
+		d1.setDate(d1.getDate() + 4);
+
+	} else if (index != 1 && index > 0) {
+		date.setDate(date.getDate() - (index - 1));
+		d1.setDate(d1.getDate() + (index + 3));
+	}
+
+	var startDate = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getYear();
+	var endDate = d1.getDate() + "." + (d1.getMonth() + 1) + "." + d1.getYear();
+
+	var goalTitle = "Goals of " + weekNumber + ". week (" + startDate + " - " + endDate + ")";
+
+	$('#goalTitle')[0].innerHTML = goalTitle;
+	
+		});
+
+</script>
 
 </head>
 <body>
@@ -225,14 +252,16 @@
 	</div>
 
 	<div class="container">
+		<h3 id="goalTitle"></h3>
+		
 		<form id="weekTable" method="post">
 			<%-- 			action="${pageContext.request.contextPath}/planner/plan/week" --%>
 			<!-- 			commandName="weekPlanner"> -->
 
-			<h3>
-				<c:out value="${weekPlan.yearNumber}" />
-				<c:out value="${weekPlan.weekNumber}" />
-			</h3>
+<!-- 			<h3 id="goalTitle"></h3> -->
+<%-- 				<c:out value="${weekPlan.yearNumber}" /> --%>
+<%-- 				<c:out value="${weekPlan.weekNumber}" /> --%>
+			
 			<div id="dropdiv" class="row">
 				<div class="col-md-12">
 					<table border="1" cellspacing="1"
