@@ -43,7 +43,7 @@
 		<form:form method="POST" modelAttribute="parent">
 			<div class="form-group">
 
-				<label for="title" class="col-2 col-form-label">Enter your
+				<label for="title" class="col-2 col-form-label">Enter your 
 					goal </label>
 				<form:input path="title" id="title" class="form-control" />
 			</div>
