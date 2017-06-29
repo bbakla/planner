@@ -1,0 +1,22 @@
+table span {
+	display: block;
+	background-color: #e8eaf6;
+/* 	color: white; */
+	height: 100%;
+	width: 100%;
+}
+
+.panel-footer{
+    height:70px; 
+}
+
+.panel-heading{
+    height:40px; 
+    font-weight: bold;
+padding-left: 30px;
+font-size: large;
+}
+
+
+
+

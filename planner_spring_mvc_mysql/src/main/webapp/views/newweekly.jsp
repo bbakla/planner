@@ -21,6 +21,7 @@
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script> --%>
 <!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
 
 <script type="text/javascript">
 	$(document)
@@ -72,12 +73,14 @@ $(document).ready(function()
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
-				<h2>Enter your goal</h2>
+				<div class="panel panel-default">
+					<div class="panel-heading">Enter your weekly goal</div>
+					<div class="panel-body">
 
 				<form:form method="POST" modelAttribute="parent">
 					<div class="form-group">
 
-						<label for="title" class="col-2 col-form-label">Enter your weekly goal </label>
+						<label for="title" class="col-2 col-form-label">Goal title</label>
 						<form:input path="title" id="title" class="form-control"/>
 					</div>
 					<div class="form-group">
@@ -88,14 +91,15 @@ $(document).ready(function()
 						</form:select>
 					</div>
 					<div class="form-group">
-						<label for="description" class="col-2 col-form-label">Description:</label>
+						<label for="description" class="col-2 col-form-label">Description</label>
 						<form:input path="details.description.description" id="description" class="form-control"/>
 					</div>
 					<form:button name="Create">Create</form:button>
 				</form:form>
-
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 
 	<br/>
@@ -103,19 +107,18 @@ $(document).ready(function()
 	<div class="container">
 		<div class="row">
 
-
 			<div class="col-md-12">
-				<h3 id="goalTitle"></h3>
+				<div class="panel panel-default">
+					<div class="panel-heading" id="goalTitle">Your goals</div>
+					<div class="panel-body">
 				<div class="table-responsive">
 
-
 					<table id="mytable" class="table table-bordred table-striped">
-
 						<thead>
-
 							<th><input type="checkbox" id="checkall" /></th>
 							<th>Id</th>
 							<th>Goal name</th>
+							<th>Completed</th>
 							<th>Progress</th>
 							<th>Status</th>
 							<th>Edit</th>
@@ -128,7 +131,7 @@ $(document).ready(function()
 									<td><input type="checkbox" class="checkthis" /></td>
 								    <td>${goal.id}</td>
 									<td><a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a></td>
-									
+									<td>${goal.progress.completed}</td>
 									<td>
 										<div id="progressBar" class="progress">
 											
@@ -184,6 +187,9 @@ $(document).ready(function()
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+	
 	
 	<font color="red">${message}</font>
 

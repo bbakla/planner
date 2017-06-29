@@ -14,7 +14,6 @@ TODOS
 * table should be filtered based on month, weekNumbers
 * copy goal to create a new one
 * optimize database
-* improve goal details
 
 
 

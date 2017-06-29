@@ -136,7 +136,6 @@
 							week["saturday"] = saturday;
 							week["sunday"] = sunday;
 							
-
 							$.ajax({
 								url: "${pageContext.request.contextPath}/planner/plan/week",
 								headers : {
@@ -195,7 +194,7 @@ $(document).ready(function()
 
 	<div class="container">
 		<div class="row">
-			<div class="">
+			<div>
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<span class="glyphicon glyphicon-list"></span>Daily goals
@@ -253,7 +252,10 @@ $(document).ready(function()
 	</div>
 
 	<div class="container">
-		<h3 id="goalTitle"></h3>
+		<div class="panel panel-default">
+		  <div class="panel-heading" id="goalTitle">
+  			</div>
+  		<div class="panel-body">
 		
 		<form id="weekTable" method="post">
 			<div id="dropdiv" class="row">
@@ -262,16 +264,16 @@ $(document).ready(function()
 						<thead>
 							<tr id="days">
 								<th draggable="false"></th>
-								<th draggable="false"><span>8-9</span></th>
-								<th draggable="false"><span>9-10</span></th>
-								<th draggable="false"><span>10-11</span></th>
-								<th draggable="false"><span>11-12</span></th>
-								<th draggable="false"><span>12-13</span></th>
-								<th draggable="false"><span>13-14</span></th>
-								<th draggable="false"><span>14-15</span></th>
-								<th draggable="false"><span>15-16</span></th>
-								<th draggable="false"><span>16-17</span></th>
-								<th draggable="false"><span>After 17</span></th>
+								<th draggable="false"><span>8:00-9:00</span></th>
+								<th draggable="false"><span>9:00-10:00</span></th>
+								<th draggable="false"><span>10:00-11:00</span></th>
+								<th draggable="false"><span>11:00-12:00</span></th>
+								<th draggable="false"><span>12:00-13:00</span></th>
+								<th draggable="false"><span>13:00-14:00</span></th>
+								<th draggable="false"><span>14:00-15:00</span></th>
+								<th draggable="false"><span>15:00-16:00</span></th>
+								<th draggable="false"><span>16:00-17:00</span></th>
+								<th draggable="false"><span>After 17:00</span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -283,32 +285,27 @@ $(document).ready(function()
 										<c:set var="goal_name" value="goal_name_${plan.day}_${dailyGoal.key}"/>
 										<c:set var="td_id" value="${plan.day}_${dailyGoal.key}"/>
 										
-									 
 										<td id="${td_id}">
 											<label id="${goal_id}" hidden>${dailyGoal.value.id}</label>
 											<label id="${goal_name}">${dailyGoal.value.name}</label>
 										</td>
 									</c:forEach>
-
 								</tr>
 
 							</c:forEach>
 						</tbody>
 					</table>
-		
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Save that daily plan</button>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-primary btn-lg btn-block">Save
-				that daily plan</button>
 		</form>
+		</div>
+</div>
 	</div>
 
 	<div id="message_area"></div>
 
 	<br />
 	<font color="red">${message}</font>
-
-
-
 </body>
 </html>

@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
 <!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">
@@ -62,12 +63,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
-				<h2>Enter your monthly goal</h2>
+				<div class="panel panel-default">
+					<div class="panel-heading" id="goalTitle">Enter your goal</div>
+					<div class="panel-body">
 
 				<form:form method="POST" modelAttribute="parent">
 					<div class="form-group">
 
-						<label for="title" class="col-2 col-form-label">Enter your monthly goal </label>
+						<label for="title" class="col-2 col-form-label">Goal title</label>
 						<form:input path="title" id="title" class="form-control" />
 					</div>
 					<div class="form-group">
@@ -82,6 +85,7 @@
 							<form:options items = "${months}"/>
 						</form:select>
 					</div>
+					
 					<div class="form-group">
 						<label for="description" class="col-2 col-form-label">Description:</label>
 						<form:input path="details.description.description" id="timeLabel" class="form-control" />
@@ -95,14 +99,17 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
 
 
 	<div class="container">
 		<div class="row">
-
 			<div class="col-md-12">
-<!-- 				<h4 id="month"></h4> -->
-
+			<div class="panel panel-default">
+					<div class="panel-heading" id="goalTitle">Your goals</div>
+					<div class="panel-body">
+	
 				<form:select id="timeframeSelectMonth" path="months" class="form-control" items= "${months}"/>
 				
 				<div class="table-responsive">
@@ -112,6 +119,7 @@
 							<th><input type="checkbox" id="checkall" /></th>
 							<th>Id</th>
 							<th>Goal name</th>
+							<th>Completed</th>
 							<th>Progress</th>
 							<th>Status</th>
 							<th>Edit</th>
@@ -148,16 +156,9 @@
 										</button>
 									</p></td>
 								</tr>
-<%-- 										<a href="<c:url value='/planner/goal/${goal.id}'/>">${goal.title}</a> --%>
-										<%-- 			<c:forEach items="${goal.childGoals}" var="child"> --%>
-										<%-- 				<a href="<c:url value='/planner/goal/${child.id}'/>">${child.title}</a> --%>
-										<!-- 				<br /> -->
-										<%-- 			</c:forEach> --%>
 							</c:forEach>
 
-						
 						</tbody>
-
 					</table>
 
 					<div class="clearfix"></div>
@@ -177,6 +178,8 @@
 
 			</div>
 		</div>
+	</div>
+	</div>
 	</div>
 	
 	<font color="red">${message}</font>

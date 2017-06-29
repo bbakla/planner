@@ -1,7 +1,5 @@
 .ui-drop-hover {
 	border: 7px solid red;
-	
-	
 }
 
 
@@ -43,11 +41,19 @@ tr.found{
 }
 
 .panel-heading{
-    height:30px; 
+    height:40px; 
+    font-weight: bold;
+padding-left: 30px;
+font-size: large;
 }
 
 .list-group-item {
     padding: 5px 10px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 
