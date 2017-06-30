@@ -38,6 +38,16 @@
 </head>
 <body>
 
+<div class="container">
+  <nav class="navbar navbar-light">
+    <a class="navbar-brand" href="<c:url value='/planner/new/year'/>">Yearly goals</a>
+    <a class="navbar-brand" href="<c:url value='/planner/new/month'/>">Monthly goals</a>
+    <a class="navbar-brand" href="<c:url value='/planner/new/week'/>">Weekly goals</a>
+    <a class="navbar-brand" href="<c:url value='/planner/new/day'/>">Daily goals</a>
+    <a class="navbar-brand" href="<c:url value='/planner/plan/week'/>">Week planner</a>
+  </nav>
+</div>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
