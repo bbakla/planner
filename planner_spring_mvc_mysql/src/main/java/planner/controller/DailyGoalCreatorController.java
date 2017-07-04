@@ -31,9 +31,6 @@ public class DailyGoalCreatorController {
 	@Autowired
 	private ParentGoalService service;
 	
-//	@Autowired
-//	private TimeService timeService;
-	
 	@Autowired
 	MessageSource messageSource;
 	
@@ -73,13 +70,13 @@ public class DailyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/new/day";
+			viewName = "redirect:/new/day";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){
 			e.printStackTrace();
 			message = "Goal creation is failed";
-			viewName = "redirect:/planner/creationFailed";
+			viewName = "redirect:/creationFailed";
 		}
 		
 		redirectAttributes.addFlashAttribute("message", message);

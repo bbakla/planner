@@ -22,7 +22,6 @@ import planner.model.goal.GoalScopeNames;
 import planner.model.goal.GoalStatus;
 import planner.model.goal.ParentGoal;
 import planner.service.ParentGoalService;
-import planner.service.TimeService;
 
 @Controller
 public class WeeklyGoalCreatorController {
@@ -77,13 +76,13 @@ public class WeeklyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/new/week";
+			viewName = "redirect:/new/week";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){
 			e.printStackTrace();
 			message = "Goal creation is failed";
-			viewName = "redirect:/planner/creationFailed";
+			viewName = "redirect:/creationFailed";
 		}
 		
 		redirectAttributes.addFlashAttribute("message", message);

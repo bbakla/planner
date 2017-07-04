@@ -68,13 +68,13 @@ public class MonthlyGoalCreatorController {
 			
 			service.updateGoal(goal);
 			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
-			viewName = "redirect:/planner/new/month";
+			viewName = "redirect:/new/month";
 			
 			sessionStatus.setComplete();
 		} catch(Exception e){
 			e.printStackTrace();
 			message = "Goal creation is failed";
-			viewName = "redirect:/planner/creationFailed";
+			viewName = "redirect:/creationFailed";
 		}
 		
 		redirectAttributes.addFlashAttribute("message", message);

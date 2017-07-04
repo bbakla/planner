@@ -15,7 +15,7 @@ public class AppInitializer extends AbstractDispatcherServletInitializer {
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "/planner/*" };
+		return new String[] { "/" };
 	}
 
 	@Override
