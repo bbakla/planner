@@ -19,8 +19,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
-<%-- <script src="${pageContext.request.contextPath}/js/jquery-ui.js"></script> --%>
-<!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
 
 <script type="text/javascript">
@@ -83,7 +81,7 @@ $(document).ready(function()
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading">Enter your weekly goal</div>
 					<div class="panel-body">
@@ -105,7 +103,7 @@ $(document).ready(function()
 						<label for="description" class="col-2 col-form-label">Description</label>
 						<form:input path="details.description.description" id="description" class="form-control"/>
 					</div>
-					<form:button name="Create">Create</form:button>
+					<form:button name="Create" class="btn btn-primary btn-lg  btn-block">Create</form:button>
 				</form:form>
 			</div>
 		</div>
@@ -118,7 +116,7 @@ $(document).ready(function()
 	<div class="container">
 		<div class="row">
 
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading" id="goalTitle">Your goals</div>
 					<div class="panel-body">
@@ -196,10 +194,7 @@ $(document).ready(function()
 	</div>
 	</div>
 	
-	
-	<font color="red">${message}</font>
-
-
+	<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font>
 
 </body>
 </html>

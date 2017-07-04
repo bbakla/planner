@@ -67,7 +67,6 @@ public class MonthlyGoalCreatorController {
 			goal.setScope(GoalScopeNames.MONTHLY);
 			
 			service.updateGoal(goal);
-			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/new/month";
 			
 			sessionStatus.setComplete();

@@ -15,7 +15,6 @@
 }
 </style>
 
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-ui.min.js"></script> --%>
 <link type="application/javascript"
 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript"
@@ -27,7 +26,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link type="text/css" rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/panel.css">
-<!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
 
 <script type="text/javascript">	$(document)
 			.ready(function() {
@@ -75,9 +73,9 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<div class="panel panel-default">
-					<div class="panel-heading" id="goalTitle">Enter your goal</div>
+					<div class="panel-heading" id="goalTitle">Enter your monthly goal</div>
 					<div class="panel-body">
 
 						<form:form method="POST" modelAttribute="parent">
@@ -112,7 +110,7 @@
 								</div>
 							</div>
 
-							<form:button name="Create" class="btn btn-primary">Create</form:button>
+							<form:button name="Create" class="btn btn-primary btn-lg  btn-block">Create</form:button>
 						</form:form>
 
 						<br />
@@ -125,7 +123,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading" id="goalTitle">Your goals</div>
 					<div class="panel-body">
@@ -205,7 +203,8 @@
 		</div>
 	</div>
 
-	<font color="red">${message}</font>
+<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font>
+
 </body>
 
 </html>

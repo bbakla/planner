@@ -75,7 +75,6 @@ public class WeeklyGoalCreatorController {
 			goal.setParentGoal(parentGoal);
 			
 			service.updateGoal(goal);
-			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/new/week";
 			
 			sessionStatus.setComplete();

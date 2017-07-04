@@ -44,14 +44,12 @@ public class DailyGoalCreatorController {
 		int year = currentDate.getYear();
 		TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 		int weekNumber = currentDate.get(woy);
-//		String[] days = timeService.getDaysOfWeek();
 
 		List<Goal> goalsOfCurrentWeek = service.findWeeklyGoals(Integer.toString(year), Integer.toString(weekNumber));
 		List<Goal> dailyGoalsOfCurrentWeek = service.findDailyGoalsOfTheWeek(Integer.toString(year), Integer.toString(weekNumber));
 		
 		model.addAttribute("weeklyGoals", goalsOfCurrentWeek);
 		model.addAttribute("dailyGoalsOfTheWeek", dailyGoalsOfCurrentWeek);
-//		model.addAttribute("days", days);
 
 		return "newdaily";
 	}
@@ -69,7 +67,6 @@ public class DailyGoalCreatorController {
 			goal.setParentGoal(parentGoal);
 			
 			service.updateGoal(goal);
-			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/new/day";
 			
 			sessionStatus.setComplete();

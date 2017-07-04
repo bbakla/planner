@@ -60,7 +60,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading">Enter your daily goal</div>
 					<div class="panel-body">
@@ -83,7 +83,7 @@
 								<form:input path="details.description.description"
 									id="timeLabel" class="form-control" />
 							</div>
-							<form:button name="Create your daily plan"
+							<form:button name="Save your daily plan"
 								class="btn btn-primary btn-lg btn-block">Save that daily goal</form:button>
 						</form:form>
 						<br />
@@ -100,7 +100,7 @@
 	<div class="container">
 		<div class="row">
 
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading" id="goalTitle">Your goals</div>
 					<div class="panel-body">
@@ -179,10 +179,7 @@
 		</div>
 	</div>
 
-
-	<font color="red">${message}</font>
-
-
+<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font>
 
 </body>
 </html>

@@ -50,9 +50,9 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-md-11">
 				<div class="panel panel-default">
-					<div class="panel-heading" id="goalTitle">Enter your goal</div>
+					<div class="panel-heading" id="goalTitle">Enter your yearly goal</div>
 					<div class="panel-body">
 
 						<form:form method="POST" modelAttribute="parent">
@@ -67,7 +67,7 @@
 									id="timeLabel" class="form-control" />
 							</div>
 
-							<form:button name="Create" class="btn btn-primary">Create</form:button>
+							<form:button name="Create" class="btn btn-primary btn-lg  btn-block">Create</form:button>
 						</form:form>
 						<br />
 					</div>
@@ -78,7 +78,7 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-11">
 				<div class="panel panel-default">
 					<div class="panel-heading" id="goalTitle">Your goals</div>
 					<div class="panel-body">
@@ -183,7 +183,6 @@
 	</div>
 
 
-
 	<div class="modal fade" id="delete" tabindex="-1" role="dialog"
 		aria-labelledby="edit" aria-hidden="true">
 		<div class="modal-dialog">
@@ -213,15 +212,9 @@
 					</button>
 				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-dialog -->
 	</div>
-
-
-	<font color="red">${message}</font>
-
-
-
+	
+<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font>
 </body>
 </html>

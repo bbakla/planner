@@ -59,7 +59,6 @@ public class YearlyGoalCreatorController {
 			goal.setTimeUnit(Integer.toString(year));
 			
 			service.saveGoal(goal);
-			message = messageSource.getMessage("goal.created", new String[]{goal.getId().toString()}, Locale.getDefault());
 			viewName = "redirect:/new/year";
 			sessionStatus.setComplete();
 		} catch(Exception e){

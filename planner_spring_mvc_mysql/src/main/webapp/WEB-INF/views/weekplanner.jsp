@@ -16,22 +16,10 @@
 }
 </style>
 
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
-<!-- <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script> -->
-
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script> -->
-
-<!-- <script type="text/javascript" -->
-<%-- 	src="${pageContext.request.contextPath}/js/table.js"></script> --%>
-
-<%-- <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css"> --%>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 <script src="http://code.jquery.com/ui/1.8.20/jquery-ui.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/table.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<%-- <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"> --%>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/table.css">
 <link href="${pageContext.request.contextPath}/js/dateUtil.js">
 
@@ -316,6 +304,6 @@ $(document).ready(function()
 	<div id="message_area"></div>
 
 	<br />
-	<font color="red">${message}</font>
-</body>
+
+<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font></body>
 </html>
