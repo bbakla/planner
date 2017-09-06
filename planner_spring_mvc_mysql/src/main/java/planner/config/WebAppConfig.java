@@ -23,9 +23,6 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = "planner")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
-	@Autowired
-	Environment env;
-
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

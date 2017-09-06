@@ -305,5 +305,4 @@ $(document).ready(function()
 
 	<br />
 
-<font color="red"><c:if test="${message.length != 0}" >${message}</c:if> </font></body>
 </html>

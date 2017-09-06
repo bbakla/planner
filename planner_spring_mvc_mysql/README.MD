@@ -14,3 +14,16 @@ TODOS
 * copy goal to create a new one
 * optimize database
 * delete task
+* parent goal is wrong on edit page
+
+drop table parent_child;
+drop table goal_details;
+drop table comments;
+drop table parent_goal;
+drop table goal;
+drop table goal_description;
+drop table day_plan_goals;
+drop table week_day_plan;
+drop table progress;
+drop table week_plan;
+drop table day_plan;

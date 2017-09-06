@@ -65,6 +65,7 @@ public class DailyGoalCreatorController {
 			
 			ParentGoal parentGoal = service.findById(goal.getParentGoal().getId());
 			goal.setParentGoal(parentGoal);
+			goal.setTimeUnit("daily");
 			
 			service.updateGoal(goal);
 			viewName = "redirect:/new/day";
