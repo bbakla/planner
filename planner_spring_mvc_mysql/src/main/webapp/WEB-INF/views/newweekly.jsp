@@ -14,11 +14,12 @@
 	color: #ff0000;
 }
 </style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link  type="application/javascript" 	href="${pageContext.request.contextPath}/js/parentTable.js">
 <link type="application/javascript" href="${pageContext.request.contextPath}/js/dateUtil.js">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
 
 <script type="text/javascript">
@@ -152,20 +153,53 @@ $(document).ready(function()
 									<td><span class="label label-warning">${goal.details.status }</span></td>
 									
 									<td><p title="Edit">
-										<button class="btn btn-primary btn-xs" data-title="Edit"
-											data-toggle="modal" data-target="#edit">
+										<a href="<c:url value='/goal/${goal.id}'/>">
 											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
+										</a>
 									</p></td>
 									
 								<td><p data-placement="top" data-toggle="tooltip"
 										title="Delete">
 										<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
+											data-toggle="modal" data-target="#deleteItem">
 											<span class="glyphicon glyphicon-trash"></span>
 										</button>
 									</p></td>
 								</tr>
+								
+								<div class="modal fade" id="deleteItem" tabindex="-1"
+											role="dialog" aria-labelledby="Delete Item"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="title">Delete Item</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<form method="POST"
+														action="/planner_spring_mvc_mysql/goal/delete/${goal.id}">
+														<div class="modal-body">
+
+															<div class="form-group">
+																<div class="alert alert-danger">
+																	<span class="glyphicon glyphicon-warning-sign"></span>
+																	Are you sure you want to delete the goal, ${goal.title}?
+																</div>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<input type="submit" name="Delete" value="Delete"
+																class="btn btn-primary" />
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
 							</c:forEach>
 
 						

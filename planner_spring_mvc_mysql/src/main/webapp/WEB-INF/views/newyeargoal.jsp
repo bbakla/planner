@@ -15,50 +15,53 @@
 }
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+
 <link href="${pageContext.request.contextPath}/js/parentTable.js">
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/panel.css">
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/panel.css">
 
 <script type="text/javascript">
-	$(document)
-		.ready(function() {
-			var progressPercentage = $('#percentage').text();
+	$(document).ready(function() {
+		var progressPercentage = $('#percentage').text();
 
-			var style = "width:" + progressPercentage + "%";
-			$('div#innerProgressBar').attr("style", style);
+		var style = "width:" + progressPercentage + "%";
+		$('div#innerProgressBar').attr("style", style);
 
-		});
+	});
 </script>
 
 </head>
 <body>
 
-<div class="container">
-  <nav class="navbar navbar-light">
-    <a class="navbar-brand" href="<c:url value='/new/year'/>">Yearly goals</a>
-    <a class="navbar-brand" href="<c:url value='/new/month'/>">Monthly goals</a>
-    <a class="navbar-brand" href="<c:url value='/new/week'/>">Weekly goals</a>
-    <a class="navbar-brand" href="<c:url value='/new/day'/>">Daily goals</a>
-    <a class="navbar-brand" href="<c:url value='/plan/week'/>">Week planner</a>
-  </nav>
-</div>
+
+
+	<div class="container">
+		<nav class="navbar navbar-light"> <a class="navbar-brand"
+			href="<c:url value='/new/year'/>">Yearly goals</a> <a
+			class="navbar-brand" href="<c:url value='/new/month'/>">Monthly
+			goals</a> <a class="navbar-brand" href="<c:url value='/new/week'/>">Weekly
+			goals</a> <a class="navbar-brand" href="<c:url value='/new/day'/>">Daily
+			goals</a> <a class="navbar-brand" href="<c:url value='/plan/week'/>">Week
+			planner</a> </nav>
+	</div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-11">
 				<div class="panel panel-default">
-					<div class="panel-heading" id="goalTitle">Enter your yearly goal</div>
+					<div class="panel-heading" id="goalTitle">Enter your yearly
+						goal</div>
 					<div class="panel-body">
 
 						<form:form method="POST" modelAttribute="parent">
 							<div class="form-group">
 
-								<label for="title" class="col-2 col-form-label">Goal title</label>
+								<label for="title" class="col-2 col-form-label">Goal
+									title</label>
 								<form:input path="title" id="title" class="form-control" />
 							</div>
 							<div class="form-group">
@@ -67,7 +70,8 @@
 									id="timeLabel" class="form-control" />
 							</div>
 
-							<form:button name="Create" class="btn btn-primary btn-lg  btn-block">Create</form:button>
+							<form:button name="Create"
+								class="btn btn-primary btn-lg  btn-block">Create</form:button>
 						</form:form>
 						<br />
 					</div>
@@ -114,22 +118,58 @@
 													</div>
 												</div>
 											</td>
-											<td><span class="label label-warning">${goal.details.status }</span></td>
+											<td><span class="label label-warning">${goal.details.status}</span></td>
 
 											<td><p title="Edit">
-													<button class="btn btn-primary btn-xs" data-title="Edit"
-														data-toggle="modal" data-target="#edit">
-														<span class="glyphicon glyphicon-pencil"></span>
-													</button>
+													<a class="btn btn-primary btn-xs"
+														href="<c:url value='/goal/${goal.id}'/>"> <span
+														class="glyphicon glyphicon-pencil"> </span>
+													</a>
 												</p></td>
+
 											<td><p data-placement="top" data-toggle="tooltip"
 													title="Delete">
 													<button class="btn btn-danger btn-xs" data-title="Delete"
-														data-toggle="modal" data-target="#delete">
+														data-toggle="modal" data-target="#deleteItem">
 														<span class="glyphicon glyphicon-trash"></span>
 													</button>
 												</p></td>
+
 										</tr>
+
+										<div class="modal fade" id="deleteItem" tabindex="-1"
+											role="dialog" aria-labelledby="Delete Item"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="title">Delete Item</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<form method="POST"
+														action="/planner_spring_mvc_mysql/goal/delete/${goal.id}">
+														<div class="modal-body">
+
+															<div class="form-group">
+																<div class="alert alert-danger">
+																	<span class="glyphicon glyphicon-warning-sign"></span>
+																	Are you sure you want to delete the goal, ${goal.title}?
+																</div>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<input type="submit" name="Delete" value="Delete"
+																class="btn btn-primary" />
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
 									</c:forEach>
 
 								</tbody>
@@ -155,65 +195,5 @@
 			</div>
 		</div>
 	</div>
-
-
-	<div class="modal fade" id="edit" tabindex="-1" role="dialog"
-		aria-labelledby="edit" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
-					<h4 class="modal-title custom_align" id="Heading">Edit Your
-						Detail</h4>
-				</div>
-
-				<div class="modal-footer ">
-					<button type="button" class="btn btn-warning btn-lg"
-						style="width: 100%;">
-						<span class="glyphicon glyphicon-ok-sign"></span> Update
-					</button>
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
-
-	<div class="modal fade" id="delete" tabindex="-1" role="dialog"
-		aria-labelledby="edit" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
-					<h4 class="modal-title custom_align" id="Heading">Delete this
-						entry</h4>
-				</div>
-				<div class="modal-body">
-
-					<div class="alert alert-danger">
-						<span class="glyphicon glyphicon-warning-sign"></span> Are you
-						sure you want to delete this Record?
-					</div>
-
-				</div>
-				<div class="modal-footer ">
-					<button type="button" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok-sign"></span> Yes
-					</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<span class="glyphicon glyphicon-remove"></span> No
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	
 </body>
 </html>
